@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c78f3gv15dn3l"]
+
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/combatButton/combatButton.gd" id="1_dysi4"]
+
+[node name="combatButton" type="Button"]
+offset_left = -693.0
+offset_top = 319.0
+offset_right = -436.0
+offset_bottom = 390.0
+text = "To Combat!"
+script = ExtResource("1_dysi4")

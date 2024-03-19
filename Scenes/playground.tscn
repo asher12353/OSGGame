@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgy8h2g4g3jsf"]
+
+[ext_resource type="Script" path="res://Boards/Board.gd" id="1_0rdwy"]
+[ext_resource type="Script" path="res://Boards/EnemyBoard/EnemyBoard.gd" id="2_71m0o"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="PlayerBoard" type="Node2D" parent="." node_paths=PackedStringArray("enemyBoard")]
+position = Vector2(599, 476)
+script = ExtResource("1_0rdwy")
+enemyBoard = NodePath("../EnemyBoard")
+
+[node name="EnemyBoard" type="Node2D" parent="."]
+position = Vector2(592, 128)
+script = ExtResource("2_71m0o")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(588, 327)

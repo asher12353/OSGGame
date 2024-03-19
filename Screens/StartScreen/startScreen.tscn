@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cogyqppxxlkgl"]
+
+[ext_resource type="Script" path="res://Screens/StartScreen/startScreen.gd" id="1_6snba"]
+
+[node name="startScreen" type="Node2D"]
+script = ExtResource("1_6snba")
+
+[node name="startButton" type="Button" parent="."]
+offset_left = -59.0
+offset_top = -247.0
+offset_right = 57.0
+offset_bottom = -195.0
+text = "Start"
+
+[node name="exitButton" type="Button" parent="."]
+offset_left = -56.0
+offset_top = -169.0
+offset_right = 54.0
+offset_bottom = -125.0
+text = "Quit"
+
+[connection signal="pressed" from="startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="exitButton" to="." method="_on_exit_button_pressed"]

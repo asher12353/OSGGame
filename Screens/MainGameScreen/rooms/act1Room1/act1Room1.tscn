@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://co7jca4w1spxb"]
+
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/act1Room1/act1Room1.gd" id="1_r6k5v"]
+[ext_resource type="Texture2D" uid="uid://neuh8gjte728" path="res://Screens/MainGameScreen/rooms/act1Room1/Swamp-Variant-Kaldheim-MtG-Art.jpg" id="2_av4sj"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/shopButton/shopButton.gd" id="3_8qtxv"]
+
+[node name="act1Room1" type="Node2D"]
+script = ExtResource("1_r6k5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.50002, -38)
+scale = Vector2(0.705566, 0.457447)
+texture = ExtResource("2_av4sj")
+
+[node name="shopButton" type="Button" parent="."]
+offset_left = -706.0
+offset_top = 319.0
+offset_right = -196.0
+offset_bottom = 375.0
+text = "To the Shop"
+script = ExtResource("3_8qtxv")

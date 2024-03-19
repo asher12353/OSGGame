@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://7sobnid870y2"]
+
+[ext_resource type="Script" path="res://Screens/FightScreen/fightScreen.gd" id="1_7llxr"]
+
+[node name="fightScreen" type="Node2D" node_paths=PackedStringArray("anteLabel", "anteSlider")]
+script = ExtResource("1_7llxr")
+anteLabel = NodePath("anteSlider/anteLabel")
+anteSlider = NodePath("anteSlider")
+
+[node name="startCombatButton" type="Button" parent="."]
+offset_left = -833.0
+offset_top = -29.0
+offset_right = -702.0
+offset_bottom = 24.0
+text = "Start Combat
+"
+
+[node name="anteSlider" type="HSlider" parent="."]
+offset_left = -843.0
+offset_top = -89.0
+offset_right = -683.0
+offset_bottom = -73.0
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="anteLabel" type="RichTextLabel" parent="anteSlider"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = -31.0
+offset_right = 158.0
+offset_bottom = 6.0
+text = "Ante: 1"
+
+[connection signal="pressed" from="startCombatButton" to="." method="_on_start_combat_button_pressed"]
+[connection signal="value_changed" from="anteSlider" to="." method="_on_ante_slider_value_changed"]
