@@ -5,14 +5,19 @@ var attack : int
 var health : int
 var attackLabel : RichTextLabel
 var healthLabel : RichTextLabel
+
 var cardArt : Sprite2D
 var cardArtPath : String
 var cardBack : Sprite2D
 var cardBackPath = "res://Cards/card.png"
+
 var is_dragging = false
 var is_draggable = false
 var drag_offset = Vector2.ZERO
+
 var board : Board
+var level : int
+
 static var dragged_card: Card = null
 static var MasterLogicHandler
 

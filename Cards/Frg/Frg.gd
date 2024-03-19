@@ -1,6 +1,8 @@
 extends Card
 class_name Frg
 
+static var numLeftInPool : int = 20
+
 func _init():
 	attack = 2
 	health = 1

@@ -16,7 +16,6 @@
 [node name="main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
 
 [node name="startScreen" parent="." node_paths=PackedStringArray("characterSelectScreen") instance=ExtResource("1_x2d06")]
 characterSelectScreen = NodePath("../characterSelectScreen")

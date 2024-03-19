@@ -1,6 +1,8 @@
 extends Card
 class_name OctoBro
 
+static var numLeftInPool : int = 20
+
 func _init():
 	attack = 1
 	health = 1
