@@ -6,6 +6,7 @@ extends Screen
 @export var enemyBoard : Board
 @export var timer : Timer
 @export var globalUIElements : Node2D
+@export var mainGameScreen : Screen
 
 var startCombatButton : Button
 
@@ -45,6 +46,7 @@ func _kill(card):
 
 func _startCombat():
 	%masterLogicHandler.cardsAreMovable = false
+	enemyBoard._removeMysterySprites()
 	_decideStartingAttacker()
 	_combatLoop()
 	
@@ -80,6 +82,10 @@ func _stopCombat():
 	timer.stop()
 	_determineDamage() # if they lost
 	_determinePayout() # if they won
+	enemyBoard.hide()
+	%masterLogicHandler._changeScreen(mainGameScreen)
+	startCombatButton.disabled = false
+	anteSlider.editable = true
 	
 func _determineDamage():
 	if playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() > 0:

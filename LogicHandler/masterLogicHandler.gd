@@ -17,6 +17,8 @@ var currentShownBoard : Board
 var currentCardInADropZone : Card
 var currentCardInADropZoneIndex : int
 
+static var differentKindsOfCards = [Frg.new(), OctoBro.new()]
+
 var rng = RandomNumberGenerator.new()
 
 const xValuesForCardDropZones = [

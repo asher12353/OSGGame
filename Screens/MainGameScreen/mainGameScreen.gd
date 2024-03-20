@@ -8,6 +8,9 @@ extends Screen
 
 @export var act1Room1 : Screen
 @export var act1Room2 : Screen
+@export var act1Room3 : Screen
+
+var act1Rooms = [null, act1Room1, act1Room2, act1Room3]
 
 var currentRoom : Screen
 
@@ -22,16 +25,25 @@ func _initalizeVariables():
 	roomNum = 1
 	currentRoom = act1Room1
 
+func _moveToNextRoom():
+	if roomNum == 10:
+		actNum += 1
+		roomNum = 1
+	else:
+		roomNum += 1
+		currentRoom = act1Rooms[roomNum]
+
 func _on_battle_button_pressed():
 	%masterLogicHandler._changeScreen(fightScreen)
 	%masterLogicHandler.cardsAreMovable = true
 	%masterLogicHandler.currentShownBoard = playerCombatBoard
+	_moveToNextRoom()
 	_setupBoards()
 
 func _on_shop_button_pressed():
 	%masterLogicHandler._changeScreen(shopScreen)
 	%masterLogicHandler.currentShownBoard = playerShopBoard
-	currentRoom = act1Room2 # replace later with a way to get the next room
+	_moveToNextRoom()
 	shopScreen._initialize()
 
 func _setupBoards():

@@ -17,11 +17,13 @@ const xValuesForCards = [
 
 func _createCard(card):
 	var newCard : Card
-	if card is Frg:
-		newCard = Frg.new()
-	if card is OctoBro:
-		newCard = OctoBro.new()
-	newCard._copyStats(card)
+	for kindOfCard in %masterLogicHandler.differentKindsOfCards:
+		if card.CARD_TYPE == MysteryCard.CARD_TYPE:
+			newCard = MysteryCard.new()
+			break
+		if card.CARD_TYPE == kindOfCard.CARD_TYPE:
+			newCard = card.duplicate()
+			break
 	add_child(newCard)
 	newCard.board = self
 	_relocateCards()

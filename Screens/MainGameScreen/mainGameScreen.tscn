@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpts3y5i2m2r7"]
+[gd_scene load_steps=6 format=3 uid="uid://dpts3y5i2m2r7"]
 
 [ext_resource type="Script" path="res://Screens/MainGameScreen/mainGameScreen.gd" id="1_ucafy"]
 [ext_resource type="PackedScene" uid="uid://co7jca4w1spxb" path="res://Screens/MainGameScreen/rooms/act1Room1/act1Room1.tscn" id="2_vkfe6"]
 [ext_resource type="PackedScene" uid="uid://bj6jjpv7ib0qk" path="res://Screens/MainGameScreen/rooms/act1Room2/act1Room2.tscn" id="3_36jlc"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/act1Room2/act1Room2.gd" id="4_hurh7"]
+[ext_resource type="PackedScene" uid="uid://bqglnoku8h0rp" path="res://Screens/MainGameScreen/rooms/act1Room3/act1Room3.tscn" id="5_rk04r"]
 
 [node name="MainGameScreen" type="Node2D" node_paths=PackedStringArray("act1Room1", "act1Room2")]
 script = ExtResource("1_ucafy")
@@ -16,3 +17,5 @@ visible = false
 [node name="act1Room2" parent="." instance=ExtResource("3_36jlc")]
 visible = false
 script = ExtResource("4_hurh7")
+
+[node name="act1Room3" parent="." instance=ExtResource("5_rk04r")]

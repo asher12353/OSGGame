@@ -13,6 +13,7 @@ var cardBackPath = "res://Cards/card.png"
 
 var is_dragging = false
 var is_draggable = false
+var is_draggable_at_all = true
 var drag_offset = Vector2.ZERO
 
 var board : Board
@@ -46,14 +47,15 @@ func _establishConnections():
 	mouse_exited.connect(Callable(self, "_on_mouse_exited"))
 	
 func _createCardArt():
-	_createNewSprite2D(cardArt, cardArtPath)
-	_createNewSprite2D(cardBack, cardBackPath)
+	cardArt = createNewSprite2D(cardArt, cardArtPath)
+	cardBack = createNewSprite2D(cardBack, cardBackPath)
 	
-func _createNewSprite2D(art, path):
+func createNewSprite2D(art, path):
 	art = Sprite2D.new()
 	add_child(art)
 	var cardArtTexture = load(path)
 	art.texture = cardArtTexture
+	return art
 
 func _createStatLabels():
 	attackLabel = createStatLabel(attackLabel, Vector2(-55, 65), attack)
@@ -88,11 +90,11 @@ func _physics_process(_delta):
 		global_position = get_global_mouse_position()
 
 func _on_mouse_entered():
-	if not is_dragging:
+	if not is_dragging and is_draggable_at_all:
 		is_draggable = true
 
 func _on_mouse_exited():
-	if not is_dragging:
+	if not is_dragging and is_draggable_at_all:
 		is_draggable = false
 
 func _startDraggingCard():
