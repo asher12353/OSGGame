@@ -41,6 +41,8 @@ func _attack(attacker, defender):
 		
 func _kill(card):
 	var board = card.get_parent()
+	if card.has_method("_WhenItDies"):
+		card._WhenItDies
 	card.free()
 	board._relocateCards()
 
@@ -83,6 +85,9 @@ func _stopCombat():
 	_determineDamage() # if they lost
 	_determinePayout() # if they won
 	enemyBoard.hide()
+	for card in playerCombatBoard.get_children():
+		card.free()
+	playerCombatBoard.hide()
 	%masterLogicHandler._changeScreen(mainGameScreen)
 	startCombatButton.disabled = false
 	anteSlider.editable = true

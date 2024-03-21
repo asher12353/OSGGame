@@ -13,13 +13,14 @@ func _ready():
 func _refreshBoard():
 	for child in get_children():
 		child.numLeftInPool += 1
-		remove_child(child)
+		totalNumCardsInPool += 1
+		child.free()
 	for i in range(numCardsInShop):
 		_createCardFromPool()
 	
 func _createCardFromPool():
 	var threshhold = 0
-	var randomNumber = %masterLogicHandler.rng.randi_range(0, totalNumCardsInPool)
+	var randomNumber = %masterLogicHandler.rng.randi_range(0, totalNumCardsInPool - 1)
 	for card in %masterLogicHandler.differentKindsOfCards:
 		if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
 			_createCard(card)

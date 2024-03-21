@@ -42,6 +42,9 @@ func _Card():
 func _WhenPlayed():
 	pass
 
+func _WhenItDies():
+	pass
+
 func _establishConnections():
 	mouse_entered.connect(Callable(self, "_on_mouse_entered"))
 	mouse_exited.connect(Callable(self, "_on_mouse_exited"))

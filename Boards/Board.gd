@@ -16,14 +16,18 @@ const xValuesForCards = [
 ]
 
 func _createCard(card):
-	var newCard : Card
-	for kindOfCard in %masterLogicHandler.differentKindsOfCards:
-		if card.CARD_TYPE == MysteryCard.CARD_TYPE:
-			newCard = MysteryCard.new()
-			break
-		if card.CARD_TYPE == kindOfCard.CARD_TYPE:
-			newCard = card.duplicate()
-			break
+	var newCard = card.duplicate()
+	#for kindOfCard in %masterLogicHandler.uniqueCards:
+		#if card.CARD_TYPE == kindOfCard.CARD_TYPE:
+			#newCard = card.duplicate()
+			#break
+	#for kindOfCard in %masterLogicHandler.differentKindsOfCards:
+		#if card.CARD_TYPE == MysteryCard.CARD_TYPE:
+			#newCard = MysteryCard.new()
+			#break
+		#if card.CARD_TYPE == kindOfCard.CARD_TYPE:
+			#newCard = card.duplicate()
+			#break
 	add_child(newCard)
 	newCard.board = self
 	_relocateCards()

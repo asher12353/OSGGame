@@ -19,6 +19,8 @@ var currentCardInADropZoneIndex : int
 
 static var differentKindsOfCards = [Frg.new(), OctoBro.new()]
 
+static var uniqueCards = [Spawn.new()]
+
 var rng = RandomNumberGenerator.new()
 
 const xValuesForCardDropZones = [
@@ -64,7 +66,8 @@ func _playCard():
 	currentCardInADropZone.board = playerShopBoard
 	currentCardInADropZone.reparent(playerShopBoard)
 	currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
-	currentCardInADropZone._WhenPlayed()
+	if currentCardInADropZone.has_method("_WhenPlayed"):
+		currentCardInADropZone._WhenPlayed()
 	currentPos = 0
 
 func _changeScreen(screen):

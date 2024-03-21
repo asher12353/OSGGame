@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkky5ttjslyw1"]
+
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/act1Room4/act1Room4.gd" id="1_4aj5h"]
+[ext_resource type="Texture2D" uid="uid://g77v5uegwfn0" path="res://Screens/MainGameScreen/rooms/act1Room4/tentacleFarm.jpg" id="1_816d2"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton1.gd" id="3_3it55"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton2.gd" id="4_yy6wx"]
+
+[node name="act1Room4" type="Node2D"]
+script = ExtResource("1_4aj5h")
+
+[node name="TentacleFarm" type="Sprite2D" parent="."]
+position = Vector2(-2.50003, -96.5)
+scale = Vector2(1.32715, 1.20508)
+texture = ExtResource("1_816d2")
+
+[node name="eventButton1" type="Button" parent="."]
+offset_left = -689.0
+offset_top = 239.0
+offset_right = -192.0
+offset_bottom = 299.0
+text = "You've heard of their restorative properties, eat one (+1 health)"
+script = ExtResource("3_3it55")
+metadata/_edit_use_anchors_ = true
+
+[node name="eventButton2" type="Button" parent="."]
+offset_left = -689.0
+offset_top = 328.0
+offset_right = -256.0
+offset_bottom = 388.0
+text = "Recruit one of these creatures: (gain a spawn of n'zoth)"
+script = ExtResource("4_yy6wx")
