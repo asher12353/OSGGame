@@ -112,3 +112,13 @@ func _stopDraggingCard():
 		is_dragging = false
 		dragged_card = null
 		board._relocateCards()
+
+
+func _givePlus1Plus1():
+	attack += 1
+	health += 1
+	_updateStatLabels()
+	
+func _givePlus1Plus1XTimes(x):
+	for i in range(x):
+		_givePlus1Plus1()

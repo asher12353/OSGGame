@@ -15,15 +15,15 @@ var playerAttackIndex : int
 var enemyAttackIndex : int
 
 var ante : int
+var isEliteFight : bool
 
 func _ready():
 	ante = 1
+	isEliteFight = false
 	startCombatButton = get_child(0)
 
 func _on_start_combat_button_pressed():
 	_startCombat()
-	startCombatButton.disabled = true
-	anteSlider.editable = false
 
 func _on_ante_slider_value_changed(value):
 	ante = int(value)
@@ -42,7 +42,7 @@ func _attack(attacker, defender):
 func _kill(card):
 	var board = card.get_parent()
 	if card.has_method("_WhenItDies"):
-		card._WhenItDies
+		card._WhenItDies()
 	card.free()
 	board._relocateCards()
 
@@ -51,7 +51,9 @@ func _startCombat():
 	enemyBoard._removeMysterySprites()
 	_decideStartingAttacker()
 	_combatLoop()
-	
+	startCombatButton.disabled = true
+	anteSlider.editable = false
+
 func _decideStartingAttacker():
 	playerAttackIndex = 0
 	enemyAttackIndex = 0
@@ -82,7 +84,9 @@ func cardsAreLeft() -> bool:
 func _stopCombat():
 	timer.one_shot = true
 	timer.stop()
-	_determineDamage() # if they lost
+	var playerLost = didPlayerLose()
+	if playerLost:
+		_determineDamage()
 	_determinePayout() # if they won
 	enemyBoard.hide()
 	for card in playerCombatBoard.get_children():
@@ -91,15 +95,25 @@ func _stopCombat():
 	%masterLogicHandler._changeScreen(mainGameScreen)
 	startCombatButton.disabled = false
 	anteSlider.editable = true
+	if isEliteFight and not playerLost:
+		_acquireRandomArtifact()
 	
+func _acquireRandomArtifact():
+	var character = %masterLogicHandler.mainCharacter
+	character._acquireArtifact(%masterLogicHandler.artifactPool[%masterLogicHandler.rng.randi_range(0, %masterLogicHandler.artifactPool.size() - 1)])
+
+func didPlayerLose() -> bool:
+	return playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() > 0
+
 func _determineDamage():
-	if playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() > 0:
-		%masterLogicHandler.mainCharacter.health -= ante
-		globalUIElements._updateHealthBar(%masterLogicHandler.mainCharacter.health)
+	%masterLogicHandler.mainCharacter.health -= ante
+	globalUIElements._updateHealthBar(%masterLogicHandler.mainCharacter.health)
 
 func _determinePayout():
 	if playerCombatBoard.get_child_count() > 0:
 		%masterLogicHandler._updateMoney(ante * 3)
+	elif playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() == 0:
+		%masterLogicHandler._updateMoney(3)
 		
 func _resolveAttack():
 	var attacker = getAttacker()

@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bb763mvlxviti"]
+
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/robOrShop/rpbOrShop.gd" id="1_2m4aj"]
+[ext_resource type="Texture2D" uid="uid://y1176fo3jtsv" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeyCamp.jpg" id="2_llroe"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton.gd" id="3_hnia7"]
+[ext_resource type="PackedScene" uid="uid://c78f3gv15dn3l" path="res://Screens/MainGameScreen/rooms/buttons/combatButton/combatButton.tscn" id="4_pj1wm"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eliteFightButton/eliteFightButton.gd" id="5_otjtl"]
+
+[node name="act1Room5" type="Node2D"]
+script = ExtResource("1_2m4aj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MonkeyCamp" type="Sprite2D" parent="."]
+position = Vector2(-38.5, -57.5)
+scale = Vector2(1.26074, 1.25195)
+texture = ExtResource("2_llroe")
+
+[node name="eventButton" type="Button" parent="."]
+offset_left = -689.0
+offset_top = 352.0
+offset_right = -492.0
+offset_bottom = 412.0
+text = "Sneak away"
+script = ExtResource("3_hnia7")
+
+[node name="combatButton" parent="." instance=ExtResource("4_pj1wm")]
+offset_left = -695.0
+offset_top = 275.0
+offset_right = -495.0
+offset_bottom = 338.0
+text = "Challenge the camp!
+(Elite fight: +1 relic)"
+script = ExtResource("5_otjtl")

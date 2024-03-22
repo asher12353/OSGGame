@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bndywo7bhj1a2"]
 
 [ext_resource type="Script" path="res://LogicHandler/masterLogicHandler.gd" id="1_bwgol"]
-[ext_resource type="Script" path="res://LogicHandler/dropZone.gd" id="2_h26g6"]
+[ext_resource type="Script" path="res://LogicHandler/cardDropZones/dropZone.gd" id="2_h26g6"]
 [ext_resource type="Shape2D" uid="uid://cotb5pwaq2ryw" path="res://LogicHandler/cardDropZones/cardDropZoneArea.tres" id="3_oy4ow"]
 
 [node name="masterLogicHandler" type="Node2D"]

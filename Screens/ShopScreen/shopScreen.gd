@@ -62,25 +62,20 @@ func _updateUpgradeButton():
 func _on_sell_area_area_entered(area):
 	cardInSellArea = area
 
-
 func _on_sell_area_area_exited(_area):
 	cardInSellArea = null
-
 
 func _on_buy_area_area_entered(area):
 	if area is Card:
 		cardInBuyArea = area
 
-
 func _on_buy_area_area_exited(_area):
 	cardInBuyArea = null
-
 
 func _on_refresh_button_pressed():
 	if %masterLogicHandler.mainCharacter.money >= 1:
 		npcShopBoard._refreshBoard()
 		%masterLogicHandler._updateMoney(-1)
-
 
 func _on_upgrade_shop_button_pressed():
 	var character = %masterLogicHandler.mainCharacter
@@ -90,9 +85,7 @@ func _on_upgrade_shop_button_pressed():
 		upgradeShopCost += character.shopLevel
 		_updateUpgradeButton()
 
-
 func _on_leave_shop_button_pressed():
 	_hideBoards()
 	hide()
 	%masterLogicHandler._changeScreen(mainGameScreen)
-	

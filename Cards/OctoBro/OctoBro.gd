@@ -16,9 +16,7 @@ func _WhenPlayed():
 func _giveRandomCardPlus1Plus1():
 	var randomCard = getRandomCardOtherThanSelf()
 	if randomCard:
-		randomCard.attack += 1
-		randomCard.health += 1
-		randomCard._updateStatLabels()
+		randomCard._givePlus1Plus1()
 	
 func getRandomCardOtherThanSelf() -> Card:
 	if board.get_child_count() == 1:

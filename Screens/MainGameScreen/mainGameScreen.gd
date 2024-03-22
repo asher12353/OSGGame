@@ -6,9 +6,7 @@ extends Screen
 @export var playerShopBoard : Board
 @export var enemyBoard : Board
 
-
 var act1Rooms
-
 var currentRoom : Screen
 
 var actNum : int
@@ -32,6 +30,14 @@ func _moveToNextRoom():
 		currentRoom = act1Rooms[roomNum - 1]
 
 func _on_battle_button_pressed():
+	fightScreen.isEliteFight = false
+	_changeScreenToFightScreen()
+	
+func _on_elite_battle_button_pressed():
+	fightScreen.isEliteFight = true
+	_changeScreenToFightScreen()
+
+func _changeScreenToFightScreen():
 	%masterLogicHandler._changeScreen(fightScreen)
 	%masterLogicHandler.cardsAreMovable = true
 	%masterLogicHandler.currentShownBoard = playerCombatBoard
@@ -46,18 +52,17 @@ func _on_shop_button_pressed():
 	
 func _on_event_button_pressed():
 	currentRoom._event()
-	_moveToNextRoom()
-	#insert here a small delay to the next room, either a button or timer
-	%masterLogicHandler._changeScreen(self)
+	_changeScreenToNextRoom()
 	
 func _on_event_button1_pressed():
 	currentRoom._event1()
-	_moveToNextRoom()
-	#insert here a small delay to the next room, either a button or timer
-	%masterLogicHandler._changeScreen(self)
+	_changeScreenToNextRoom()
 	
 func _on_event_button2_pressed():
 	currentRoom._event2()
+	_changeScreenToNextRoom()
+	
+func _changeScreenToNextRoom():
 	_moveToNextRoom()
 	#insert here a small delay to the next room, either a button or timer
 	%masterLogicHandler._changeScreen(self)

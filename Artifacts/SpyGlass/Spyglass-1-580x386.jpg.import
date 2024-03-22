@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y1176fo3jtsv"
-path="res://.godot/imported/monkeyCamp.jpg-ef014a097ea7be49462af872c7154be4.ctex"
+uid="uid://o8evxm5shwsf"
+path="res://.godot/imported/Spyglass-1-580x386.jpg-8cc91a82b9486473df25de257338e55d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/MainGameScreen/rooms/act1Room5/monkeyCamp.jpg"
-dest_files=["res://.godot/imported/monkeyCamp.jpg-ef014a097ea7be49462af872c7154be4.ctex"]
+source_file="res://Artifacts/SpyGlass/Spyglass-1-580x386.jpg"
+dest_files=["res://.godot/imported/Spyglass-1-580x386.jpg-8cc91a82b9486473df25de257338e55d.ctex"]
 
 [params]
 

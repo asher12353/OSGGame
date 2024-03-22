@@ -32,13 +32,8 @@ playerCombatBoard = NodePath("../playerCombatBoard")
 playerShopBoard = NodePath("../playerShopBoard")
 enemyBoard = NodePath("../enemyBoard")
 
-[node name="masterLogicHandler" parent="." node_paths=PackedStringArray("playerShopBoard", "playerHand", "globalUIElements", "mainGameScreen", "startScreen") instance=ExtResource("4_u4b2y")]
+[node name="masterLogicHandler" parent="." instance=ExtResource("4_u4b2y")]
 unique_name_in_owner = true
-playerShopBoard = NodePath("../playerShopBoard")
-playerHand = NodePath("../playerHand")
-globalUIElements = NodePath("../globalUIElements")
-mainGameScreen = NodePath("../mainGameScreen")
-startScreen = NodePath("../startScreen")
 
 [node name="playerShopBoard" type="Node2D" parent="."]
 visible = false
@@ -57,9 +52,10 @@ timer = NodePath("../Timer")
 globalUIElements = NodePath("../globalUIElements")
 mainGameScreen = NodePath("../mainGameScreen")
 
-[node name="enemyBoard" type="Node2D" parent="."]
+[node name="enemyBoard" type="Node2D" parent="." node_paths=PackedStringArray("fightScreen")]
 visible = false
 script = ExtResource("8_jxyjj")
+fightScreen = NodePath("../fightScreen")
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0

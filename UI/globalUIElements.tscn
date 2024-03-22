@@ -19,3 +19,11 @@ offset_top = -430.0
 offset_right = 871.0
 offset_bottom = -390.0
 text = "Money: 0"
+
+[node name="artifactContainer" type="VBoxContainer" parent="."]
+offset_left = -934.0
+offset_top = -505.0
+offset_right = -830.0
+offset_bottom = 485.0
+
+[node name="Camera2D" type="Camera2D" parent="."]

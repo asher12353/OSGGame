@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b47da86htssgb"]
+
+[ext_resource type="Texture2D" uid="uid://o8evxm5shwsf" path="res://Artifacts/SpyGlass/Spyglass-1-580x386.jpg" id="1_bkmtl"]
+
+[node name="TextureRect" type="TextureRect"]
+texture = ExtResource("1_bkmtl")

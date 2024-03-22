@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g77v5uegwfn0"
-path="res://.godot/imported/tentacleFarm.jpg-edd51478299b6670951ee4d955801e0f.ctex"
+uid="uid://y1176fo3jtsv"
+path="res://.godot/imported/monkeyCamp.jpg-983b1c4e0febfca087458cb6833d8ceb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/MainGameScreen/rooms/act1Room4/tentacleFarm.jpg"
-dest_files=["res://.godot/imported/tentacleFarm.jpg-edd51478299b6670951ee4d955801e0f.ctex"]
+source_file="res://Screens/MainGameScreen/rooms/monkeCamp/monkeyCamp.jpg"
+dest_files=["res://.godot/imported/monkeyCamp.jpg-983b1c4e0febfca087458cb6833d8ceb.ctex"]
 
 [params]
 

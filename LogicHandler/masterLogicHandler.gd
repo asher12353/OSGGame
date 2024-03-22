@@ -1,25 +1,27 @@
 extends Node2D
 class_name LogicHandler
 
-@export var playerShopBoard : Board
-@export var playerHand: Board
-@export var globalUIElements : Node2D
-@export var mainGameScreen : Screen
-@export var startScreen : Screen
-
-var currentScreen : Screen
-static var mainCharacter : Character
-
-static var cardsAreMovable : bool
-
 var currentPos : int
 var currentShownBoard : Board
 var currentCardInADropZone : Card
 var currentCardInADropZoneIndex : int
 
+static var playerShopBoard : Board
+static var playerHand: Board
+static var globalUIElements : Node2D
+static var mainGameScreen : Screen
+static var startScreen : Screen
+
+static var currentScreen : Screen
+static var mainCharacter : Character
+
+static var cardsAreMovable : bool
+
 static var differentKindsOfCards = [Frg.new(), OctoBro.new()]
 
 static var uniqueCards = [Spawn.new()]
+
+static var artifactPool = [SpyGlass.new()]
 
 var rng = RandomNumberGenerator.new()
 
@@ -36,6 +38,11 @@ const xValuesForCardDropZones = [
 
 func _ready():
 	currentScreen = startScreen
+	playerShopBoard = get_node("/root/main/playerShopBoard")
+	playerHand = get_node("/root/main/playerHand")
+	globalUIElements = get_node("/root/main/globalUIElements")
+	mainGameScreen = get_node("/root/main/mainGameScreen")
+	startScreen = get_node("/root/main/startScreen")
 	
 func _process(_delta):
 	if cardCanBeRelocated() and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -66,8 +73,7 @@ func _playCard():
 	currentCardInADropZone.board = playerShopBoard
 	currentCardInADropZone.reparent(playerShopBoard)
 	currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
-	if currentCardInADropZone.has_method("_WhenPlayed"):
-		currentCardInADropZone._WhenPlayed()
+	currentCardInADropZone._WhenPlayed()
 	currentPos = 0
 
 func _changeScreen(screen):

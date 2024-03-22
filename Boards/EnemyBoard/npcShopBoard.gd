@@ -23,7 +23,7 @@ func _createCardFromPool():
 	var randomNumber = %masterLogicHandler.rng.randi_range(0, totalNumCardsInPool - 1)
 	for card in %masterLogicHandler.differentKindsOfCards:
 		if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
-			_createCard(card)
+			createCard(card)
 			card.numLeftInPool -= 1
 			totalNumCardsInPool -= 1
 			break

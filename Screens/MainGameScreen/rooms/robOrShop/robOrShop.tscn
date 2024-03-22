@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqglnoku8h0rp"]
 
-[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/act1Room3/act1Room3.gd" id="1_t2vm7"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/robOrShop/rpbOrShop.gd" id="1_t2vm7"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/shopButton/shopButton.gd" id="2_uke7a"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton.gd" id="3_bqbx3"]
-[ext_resource type="Texture2D" uid="uid://cdn00ia8kxmyr" path="res://Screens/MainGameScreen/rooms/act1Room3/goblinShop.jpg" id="3_wpoqx"]
+[ext_resource type="Texture2D" uid="uid://cdn00ia8kxmyr" path="res://Screens/MainGameScreen/rooms/robOrShop/goblinShop.jpg" id="3_wpoqx"]
 
 [node name="act1Room3" type="Node2D"]
 script = ExtResource("1_t2vm7")

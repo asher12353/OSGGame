@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://co7jca4w1spxb"]
 
-[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/act1Room1/act1Room1.gd" id="1_r6k5v"]
-[ext_resource type="Texture2D" uid="uid://neuh8gjte728" path="res://Screens/MainGameScreen/rooms/act1Room1/Swamp-Variant-Kaldheim-MtG-Art.jpg" id="2_av4sj"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/forcedShop/forcedShop.gd" id="1_r6k5v"]
+[ext_resource type="Texture2D" uid="uid://neuh8gjte728" path="res://Screens/MainGameScreen/rooms/forcedShop/Swamp-Variant-Kaldheim-MtG-Art.jpg" id="2_av4sj"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/shopButton/shopButton.gd" id="3_8qtxv"]
 
 [node name="act1Room1" type="Node2D"]

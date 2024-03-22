@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://neuh8gjte728"
-path="res://.godot/imported/Swamp-Variant-Kaldheim-MtG-Art.jpg-9147be2b523dc3141222781a82b8a5e7.ctex"
+uid="uid://cdn00ia8kxmyr"
+path="res://.godot/imported/goblinShop.jpg-841c2ac1829c497bd815bd81b0da8138.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/MainGameScreen/rooms/act1Room1/Swamp-Variant-Kaldheim-MtG-Art.jpg"
-dest_files=["res://.godot/imported/Swamp-Variant-Kaldheim-MtG-Art.jpg-9147be2b523dc3141222781a82b8a5e7.ctex"]
+source_file="res://Screens/MainGameScreen/rooms/robOrShop/goblinShop.jpg"
+dest_files=["res://.godot/imported/goblinShop.jpg-841c2ac1829c497bd815bd81b0da8138.ctex"]
 
 [params]
 

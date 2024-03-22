@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdn00ia8kxmyr"
-path="res://.godot/imported/goblinShop.jpg-048b7d0a2385885371757f4fc7a2511f.ctex"
+uid="uid://g77v5uegwfn0"
+path="res://.godot/imported/tentacleFarm.jpg-c00358a7d23cc5fe5b2779fdc860cdad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Screens/MainGameScreen/rooms/act1Room3/goblinShop.jpg"
-dest_files=["res://.godot/imported/goblinShop.jpg-048b7d0a2385885371757f4fc7a2511f.ctex"]
+source_file="res://Screens/MainGameScreen/rooms/tentacleFarm/tentacleFarm.jpg"
+dest_files=["res://.godot/imported/tentacleFarm.jpg-c00358a7d23cc5fe5b2779fdc860cdad.ctex"]
 
 [params]
 

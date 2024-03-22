@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj6jjpv7ib0qk"]
+
+[ext_resource type="Texture2D" uid="uid://bkqxh3tnl7ybv" path="res://Screens/MainGameScreen/rooms/forcedFight/1.Guay_.png" id="1_eqxfy"]
+[ext_resource type="PackedScene" uid="uid://c78f3gv15dn3l" path="res://Screens/MainGameScreen/rooms/buttons/combatButton/combatButton.tscn" id="2_71u04"]
+
+[node name="forcedFight" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.50002, -38)
+scale = Vector2(1.4, 0.906)
+texture = ExtResource("1_eqxfy")
+
+[node name="combatButton" parent="." instance=ExtResource("2_71u04")]

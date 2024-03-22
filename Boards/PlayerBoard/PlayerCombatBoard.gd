@@ -8,4 +8,4 @@ func _ready():
 func _instantiateBoard():
 	var cards = playerShopBoard.get_children()
 	for card in cards:
-		_createCard(card)
+		createCard(card)
