@@ -30,10 +30,8 @@ func _on_ante_slider_value_changed(value):
 	anteLabel.text = "Ante: {ante}".format({"ante": ante})
 
 func _attack(attacker, defender):
-	attacker.health -= defender.attack
-	defender.health -= attacker.attack
-	attacker._updateStatLabels()
-	defender._updateStatLabels()
+	attacker._giveStats(0, -defender.attack)
+	defender._giveStats(0, -attacker.attack)
 	if(attacker.health <= 0):
 		_kill(attacker)
 	if(defender.health <= 0):
@@ -119,6 +117,10 @@ func _resolveAttack():
 	var attacker = getAttacker()
 	var defender = getDefender()
 	_attack(attacker, defender)
+	if playerAttacking == playerCombatBoard:
+		playerAttacking = enemyBoard
+	else:
+		playerAttacking = playerCombatBoard
 
 func getAttacker() -> Card:
 	if playerAttacking == playerCombatBoard:

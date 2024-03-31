@@ -10,6 +10,10 @@ var cardArt : Sprite2D
 var cardArtPath : String
 var cardBack : Sprite2D
 var cardBackPath = "res://Cards/card.png"
+var fullArt : Sprite2D
+var fullArtPath : String
+var fullArtBack : Sprite2D
+var fullArtBackPath = "res://Cards/FullArtCard.png"
 
 var is_dragging = false
 var is_draggable = false
@@ -19,8 +23,13 @@ var drag_offset = Vector2.ZERO
 var board : Board
 var level : int
 
+var isReagent : bool
+var isCadaver : bool
+var isEffigy : bool
+
 static var dragged_card: Card = null
-static var MasterLogicHandler
+static var mouseIsHoveredOver : Card = null
+static var MasterLogicHandler 
 
 func _ready():
 	MasterLogicHandler = get_node("/root/main/masterLogicHandler")
@@ -30,6 +39,8 @@ func _process(_delta):
 		_startDraggingCard()
 		# or
 		_stopDraggingCard()
+	if is_dragging:
+		global_position = get_global_mouse_position()
 
 # _Card is a class constructor
 func _Card():
@@ -38,7 +49,15 @@ func _Card():
 	_createStatLabels()
 	_establishConnections()
 	board = get_parent()
-	
+	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath)
+	fullArtBack.set_position(Vector2(-225, 0))
+	fullArtBack.hide()
+
+func _giveStats(atk, hlth):
+	attack += atk
+	health += hlth
+	_updateStatLabels()
+
 func _WhenPlayed():
 	pass
 
@@ -73,13 +92,16 @@ func createStatLabel(label, pos, stat) -> RichTextLabel:
 	return label
 
 func _updateStatLabels():
-	attackLabel.text = str(attack)
-	healthLabel.text = str(health)
+	if attackLabel:
+		attackLabel.text = str(attack)
+	if healthLabel:
+		healthLabel.text = str(health)
 
 func _copyStats(card):
 	attack = card.attack
 	health = card.health
 	_updateStatLabels()
+	# trust me, don't try to use _giveStats for this
 
 func _createCollisionShape():
 	var collisionShape = CollisionShape2D.new()
@@ -88,15 +110,17 @@ func _createCollisionShape():
 	rect.size = Vector2(150, 210)
 	collisionShape.shape = rect
 
-func _physics_process(_delta):
-	if is_dragging:
-		global_position = get_global_mouse_position()
-
 func _on_mouse_entered():
+	fullArtBack.show()
+	if not is_dragging:
+		mouseIsHoveredOver = self
 	if not is_dragging and is_draggable_at_all:
 		is_draggable = true
 
 func _on_mouse_exited():
+	fullArtBack.hide()
+	if not is_dragging:
+		mouseIsHoveredOver = null
 	if not is_dragging and is_draggable_at_all:
 		is_draggable = false
 
@@ -107,7 +131,7 @@ func _startDraggingCard():
 		is_dragging = true
 
 func _stopDraggingCard():
-	if dragged_card == self and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if dragged_card == self and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and board:
 		top_level = false
 		is_dragging = false
 		dragged_card = null
@@ -115,9 +139,7 @@ func _stopDraggingCard():
 
 
 func _givePlus1Plus1():
-	attack += 1
-	health += 1
-	_updateStatLabels()
+	_giveStats(1, 1)
 	
 func _givePlus1Plus1XTimes(x):
 	for i in range(x):

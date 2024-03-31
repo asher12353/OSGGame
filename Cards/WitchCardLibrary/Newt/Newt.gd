@@ -1,0 +1,18 @@
+extends Card
+class_name Newt
+
+static var numLeftInPool : int = 20
+static var CARD_TYPE = 2004
+
+func _init():
+	attack = 2
+	health = 2
+	isReagent = true
+	cardArtPath = "res://Cards/WitchCardLibrary/Newt/Newt.png"
+	_Card()
+
+func _whenSpellIsCrafted(spell):
+	spell.isTargeted = true
+
+func _spellEffect(target):
+	target._givePlus1Plus1()

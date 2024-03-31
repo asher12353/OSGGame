@@ -6,7 +6,7 @@ static var CARD_TYPE = 1000
 func _init():
 	attack = 2
 	health = 2
-	cardArtPath = "res://Cards/UniqueCards/Spawn/Spawn_of_N'Zoth_full.png"
+	cardArtPath = "res://Cards/uniqueCardLibrary/Spawn/Spawn_of_N'Zoth_full.png"
 	_Card()
 	
 func _WhenItDies():

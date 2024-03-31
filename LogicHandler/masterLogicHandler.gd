@@ -11,19 +11,20 @@ static var playerHand: Board
 static var globalUIElements : Node2D
 static var mainGameScreen : Screen
 static var startScreen : Screen
+static var shopScreen : Screen
 
 static var currentScreen : Screen
 static var mainCharacter : Character
 
 static var cardsAreMovable : bool
 
-static var differentKindsOfCards = [Frg.new(), OctoBro.new()]
-
-static var uniqueCards = [Spawn.new()]
+static var neutralCardLibrary = [Frg.new(), OctoBro.new()]
+static var uniqueCardLibrary = [Spawn.new()]
+static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new()]
 
 static var artifactPool = [SpyGlass.new()]
 
-var rng = RandomNumberGenerator.new()
+static var rng = RandomNumberGenerator.new()
 
 const xValuesForCardDropZones = [
 	[0],
@@ -43,6 +44,7 @@ func _ready():
 	globalUIElements = get_node("/root/main/globalUIElements")
 	mainGameScreen = get_node("/root/main/mainGameScreen")
 	startScreen = get_node("/root/main/startScreen")
+	shopScreen = get_node("/root/main/shopScreen")
 	
 func _process(_delta):
 	if cardCanBeRelocated() and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -67,7 +69,7 @@ func cardIsToTheRight() -> bool:
 	return currentPos - 1 < currentCardInADropZoneIndex
 	
 func cardCanBePlaced() -> bool:
-	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone and currentCardInADropZone.get_parent() == playerHand and currentShownBoard.get_child_count() < 7
+	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone and currentCardInADropZone.get_parent() == playerHand and currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell
 
 func _playCard():
 	currentCardInADropZone.board = playerShopBoard
@@ -75,6 +77,7 @@ func _playCard():
 	currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
 	currentCardInADropZone._WhenPlayed()
 	currentPos = 0
+	playerHand._relocateCards()
 
 func _changeScreen(screen):
 	if currentScreen == mainGameScreen.currentRoom:
@@ -89,6 +92,9 @@ func _changeScreen(screen):
 
 func _setMainCharacter(character):
 	mainCharacter = character
+	add_child(mainCharacter)
+	shopScreen.npcShopBoard._updatePool()
+	_initializeDropZones()
 
 
 func _updateMoney(difference):
@@ -106,6 +112,11 @@ func _relocateCardDropZones():
 		for i in range(numCards + 1, 8):
 			children[i].monitoring = false
 			children[i].hide()
+			
+func _initializeDropZones():
+	currentShownBoard = playerShopBoard
+	_relocateCardDropZones()
+	currentShownBoard = null
 
 func _updateCurrentCardPosition():
 	if not currentShownBoard:

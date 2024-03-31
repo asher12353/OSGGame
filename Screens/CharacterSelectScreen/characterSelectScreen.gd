@@ -4,8 +4,9 @@ extends Screen
 
 
 func _on_witch_select_pressed():
+	var witch = Witch.new()
 	%masterLogicHandler._changeScreen(mainGameScreen)
 	globalUIElements.show()
-	%masterLogicHandler._setMainCharacter(Witch.new())
+	%masterLogicHandler._setMainCharacter(witch)
 	globalUIElements._updateMoneyLabel(%masterLogicHandler.mainCharacter.money)
 	

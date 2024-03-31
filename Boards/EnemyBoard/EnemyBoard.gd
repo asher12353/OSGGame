@@ -63,6 +63,6 @@ func _removeMysterySprite(childNum):
 				child.free()
 
 func _createRandomCard():
-	var randomNum = %masterLogicHandler.rng.randi_range(0, %masterLogicHandler.differentKindsOfCards.size() - 1)
-	var card = createCard(%masterLogicHandler.differentKindsOfCards[randomNum])
+	var randomNum = %masterLogicHandler.rng.randi_range(0, %masterLogicHandler.neutralCardLibrary.size() - 1)
+	var card = createCard(%masterLogicHandler.neutralCardLibrary[randomNum])
 	card._WhenPlayed()

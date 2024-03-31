@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhf7k3ge5de2q"
-path="res://.godot/imported/OctoBroColored.png-9a56befbc0401c19cddcb45deef09c30.ctex"
+uid="uid://b35wdtucwpocw"
+path="res://.godot/imported/Newt.png-5def3d6f72ca60e3a13f56ddf4742dd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Cards/OctoBro/OctoBroColored.png"
-dest_files=["res://.godot/imported/OctoBroColored.png-9a56befbc0401c19cddcb45deef09c30.ctex"]
+source_file="res://Cards/WitchCardLibrary/Newt/Newt.png"
+dest_files=["res://.godot/imported/Newt.png-5def3d6f72ca60e3a13f56ddf4742dd9.ctex"]
 
 [params]
 

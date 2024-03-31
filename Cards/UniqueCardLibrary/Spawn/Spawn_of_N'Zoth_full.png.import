@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b018tjl7uwprm"
-path="res://.godot/imported/Spawn_of_N'Zoth_full.png-fcd6469fa50a0d6f9e8cc263eb099dea.ctex"
+path="res://.godot/imported/Spawn_of_N'Zoth_full.png-0ebd1f782565cdfc0c66f93032b55a9f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Cards/UniqueCards/Spawn/Spawn_of_N'Zoth_full.png"
-dest_files=["res://.godot/imported/Spawn_of_N'Zoth_full.png-fcd6469fa50a0d6f9e8cc263eb099dea.ctex"]
+source_file="res://Cards/UniqueCardLibrary/Spawn/Spawn_of_N'Zoth_full.png"
+dest_files=["res://.godot/imported/Spawn_of_N'Zoth_full.png-0ebd1f782565cdfc0c66f93032b55a9f.ctex"]
 
 [params]
 

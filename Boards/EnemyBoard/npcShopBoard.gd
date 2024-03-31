@@ -7,8 +7,13 @@ var numCardsInShop = 3
 
 func _ready():
 	boardY = -120
-	for card in %masterLogicHandler.differentKindsOfCards:
+	for card in %masterLogicHandler.neutralCardLibrary:
 		totalNumCardsInPool += card.numLeftInPool
+
+func _updatePool():
+	if MasterLogicHandler.mainCharacter is Witch:
+		for card in MasterLogicHandler.witchCardLibrary:
+			totalNumCardsInPool += card.numLeftInPool
 
 func _refreshBoard():
 	for child in get_children():
@@ -21,11 +26,20 @@ func _refreshBoard():
 func _createCardFromPool():
 	var threshhold = 0
 	var randomNumber = %masterLogicHandler.rng.randi_range(0, totalNumCardsInPool - 1)
-	for card in %masterLogicHandler.differentKindsOfCards:
+	for card in %masterLogicHandler.neutralCardLibrary:
 		if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
 			createCard(card)
 			card.numLeftInPool -= 1
 			totalNumCardsInPool -= 1
-			break
+			return
 		else:
 			threshhold += card.numLeftInPool
+	if MasterLogicHandler.mainCharacter is Witch:
+		for card in MasterLogicHandler.witchCardLibrary:
+			if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
+				createCard(card)
+				card.numLeftInPool -= 1
+				totalNumCardsInPool -= 1
+				return
+			else:
+				threshhold += card.numLeftInPool

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djdbtj7pflhlh"
-path="res://.godot/imported/FrgColored.png-08475366ccb35da20b2bb175b5337a14.ctex"
+uid="uid://dw7fqrc74kj4e"
+path="res://.godot/imported/AnArm.png-cdf01417e8cf26a9e2537ef8dd802c5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Cards/Frg/FrgColored.png"
-dest_files=["res://.godot/imported/FrgColored.png-08475366ccb35da20b2bb175b5337a14.ctex"]
+source_file="res://Cards/WitchCardLibrary/AnArm/AnArm.png"
+dest_files=["res://.godot/imported/AnArm.png-cdf01417e8cf26a9e2537ef8dd802c5c.ctex"]
 
 [params]
 

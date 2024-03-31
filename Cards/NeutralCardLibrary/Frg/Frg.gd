@@ -7,7 +7,7 @@ static var CARD_TYPE = 1
 func _init():
 	attack = 2
 	health = 1
-	cardArtPath = "res://Cards/Frg/FrgColored.png"
+	cardArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColored.png"
 	_Card()
 	
 
