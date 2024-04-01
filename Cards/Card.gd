@@ -49,9 +49,6 @@ func _Card():
 	_createStatLabels()
 	_establishConnections()
 	board = get_parent()
-	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath)
-	fullArtBack.set_position(Vector2(-225, 0))
-	fullArtBack.hide()
 
 func _giveStats(atk, hlth):
 	attack += atk
@@ -71,6 +68,12 @@ func _establishConnections():
 func _createCardArt():
 	cardArt = createNewSprite2D(cardArt, cardArtPath)
 	cardBack = createNewSprite2D(cardBack, cardBackPath)
+	fullArt = createNewSprite2D(fullArt, fullArtPath)
+	fullArt.set_position(Vector2(-225, -100))
+	fullArt.hide()
+	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath)
+	fullArtBack.set_position(Vector2(-225, 0))
+	fullArtBack.hide()
 	
 func createNewSprite2D(art, path):
 	art = Sprite2D.new()
@@ -112,6 +115,7 @@ func _createCollisionShape():
 
 func _on_mouse_entered():
 	fullArtBack.show()
+	fullArt.show()
 	if not is_dragging:
 		mouseIsHoveredOver = self
 	if not is_dragging and is_draggable_at_all:
@@ -119,6 +123,7 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	fullArtBack.hide()
+	fullArt.hide()
 	if not is_dragging:
 		mouseIsHoveredOver = null
 	if not is_dragging and is_draggable_at_all:

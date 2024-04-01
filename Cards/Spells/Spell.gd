@@ -12,7 +12,7 @@ func _Spell():
 	attackLabel.hide()
 	healthLabel.hide()
 	
-func _playSpell(target):
+func _playSpell(_target):
 	print("here?")
 	pass
 

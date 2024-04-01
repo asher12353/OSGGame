@@ -8,6 +8,7 @@ func _init():
 	attack = 0
 	health = 0
 	cardArtPath = "res://Cards/MysteryCard/MysteryCard.png"
+	fullArtPath = "res://Cards/MysteryCard/MysteryCardFull.png"
 	_Card()
 	attackLabel.hide()
 	healthLabel.hide()

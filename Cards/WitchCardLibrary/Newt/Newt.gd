@@ -9,6 +9,7 @@ func _init():
 	health = 2
 	isReagent = true
 	cardArtPath = "res://Cards/WitchCardLibrary/Newt/Newt.png"
+	fullArtPath = "res://Cards/WitchCardLibrary/Newt/NewtFull.png"
 	_Card()
 
 func _whenSpellIsCrafted(spell):

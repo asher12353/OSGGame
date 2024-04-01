@@ -7,6 +7,7 @@ func _init():
 	attack = 2
 	health = 2
 	cardArtPath = "res://Cards/uniqueCardLibrary/Spawn/Spawn_of_N'Zoth_full.png"
+	fullArtPath = "res://Cards/UniqueCardLibrary/Spawn/Spawn_of_N'Zoth_fuller.png"
 	_Card()
 	
 func _WhenItDies():

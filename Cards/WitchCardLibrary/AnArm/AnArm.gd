@@ -9,5 +9,6 @@ func _init():
 	health = 2
 	isCadaver = true
 	cardArtPath = "res://Cards/witchCardLibrary/AnArm/AnArm.png"
+	fullArtPath = "res://Cards/WitchCardLibrary/AnArm/AnArmFull.png"
 	_Card()
 	

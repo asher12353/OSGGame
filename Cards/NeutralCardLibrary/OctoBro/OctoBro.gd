@@ -8,6 +8,7 @@ func _init():
 	attack = 1
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/OctoBro/OctoBroColored.png"
+	fullArtPath = "res://Cards/NeutralCardLibrary/OctoBro/OctoBroColoredFull.png"
 	_Card()
 
 func _WhenPlayed():

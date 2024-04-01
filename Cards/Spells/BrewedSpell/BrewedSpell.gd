@@ -5,6 +5,7 @@ var reagents = []
 
 func _init():
 	cardArtPath = "res://Cards/Spells/BrewedSpell/BrewedSpell.png"
+	fullArtPath = "res://Cards/Spells/BrewedSpell/BrewedSpellFull.png"
 	_Spell()
 
 func _playSpell(target):
