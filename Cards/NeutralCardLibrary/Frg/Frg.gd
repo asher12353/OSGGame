@@ -9,6 +9,7 @@ func _init():
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColored.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColoredFull.png"
+	nameString = "Frog"
 	_Card()
 	
 

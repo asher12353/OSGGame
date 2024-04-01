@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddybc5icvia5j"]
+
+[ext_resource type="Script" path="res://UI/Fonts/CustomFont.gd" id="1_p4qja"]
+
+[node name="CustomFont" type="RichTextLabel"]
+script = ExtResource("1_p4qja")
