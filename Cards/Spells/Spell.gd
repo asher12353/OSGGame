@@ -21,7 +21,7 @@ func _process(_delta):
 		hide()
 		if isTargeted:
 			Input.set_custom_mouse_cursor(targetCursor)
-			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and Card.mouseIsHoveredOver:
 				print(Card.mouseIsHoveredOver)
 				_playSpell(Card.mouseIsHoveredOver)
 	else:

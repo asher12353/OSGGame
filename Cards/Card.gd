@@ -84,6 +84,8 @@ func _giveStats(atk, hlth):
 	attack += atk
 	health += hlth
 	_updateStatLabels()
+	if health <= 0:
+		return MasterLogicHandler.fightScreen._kill(self)
 
 func _WhenPlayed():
 	pass
@@ -159,7 +161,8 @@ func _on_timeout():
 	hoverTimer.stop()
 	
 func isMouseOver(mouse_pos) -> bool:
-	return mouse_pos.x > position.x - int(cardWidth/2) and mouse_pos.y > position.y - int(cardHeight/2) and mouse_pos.x < position.x + int(cardWidth/2) and mouse_pos.y < position.y + int(cardHeight/2)
+	@warning_ignore("integer_division")
+	return mouse_pos.x > position.x - cardWidth/2 and mouse_pos.y > position.y - cardHeight/2 and mouse_pos.x < position.x + cardWidth/2 and mouse_pos.y < position.y + cardHeight/2
 
 func timerCanBeStarted() -> bool:
 	return hoverTimer.is_stopped() and not is_dragging and not dragged_card and not fullArtNode.is_visible_in_tree()
@@ -188,6 +191,7 @@ func _givePlus1Plus1():
 func _givePlus1Plus1XTimes(x):
 	for i in range(x):
 		_givePlus1Plus1()
+		
 
 ############################################################################################################################################################################################
 # Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use

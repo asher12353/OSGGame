@@ -25,13 +25,14 @@ characterSelectScreen = NodePath("../characterSelectScreen")
 mainGameScreen = NodePath("../mainGameScreen")
 globalUIElements = NodePath("../globalUIElements")
 
-[node name="mainGameScreen" parent="." node_paths=PackedStringArray("fightScreen", "shopScreen", "playerCombatBoard", "playerShopBoard", "enemyBoard") instance=ExtResource("3_y2ksq")]
+[node name="mainGameScreen" parent="." node_paths=PackedStringArray("fightScreen", "shopScreen", "playerCombatBoard", "playerShopBoard", "enemyBoard", "playerHand") instance=ExtResource("3_y2ksq")]
 visible = false
 fightScreen = NodePath("../fightScreen")
 shopScreen = NodePath("../shopScreen")
 playerCombatBoard = NodePath("../playerCombatBoard")
 playerShopBoard = NodePath("../playerShopBoard")
 enemyBoard = NodePath("../enemyBoard")
+playerHand = NodePath("../playerHand")
 
 [node name="masterLogicHandler" parent="." instance=ExtResource("4_u4b2y")]
 unique_name_in_owner = true
@@ -45,9 +46,10 @@ visible = false
 script = ExtResource("7_6d3rq")
 playerShopBoard = NodePath("../playerShopBoard")
 
-[node name="fightScreen" parent="." node_paths=PackedStringArray("playerCombatBoard", "enemyBoard", "timer", "globalUIElements", "mainGameScreen") instance=ExtResource("7_xuxr1")]
+[node name="fightScreen" parent="." node_paths=PackedStringArray("playerCombatBoard", "playerHand", "enemyBoard", "timer", "globalUIElements", "mainGameScreen") instance=ExtResource("7_xuxr1")]
 visible = false
 playerCombatBoard = NodePath("../playerCombatBoard")
+playerHand = NodePath("../playerHand")
 enemyBoard = NodePath("../enemyBoard")
 timer = NodePath("../Timer")
 globalUIElements = NodePath("../globalUIElements")

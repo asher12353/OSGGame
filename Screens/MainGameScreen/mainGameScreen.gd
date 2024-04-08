@@ -5,6 +5,7 @@ extends Screen
 @export var playerCombatBoard : Board
 @export var playerShopBoard : Board
 @export var enemyBoard : Board
+@export var playerHand : Board
 
 var act1Rooms
 var currentRoom : Screen
@@ -72,4 +73,5 @@ func _setupBoards():
 	enemyBoard.show()
 	playerCombatBoard._instantiateBoard()
 	playerCombatBoard.show()
+	playerHand.show()
 

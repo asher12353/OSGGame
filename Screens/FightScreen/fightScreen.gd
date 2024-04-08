@@ -3,6 +3,7 @@ extends Screen
 @export var anteLabel : RichTextLabel
 @export var anteSlider : HSlider
 @export var playerCombatBoard : Board
+@export var playerHand : Board
 @export var enemyBoard : Board
 @export var timer : Timer
 @export var globalUIElements : Node2D
@@ -41,7 +42,8 @@ func _kill(card):
 	var board = card.get_parent()
 	if card.has_method("_WhenItDies"):
 		card._WhenItDies()
-	card.free()
+	board.remove_child(card)
+	card.queue_free()
 	board._relocateCards()
 
 func _startCombat():
@@ -90,6 +92,7 @@ func _stopCombat():
 	for card in playerCombatBoard.get_children():
 		card.free()
 	playerCombatBoard.hide()
+	playerHand.hide()
 	%masterLogicHandler._changeScreen(mainGameScreen)
 	startCombatButton.disabled = false
 	anteSlider.editable = true

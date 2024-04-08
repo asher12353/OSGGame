@@ -8,7 +8,10 @@ var currentCardInADropZoneIndex : int
 
 static var playerShopBoard : Board
 static var playerHand: Board
+static var playerCombatBoard : Board
 static var globalUIElements : Node2D
+
+static var fightScreen : Screen
 static var mainGameScreen : Screen
 static var startScreen : Screen
 static var shopScreen : Screen
@@ -41,7 +44,9 @@ func _ready():
 	currentScreen = startScreen
 	playerShopBoard = get_node("/root/main/playerShopBoard")
 	playerHand = get_node("/root/main/playerHand")
+	playerCombatBoard = get_node("/root/main/playerCombatBoard")
 	globalUIElements = get_node("/root/main/globalUIElements")
+	fightScreen = get_node("/root/main/fightScreen")
 	mainGameScreen = get_node("/root/main/mainGameScreen")
 	startScreen = get_node("/root/main/startScreen")
 	shopScreen = get_node("/root/main/shopScreen")
@@ -69,7 +74,7 @@ func cardIsToTheRight() -> bool:
 	return currentPos - 1 < currentCardInADropZoneIndex
 	
 func cardCanBePlaced() -> bool:
-	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone and currentCardInADropZone.get_parent() == playerHand and currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell
+	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone and currentCardInADropZone.get_parent() == playerHand and currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell and not currentShownBoard == playerCombatBoard
 
 func _playCard():
 	currentCardInADropZone.board = playerShopBoard
