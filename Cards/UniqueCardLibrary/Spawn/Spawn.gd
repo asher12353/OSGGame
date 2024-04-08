@@ -8,6 +8,8 @@ func _init():
 	health = 2
 	cardArtPath = "res://Cards/uniqueCardLibrary/Spawn/Spawn_of_N'Zoth_full.png"
 	fullArtPath = "res://Cards/UniqueCardLibrary/Spawn/Spawn_of_N'Zoth_fuller.png"
+	nameString = "Spawn of N'zoth"
+	textString = "When it dies: \nGive your minions +1/+1"
 	_Card()
 	
 func _WhenItDies():

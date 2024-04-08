@@ -8,4 +8,6 @@ func _init():
 	health = 0
 	cardArtPath = "res://Cards/witchCardLibrary/Amalgam/Amalgam.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/Amalgam/AmalgamFull.png"
+	nameString = "Amalgam"
+	textString = ""
 	_Card()

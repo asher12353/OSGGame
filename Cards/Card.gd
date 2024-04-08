@@ -15,9 +15,18 @@ var fullArt : Sprite2D
 var fullArtPath : String
 var fullArtBack : Sprite2D
 var fullArtBackPath = "res://Cards/FullArtCard.png"
+var hasFullArt = true
 
 var nameLabel : RichTextLabel
 var nameString : String
+var textLabel : RichTextLabel
+var textString : String
+
+var hoverTimer : Timer
+var hoverCooldown = 0.2
+
+var cardWidth = 150
+var cardHeight = 210
 
 var is_dragging = false
 var is_draggable = false
@@ -29,7 +38,7 @@ var level : int
 
 var isReagent : bool
 var isCadaver : bool
-var isEffigy : bool
+var isOffering : bool
 
 static var dragged_card: Card = null
 static var mouseIsHoveredOver : Card = null
@@ -39,15 +48,32 @@ func _ready():
 	MasterLogicHandler = get_node("/root/main/masterLogicHandler")
 
 func _process(_delta):
-	if is_draggable:
-		_startDraggingCard()
-		# or
-		_stopDraggingCard()
-	if is_dragging:
-		global_position = get_global_mouse_position()
+	if is_visible_in_tree():
+		var mouse_pos = get_global_mouse_position()
+		if isMouseOver(mouse_pos):
+			mouseIsHoveredOver = self
+			_setDraggable(true)
+			if timerCanBeStarted():
+				hoverTimer.start(hoverCooldown)
+		else:
+			if mouseIsHoveredOver == self:
+				mouseIsHoveredOver = null
+			_setDraggable(false)
+			fullArtNode.hide()
+			if not hoverTimer.is_stopped():
+				hoverTimer.stop()
+		if is_draggable:
+			_startDraggingCard()
+			# or
+			_stopDraggingCard()
+		if is_dragging:
+			global_position = mouse_pos
+			fullArtNode.hide()
 
 # _Card is a class constructor
 func _Card():
+	hoverTimer = Timer.new()
+	add_child(hoverTimer)
 	_createCollisionShape()
 	_createCardArt()
 	_createStatLabels()
@@ -66,12 +92,14 @@ func _WhenItDies():
 	pass
 
 func _establishConnections():
-	mouse_entered.connect(Callable(self, "_on_mouse_entered"))
-	mouse_exited.connect(Callable(self, "_on_mouse_exited"))
+	hoverTimer.timeout.connect(Callable(self, "_on_timeout"))
 	
 func _createCardArt():
 	cardArt = createNewSprite2D(cardArt, cardArtPath)
 	cardBack = createNewSprite2D(cardBack, cardBackPath)
+	_createFullArtNode()
+
+func _createFullArtNode():
 	fullArtNode = Node2D.new()
 	add_child(fullArtNode)
 	fullArtNode.hide()
@@ -81,6 +109,7 @@ func _createCardArt():
 	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath)
 	fullArtBack.reparent(fullArtNode)
 	fullArtBack.set_position(Vector2(-225, 0))
+	fullArtNode.z_index = 3
 
 func createNewSprite2D(art, path):
 	art = Sprite2D.new()
@@ -92,21 +121,24 @@ func createNewSprite2D(art, path):
 func _createStatLabels():
 	attackLabel = createLabel(self, Vector2(-55, 65), attack)
 	healthLabel = createLabel(self, Vector2(48, 65), health)
-	nameLabel = createLabel(fullArtNode, Vector2(-240 + nameString.length() * 5, -25), nameString)
+	nameLabel = createLabel(fullArtNode, Vector2(-230 + nameString.length() * -5, -25), nameString)
+	textLabel = createLabel(fullArtNode, Vector2(-330, 30), textString)
 	
 func createLabel(parent, pos, text) -> RichTextLabel:
 	var label = RichTextLabel.new()
 	parent.add_child(label)
+	var theme = load("res://UI/Themes/newTheme.tres")
+	label.set_theme(theme)
 	label.set_text(str(text))
-	label.set_size(Vector2(100, 100))
+	label.set_size(Vector2(300, 300))
 	label.set_position(pos)
 	return label
 
 func _updateStatLabels():
 	if attackLabel:
-		attackLabel.text = str(attack)
+		attackLabel.set_text(str(attack))
 	if healthLabel:
-		healthLabel.text = str(health)
+		healthLabel.set_text(str(health))
 
 func _copyStats(card):
 	attack = card.attack
@@ -118,22 +150,23 @@ func _createCollisionShape():
 	var collisionShape = CollisionShape2D.new()
 	add_child(collisionShape)
 	var rect = RectangleShape2D.new()
-	rect.size = Vector2(150, 210)
+	rect.size = Vector2(cardWidth, cardHeight)
 	collisionShape.shape = rect
 
-func _on_mouse_entered():
-	fullArtNode.show()
-	if not is_dragging:
-		mouseIsHoveredOver = self
-	if not is_dragging and is_draggable_at_all:
-		is_draggable = true
+func _on_timeout():
+	if hasFullArt:
+		fullArtNode.show()
+	hoverTimer.stop()
+	
+func isMouseOver(mouse_pos) -> bool:
+	return mouse_pos.x > position.x - int(cardWidth/2) and mouse_pos.y > position.y - int(cardHeight/2) and mouse_pos.x < position.x + int(cardWidth/2) and mouse_pos.y < position.y + int(cardHeight/2)
 
-func _on_mouse_exited():
-	fullArtNode.hide()
-	if not is_dragging:
-		mouseIsHoveredOver = null
+func timerCanBeStarted() -> bool:
+	return hoverTimer.is_stopped() and not is_dragging and not dragged_card and not fullArtNode.is_visible_in_tree()
+
+func _setDraggable(condition):
 	if not is_dragging and is_draggable_at_all:
-		is_draggable = false
+			is_draggable = condition
 
 func _startDraggingCard():
 	if dragged_card == null and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and MasterLogicHandler.cardsAreMovable:
@@ -155,3 +188,27 @@ func _givePlus1Plus1():
 func _givePlus1Plus1XTimes(x):
 	for i in range(x):
 		_givePlus1Plus1()
+
+############################################################################################################################################################################################
+# Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use
+############################################################################################################################################################################################
+
+
+#func _establishConnections():
+	#mouse_entered.connect(Callable(self, "_on_mouse_entered"))
+	#mouse_exited.connect(Callable(self, "_on_mouse_exited"))
+
+#func _on_mouse_entered():
+	#if not is_dragging and is_draggable_at_all:
+		#hoverTimer.start(0.1)
+		#print("IN")
+		#if not is_dragging and is_draggable_at_all:
+			#is_draggable = true
+#
+#func _on_mouse_exited():
+	#if not is_dragging and is_draggable_at_all:
+		#print("OUT")
+		#if hasFullArt:
+			#fullArtNode.hide()
+		#if not is_dragging and is_draggable_at_all:
+			#is_draggable = false

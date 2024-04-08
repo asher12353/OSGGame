@@ -10,5 +10,7 @@ func _init():
 	isCadaver = true
 	cardArtPath = "res://Cards/witchCardLibrary/AnArm/AnArm.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/AnArm/AnArmFull.png"
+	nameString = "An Arm"
+	textString = "Cadaver"
 	_Card()
 	

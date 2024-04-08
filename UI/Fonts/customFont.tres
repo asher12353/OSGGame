@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bu3j64tbd52ty"]
+
+[ext_resource type="FontFile" uid="uid://d22bxam2if1pf" path="res://UI/Fonts/BLKCHCRY.TTF" id="1_hn6px"]
+
+[resource]
+base_font = ExtResource("1_hn6px")

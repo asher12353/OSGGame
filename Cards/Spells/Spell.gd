@@ -28,10 +28,22 @@ func _process(_delta):
 		show()
 		if isTargeted:
 			Input.set_custom_mouse_cursor(null)
-	if is_draggable:
-		_startDraggingCard()
-		# or
-		_stopDraggingCard()
-	if is_dragging:
-		global_position = get_global_mouse_position()
+	if is_visible_in_tree():
+		var mouse_pos = get_global_mouse_position()
+		if isMouseOver(mouse_pos):
+			_setDraggable(true)
+			if timerCanBeStarted():
+				hoverTimer.start(hoverCooldown)
+		else:
+			_setDraggable(false)
+			fullArtNode.hide()
+			if not hoverTimer.is_stopped():
+				hoverTimer.stop()
+		if is_draggable:
+			_startDraggingCard()
+			# or
+			_stopDraggingCard()
+		if is_dragging:
+			global_position = mouse_pos
+			fullArtNode.hide()
 	

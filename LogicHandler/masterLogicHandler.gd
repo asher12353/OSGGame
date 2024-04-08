@@ -20,7 +20,7 @@ static var cardsAreMovable : bool
 
 static var neutralCardLibrary = [Frg.new(), OctoBro.new()]
 static var uniqueCardLibrary = [Spawn.new()]
-static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new()]
+static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new()]
 
 static var artifactPool = [SpyGlass.new()]
 

@@ -9,6 +9,9 @@ func _init():
 	health = 0
 	cardArtPath = "res://Cards/MysteryCard/MysteryCard.png"
 	fullArtPath = "res://Cards/MysteryCard/MysteryCardFull.png"
+	nameString = "???"
+	textString = "???"
+	hasFullArt = false
 	_Card()
 	attackLabel.hide()
 	healthLabel.hide()

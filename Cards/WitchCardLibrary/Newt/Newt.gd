@@ -10,6 +10,8 @@ func _init():
 	isReagent = true
 	cardArtPath = "res://Cards/WitchCardLibrary/Newt/Newt.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/Newt/NewtFull.png"
+	nameString = "Newt"
+	textString = "Reagent: Give a minion +1/+1"
 	_Card()
 
 func _whenSpellIsCrafted(spell):

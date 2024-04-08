@@ -10,6 +10,7 @@ func _init():
 	cardArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColored.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColoredFull.png"
 	nameString = "Frog"
+	textString = "When Played: Gain 1 gold"
 	_Card()
 	
 

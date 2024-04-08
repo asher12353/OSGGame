@@ -43,11 +43,12 @@ func _obscureCards():
 	
 func _makeMysterySprite(childNum):
 	var spr = Sprite2D.new()
+	var card = get_child(childNum)
 	spr.name = "MysteryCard"
 	spr.texture = load("res://Cards/MysteryCard/MysteryCard.png")
-	spr.position = get_child(childNum).get_position()
-	spr.top_level = true
-	get_child(childNum).add_child(spr)
+	spr.z_index = 2
+	card.add_child(spr)
+	card.hasFullArt = false
 
 func _removeMysterySprites():
 	_removeMysterySprite(0)
@@ -55,12 +56,14 @@ func _removeMysterySprites():
 	_relocateCards()
 	
 func _removeMysterySprite(childNum):
-	if get_child(childNum) is MysteryCard:
-		get_child(childNum).free()
+	var card = get_child(childNum)
+	if card is MysteryCard:
+		card.free()
 	else:
-		for child in get_child(childNum).get_children():
+		for child in card.get_children():
 			if child.name == "MysteryCard":
 				child.free()
+			card.hasFullArt = true
 
 func _createRandomCard():
 	var randomNum = %masterLogicHandler.rng.randi_range(0, %masterLogicHandler.neutralCardLibrary.size() - 1)

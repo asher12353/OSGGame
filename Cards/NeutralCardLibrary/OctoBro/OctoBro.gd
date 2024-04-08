@@ -9,6 +9,8 @@ func _init():
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/OctoBro/OctoBroColored.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/OctoBro/OctoBroColoredFull.png"
+	nameString = "Octo Bro"
+	textString = "When Played: Give another \nrandom minion you control +1/+1"
 	_Card()
 
 func _WhenPlayed():

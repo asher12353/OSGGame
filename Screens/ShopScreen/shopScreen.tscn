@@ -4,22 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://l3ted2t6yq4i" path="res://Screens/ShopScreen/tempSellBackground.png" id="2_2vncs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbh8q"]
-size = Vector2(150, 210)
+size = Vector2(1494, 210)
 
 [node name="shopScreen" type="Node2D" node_paths=PackedStringArray("upgradeShopButton")]
 script = ExtResource("1_1qk5v")
 upgradeShopButton = NodePath("upgradeShopButton")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
 
 [node name="sellArea" type="Area2D" parent="."]
-position = Vector2(0, -340)
+position = Vector2(0, -404)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sellArea"]
 shape = SubResource("RectangleShape2D_sbh8q")
 
 [node name="Sprite2D" type="Sprite2D" parent="sellArea"]
+visible = false
 texture = ExtResource("2_2vncs")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="sellArea/Sprite2D"]
@@ -31,12 +31,14 @@ theme_override_colors/default_color = Color(0.498039, 0.462745, 0.160784, 1)
 text = "Sell $$$"
 
 [node name="buyArea" type="Area2D" parent="."]
-position = Vector2(-700, 350)
+position = Vector2(-700, 403)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="buyArea"]
+position = Vector2(672, 0)
 shape = SubResource("RectangleShape2D_sbh8q")
 
 [node name="Sprite2D" type="Sprite2D" parent="buyArea"]
+visible = false
 texture = ExtResource("2_2vncs")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="buyArea/Sprite2D"]
