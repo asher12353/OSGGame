@@ -44,6 +44,8 @@ func _changeScreenToFightScreen():
 	%masterLogicHandler.currentShownBoard = playerCombatBoard
 	_moveToNextRoom()
 	_setupBoards()
+	for card in playerCombatBoard.get_children():
+		card._whenEnteringCombat()
 
 func _on_shop_button_pressed():
 	%masterLogicHandler._changeScreen(shopScreen)

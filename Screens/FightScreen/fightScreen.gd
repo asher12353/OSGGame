@@ -31,8 +31,8 @@ func _on_ante_slider_value_changed(value):
 	anteLabel.text = "Ante: {ante}".format({"ante": ante})
 
 func _attack(attacker, defender):
-	attacker._giveStats(0, -defender.attack)
-	defender._giveStats(0, -attacker.attack)
+	attacker._giveStats(0, min(-defender.attack, 0))
+	defender._giveStats(0, min(-attacker.attack, 0))
 	if(attacker.health <= 0):
 		_kill(attacker)
 	if(defender.health <= 0):
@@ -98,6 +98,8 @@ func _stopCombat():
 	anteSlider.editable = true
 	if isEliteFight and not playerLost:
 		_acquireRandomArtifact()
+	for card in playerHand.get_children():
+		card._whenLeavingCombat()
 	
 func _acquireRandomArtifact():
 	var character = %masterLogicHandler.mainCharacter

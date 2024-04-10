@@ -3,7 +3,6 @@ class_name Spell
 
 var targetCursor = load("res://UI/target.png")
 var isTargeted : bool
-var playerHand : Board
 
 func _Spell():
 	attack = 0

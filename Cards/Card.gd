@@ -31,7 +31,6 @@ var cardHeight = 210
 var is_dragging = false
 var is_draggable = false
 var is_draggable_at_all = true
-var drag_offset = Vector2.ZERO
 
 var board : Board
 var level : int
@@ -39,6 +38,13 @@ var level : int
 var isReagent : bool
 var isCadaver : bool
 var isOffering : bool
+var isEffigy : bool
+
+var effigyValue : int
+var imbuedCurses : Node2D
+var isTemp : bool
+
+var playerHand : Board
 
 static var dragged_card: Card = null
 static var mouseIsHoveredOver : Card = null
@@ -46,6 +52,7 @@ static var MasterLogicHandler
 
 func _ready():
 	MasterLogicHandler = get_node("/root/main/masterLogicHandler")
+	playerHand = MasterLogicHandler.playerHand
 
 func _process(_delta):
 	if is_visible_in_tree():
@@ -84,8 +91,8 @@ func _giveStats(atk, hlth):
 	attack += atk
 	health += hlth
 	_updateStatLabels()
-	if health <= 0:
-		return MasterLogicHandler.fightScreen._kill(self)
+	#if health <= 0:
+	#	return MasterLogicHandler.fightScreen._kill(self)
 
 func _WhenPlayed():
 	pass
@@ -192,6 +199,19 @@ func _givePlus1Plus1XTimes(x):
 	for i in range(x):
 		_givePlus1Plus1()
 		
+
+func _whenEnteringCombat():
+	if isEffigy and imbuedCurses:
+		for curse in imbuedCurses.get_children():
+			var card = playerHand.createCard(curse)
+			card.isTemp = true
+
+func _whenLeavingCombat():
+	if isTemp:
+		var b = board
+		b.remove_child(self)
+		queue_free()
+		b._relocateCards()
 
 ############################################################################################################################################################################################
 # Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use
