@@ -10,11 +10,33 @@ func _init():
 	cardArtPath = "res://Cards/WitchCardLibrary/Hair/Hair.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/Hair/HairFull.png"
 	nameString = "Strand of Hair"
-	textString = "Offering: Give a minion -1/-1"
+	_updateText()
+	_updateSpellText()
+	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
 	_Card()
 
 func _whenSpellIsCrafted(spell):
 	spell.isTargeted = true
 
 func _spellEffect(target):
-	target._giveStats(-1, -1)
+	var cursepower = MasterLogicHandler.mainCharacter.cursePower
+	target._giveStats(-(1 + cursepower), -(1 + cursepower))
+
+func _updateSpellText():
+	if MasterLogicHandler and MasterLogicHandler.mainCharacter:
+		var cursepower = MasterLogicHandler.mainCharacter.cursePower
+		spellText = "Give a minion -%d/-%d" % [1 + cursepower, 1 + cursepower]
+	else:
+		spellText = "Give a minion -1/-1"
+		
+func _updateText():
+	if MasterLogicHandler and MasterLogicHandler.mainCharacter:
+		var cursepower = MasterLogicHandler.mainCharacter.cursePower
+		textString = "Offering: Give a minion -%d/-%d" % [1 + cursepower, 1 + cursepower]
+	else:
+		textString = "Offering: Give a minion -1/-1"
+
+func _onCursePowerChanged():
+	_updateSpellText()
+	_updateText()
+	_updateLabel(textLabel, textString)

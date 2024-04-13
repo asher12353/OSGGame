@@ -12,6 +12,9 @@ var cauldronIsSpellcrafting : bool
 var cauldronIsStitching : bool
 var cauldronIsCursing : bool
 
+var spellPower : int = 0
+var cursePower : int = 0
+
 func _process(_delta):
 	if cardCanBeAddedToCauldron():
 		_addCardToCauldron()
@@ -97,6 +100,8 @@ func _createSpell():
 	for reagent in spell.reagents:
 		reagent._whenSpellIsCrafted(spell)
 		reagent.hide()
+		spell.textString = spell.textString + "\n" + reagent.spellText 
+	spell._Spell()
 	cardsInCauldron.clear()
 	cauldronIsSpellcrafting = false
 
@@ -126,6 +131,8 @@ func _createCurse():
 	for offering in curse.offerings:
 		offering._whenSpellIsCrafted(curse)
 		offering.hide()
+		curse.textString = curse.textString + "\n" + offering.spellText
+	curse._Spell()
 	cardsInCauldron.clear()
 	cauldronIsSpellcrafting = false
 
@@ -134,3 +141,5 @@ func _removeCardsFromCauldron():
 		print(card)
 		card.free()
 	cardsInCauldron.clear()
+
+signal curse_power_changed

@@ -10,4 +10,6 @@ func _event1():
 	lh.globalUIElements._updateHealthBar(lh.mainCharacter.health)
 	
 func _event2():
+	lh.currentShownBoard = lh.playerShopBoard
 	lh.playerShopBoard.createCard(Spawn.new())
+	lh.currentShownBoard = null

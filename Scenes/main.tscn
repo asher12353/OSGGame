@@ -46,12 +46,13 @@ visible = false
 script = ExtResource("7_6d3rq")
 playerShopBoard = NodePath("../playerShopBoard")
 
-[node name="fightScreen" parent="." node_paths=PackedStringArray("playerCombatBoard", "playerHand", "enemyBoard", "timer", "globalUIElements", "mainGameScreen") instance=ExtResource("7_xuxr1")]
+[node name="fightScreen" parent="." node_paths=PackedStringArray("playerCombatBoard", "playerHand", "enemyBoard", "fightTimer", "returnFightTimer", "globalUIElements", "mainGameScreen") instance=ExtResource("7_xuxr1")]
 visible = false
 playerCombatBoard = NodePath("../playerCombatBoard")
 playerHand = NodePath("../playerHand")
 enemyBoard = NodePath("../enemyBoard")
-timer = NodePath("../Timer")
+fightTimer = NodePath("../combatTimer")
+returnFightTimer = NodePath("../returnCombatTimer")
 globalUIElements = NodePath("../globalUIElements")
 mainGameScreen = NodePath("../mainGameScreen")
 
@@ -60,9 +61,14 @@ visible = false
 script = ExtResource("8_jxyjj")
 fightScreen = NodePath("../fightScreen")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="combatTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 1.5
+one_shot = true
+
+[node name="returnCombatTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.6
 one_shot = true
 
 [node name="globalUIElements" parent="." instance=ExtResource("9_absy5")]
@@ -88,4 +94,5 @@ script = ExtResource("12_e7flv")
 visible = false
 script = ExtResource("13_idjuh")
 
-[connection signal="timeout" from="Timer" to="fightScreen" method="_on_timer_timeout"]
+[connection signal="timeout" from="combatTimer" to="fightScreen" method="_on_timer_timeout"]
+[connection signal="timeout" from="returnCombatTimer" to="fightScreen" method="_on_return_combat_timer_timeout"]

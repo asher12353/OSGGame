@@ -22,6 +22,9 @@ var nameString : String
 var textLabel : RichTextLabel
 var textString : String
 
+var spellText : String
+var spellPower : int
+
 var hoverTimer : Timer
 var hoverCooldown = 0.2
 
@@ -35,6 +38,8 @@ var is_draggable_at_all = true
 var board : Board
 var level : int
 
+var hasProtect : bool
+
 var isReagent : bool
 var isCadaver : bool
 var isOffering : bool
@@ -43,6 +48,7 @@ var isEffigy : bool
 var effigyValue : int
 var imbuedCurses : Node2D
 var isTemp : bool
+var cursePower : int
 
 var playerHand : Board
 
@@ -132,6 +138,9 @@ func _createStatLabels():
 	healthLabel = createLabel(self, Vector2(48, 65), health)
 	nameLabel = createLabel(fullArtNode, Vector2(-230 + nameString.length() * -5, -25), nameString)
 	textLabel = createLabel(fullArtNode, Vector2(-330, 30), textString)
+	
+func _updateLabel(label, text):
+	label.text = text
 	
 func createLabel(parent, pos, text) -> RichTextLabel:
 	var label = RichTextLabel.new()

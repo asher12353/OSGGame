@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Screens/MainGameScreen/mainGameScreen.gd" id="1_ucafy"]
 [ext_resource type="PackedScene" uid="uid://co7jca4w1spxb" path="res://Screens/MainGameScreen/rooms/forcedShop/forcedShop.tscn" id="2_vmig0"]
 [ext_resource type="PackedScene" uid="uid://bj6jjpv7ib0qk" path="res://Screens/MainGameScreen/rooms/forcedFight/forcedFight.tscn" id="3_2eap5"]
-[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/forcedFight/forcedFight.gd" id="4_gf3d7"]
 [ext_resource type="PackedScene" uid="uid://bqglnoku8h0rp" path="res://Screens/MainGameScreen/rooms/robOrShop/robOrShop.tscn" id="5_gvpyd"]
 [ext_resource type="PackedScene" uid="uid://dkky5ttjslyw1" path="res://Screens/MainGameScreen/rooms/tentacleFarm/tentacleFarm.tscn" id="6_w02n1"]
 [ext_resource type="PackedScene" uid="uid://bb763mvlxviti" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeCamp.tscn" id="7_2r0u2"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeCamp.gd" id="8_fgmf0"]
 [ext_resource type="PackedScene" uid="uid://b71swxmpxni26" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.tscn" id="9_d6iiq"]
+[ext_resource type="PackedScene" uid="uid://qal0e4s7nwks" path="res://Screens/MainGameScreen/rooms/tempWin/tempWin.tscn" id="9_uu5nc"]
 
 [node name="MainGameScreen" type="Node2D"]
 script = ExtResource("1_ucafy")
@@ -18,7 +18,6 @@ visible = false
 
 [node name="forcedFight" parent="." instance=ExtResource("3_2eap5")]
 visible = false
-script = ExtResource("4_gf3d7")
 
 [node name="robOrShop" parent="." instance=ExtResource("5_gvpyd")]
 visible = false
@@ -35,4 +34,12 @@ visible = false
 
 [node name="act1Room2" parent="." instance=ExtResource("3_2eap5")]
 visible = false
-script = ExtResource("4_gf3d7")
+
+[node name="act1Room1" parent="." instance=ExtResource("2_vmig0")]
+visible = false
+
+[node name="forcedFight2" parent="." instance=ExtResource("3_2eap5")]
+visible = false
+
+[node name="TempWin" parent="." instance=ExtResource("9_uu5nc")]
+visible = false

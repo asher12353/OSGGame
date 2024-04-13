@@ -10,6 +10,7 @@ func _init():
 	isEffigy = true
 	effigyValue = 1
 	imbuedCurses = Node2D.new()
+	add_child(imbuedCurses)
 	imbuedCurses.hide()
 	cardArtPath = "res://Cards/WitchCardLibrary/VoodooDoll/VoodooDoll.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/VoodooDoll/VoodooDollFull.png"

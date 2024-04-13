@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj6jjpv7ib0qk"]
+[gd_scene load_steps=4 format=3 uid="uid://bj6jjpv7ib0qk"]
 
 [ext_resource type="Texture2D" uid="uid://bkqxh3tnl7ybv" path="res://Screens/MainGameScreen/rooms/forcedFight/1.Guay_.png" id="1_eqxfy"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/forcedFight/forcedFight.gd" id="1_fbwl8"]
 [ext_resource type="PackedScene" uid="uid://c78f3gv15dn3l" path="res://Screens/MainGameScreen/rooms/buttons/combatButton/combatButton.tscn" id="2_71u04"]
 
 [node name="forcedFight" type="Node2D"]
+script = ExtResource("1_fbwl8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(7.50002, -38)

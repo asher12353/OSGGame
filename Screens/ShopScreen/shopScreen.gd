@@ -43,7 +43,12 @@ func cardCanBeBought() -> bool:
 
 func _sellCard():
 	var board = cardInSellArea.board
-	cardInSellArea.free()
+	if cardInSellArea.cursePower > 0:
+		cardInSellArea.free()
+		MasterLogicHandler.mainCharacter.cursePower = playerShopBoard.getTotalCursePower()
+		MasterLogicHandler.mainCharacter.emit_signal("curse_power_changed")
+	else:
+		cardInSellArea.free()
 	%masterLogicHandler._updateMoney(1)
 	board._relocateCards()
 	cardInSellArea = null

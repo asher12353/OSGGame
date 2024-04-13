@@ -5,15 +5,23 @@ extends Screen
 @export var playerCombatBoard : Board
 @export var playerHand : Board
 @export var enemyBoard : Board
-@export var timer : Timer
+@export var fightTimer : Timer
+@export var returnFightTimer : Timer # may need a better name, but this makes the card that just attacked return to it's og pos
 @export var globalUIElements : Node2D
 @export var mainGameScreen : Screen
 
 var startCombatButton : Button
 
 var playerAttacking : Board
+var playerDefending : Board
 var playerAttackIndex : int
 var enemyAttackIndex : int
+
+var attackerOGPos : Vector2
+var attacker : Card
+var defender : Card
+var fightMoveSpeed = 1.5
+var fightReturnSpeed = 6
 
 var ante : int
 var isEliteFight : bool
@@ -22,6 +30,13 @@ func _ready():
 	ante = 1
 	isEliteFight = false
 	startCombatButton = get_child(0)
+	
+func _process(delta):
+	if attacker and defender:
+		attacker.position = lerp(attacker.position, defender.position, fightMoveSpeed * delta)
+	elif attacker and not defender:
+		if not attacker == null:
+			attacker.position = lerp(attacker.position, attackerOGPos, fightReturnSpeed * delta)
 
 func _on_start_combat_button_pressed():
 	_startCombat()
@@ -30,13 +45,17 @@ func _on_ante_slider_value_changed(value):
 	ante = int(value)
 	anteLabel.text = "Ante: {ante}".format({"ante": ante})
 
-func _attack(attacker, defender):
-	attacker._giveStats(0, min(-defender.attack, 0))
-	defender._giveStats(0, min(-attacker.attack, 0))
-	if(attacker.health <= 0):
-		_kill(attacker)
-	if(defender.health <= 0):
-		_kill(defender)
+func _attack(attackerCard, defenderCard):
+	attackerCard._giveStats(0, min(-defenderCard.attack, 0))
+	defenderCard._giveStats(0, min(-attackerCard.attack, 0))
+	if(attackerCard.health <= 0):
+		if playerAttacking == playerCombatBoard:
+			playerAttackIndex -= 1
+		if playerAttacking == enemyBoard:
+			enemyAttackIndex -= 1
+		_kill(attackerCard)
+	if(defenderCard.health <= 0):
+		_kill(defenderCard)
 		
 func _kill(card):
 	var board = card.get_parent()
@@ -59,31 +78,89 @@ func _decideStartingAttacker():
 	enemyAttackIndex = 0
 	if playerCombatBoard.get_child_count() > enemyBoard.get_child_count():
 		playerAttacking = playerCombatBoard
+		playerDefending = enemyBoard
 	elif playerCombatBoard.get_child_count() < enemyBoard.get_child_count():
 		playerAttacking = enemyBoard
+		playerDefending = playerCombatBoard
 	else:
 		var randomNumber = %masterLogicHandler.rng.randi_range(0, 1)
 		if randomNumber == 0:
 			playerAttacking = playerCombatBoard
+			playerDefending = enemyBoard
 		else:
 			playerAttacking = enemyBoard
+			playerDefending = playerCombatBoard
 
 func _combatLoop():
-	timer.one_shot = false
-	timer.start()
+	#fightTimer.one_shot = false
+	fightTimer.start()
+	attacker = getAttacker()
+	attackerOGPos = attacker.position
+	defender = getDefender()
+	
+func _resolveAttack():
+	_attack(attacker, defender)
+	#attacker = null
+	defender = null
+	if playerAttacking == playerCombatBoard:
+		playerAttacking = enemyBoard
+		playerDefending = playerCombatBoard
+	else:
+		playerAttacking = playerCombatBoard
+		playerDefending = enemyBoard
+
+func getAttacker() -> Card:
+	if playerAttacking.get_child_count() == 0:
+		return null
+	if playerAttacking == playerCombatBoard:
+		if playerAttackIndex >= playerAttacking.get_child_count() or playerAttackIndex <= 0:
+			playerAttackIndex = 0
+		playerAttackIndex += 1
+		return playerAttacking.get_child(playerAttackIndex - 1)
+	else:
+		if enemyAttackIndex >= playerAttacking.get_child_count() or enemyAttackIndex <= 0:
+			enemyAttackIndex = 0
+		enemyAttackIndex += 1
+		return playerAttacking.get_child(enemyAttackIndex - 1)
+
+func getDefender() -> Card:
+	if playerDefending.get_child_count() == 0:
+		return null
+	if playerDefending.containsAProtectCard():
+		var possibleTargets = []
+		for card in playerDefending.get_children():
+			if card.hasProtect:
+				possibleTargets.append(card)
+		var randomNumber = %masterLogicHandler.rng.randi_range(0, possibleTargets.size() - 1)
+		return possibleTargets[randomNumber]
+	else:
+		var randomNumber = %masterLogicHandler.rng.randi_range(0, playerDefending.get_child_count() - 1)
+		return playerDefending.get_child(randomNumber)
+
 		
 func _on_timer_timeout():
 	if cardsAreLeft():
 		_stopCombat()
 		return
 	_resolveAttack()
-	
+	defender = null
+	returnFightTimer.start()
+
+func _on_return_combat_timer_timeout():
+	if not attacker == null:
+		attacker.board._relocateCards()
+	attacker = getAttacker()
+	if not attacker == null:
+		attackerOGPos = attacker.position
+	defender = getDefender()
+	fightTimer.start()
+
 func cardsAreLeft() -> bool:
 	return playerCombatBoard.get_child_count() <= 0 or enemyBoard.get_child_count() <= 0
 	
 func _stopCombat():
-	timer.one_shot = true
-	timer.stop()
+	fightTimer.one_shot = true
+	fightTimer.stop()
 	var playerLost = didPlayerLose()
 	if playerLost:
 		_determineDamage()
@@ -118,31 +195,4 @@ func _determinePayout():
 	elif playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() == 0:
 		%masterLogicHandler._updateMoney(3)
 		
-func _resolveAttack():
-	var attacker = getAttacker()
-	var defender = getDefender()
-	_attack(attacker, defender)
-	if playerAttacking == playerCombatBoard:
-		playerAttacking = enemyBoard
-	else:
-		playerAttacking = playerCombatBoard
 
-func getAttacker() -> Card:
-	if playerAttacking == playerCombatBoard:
-		if playerAttackIndex >= playerAttacking.get_child_count():
-			playerAttackIndex = 0
-		playerAttackIndex += 1
-		return playerAttacking.get_child(playerAttackIndex - 1)
-	else:
-		if enemyAttackIndex >= playerAttacking.get_child_count():
-			enemyAttackIndex = 0
-		enemyAttackIndex += 1
-		return playerAttacking.get_child(enemyAttackIndex - 1)
-
-func getDefender() -> Card:
-	if playerAttacking == playerCombatBoard:
-		var randomNumber = %masterLogicHandler.rng.randi_range(0, enemyBoard.get_child_count() - 1)
-		return enemyBoard.get_child(randomNumber)
-	else:
-		var randomNumber = %masterLogicHandler.rng.randi_range(0, playerCombatBoard.get_child_count() - 1)
-		return playerCombatBoard.get_child(randomNumber)

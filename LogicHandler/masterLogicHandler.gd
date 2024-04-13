@@ -21,9 +21,9 @@ static var mainCharacter : Character
 
 static var cardsAreMovable : bool
 
-static var neutralCardLibrary = [Frg.new(), OctoBro.new()]
+static var neutralCardLibrary = [Frg.new(), OctoBro.new(), TownGuard.new()]
 static var uniqueCardLibrary = [Spawn.new()]
-static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new(), VoodooDoll.new()]
+static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new(), VoodooDoll.new(), CursedScroll.new()]
 
 static var artifactPool = [SpyGlass.new()]
 
@@ -83,6 +83,9 @@ func _playCard():
 	currentCardInADropZone._WhenPlayed()
 	currentPos = 0
 	playerHand._relocateCards()
+	if currentCardInADropZone.cursePower > 0:
+		mainCharacter.cursePower = playerShopBoard.getTotalCursePower()
+		mainCharacter.emit_signal("curse_power_changed")
 
 func _changeScreen(screen):
 	if currentScreen == mainGameScreen.currentRoom:

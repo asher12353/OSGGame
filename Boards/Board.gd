@@ -21,6 +21,12 @@ func createCard(card) -> Card:
 	add_child(newCard)
 	newCard._copyStats(card)
 	newCard.board = self
+	if card.imbuedCurses:
+		newCard.imbuedCurses = card.imbuedCurses
+	if card is Curse:
+		newCard.offerings = card.offerings
+		newCard.isTargeted = card.isTargeted
+		newCard._Spell()
 	_relocateCards()
 	return newCard
 
@@ -37,6 +43,24 @@ func _relocateMultipleCards(numCards):
 	numCards -= 1 # this is just due to indexing
 	for card in cards:
 		card.set_position(Vector2(xValuesForCards[numCards][card.get_index()], boardY))
+		
+func getTotalSpellPower() -> int:
+	var spellpower = 0
+	for card in get_children():
+		spellpower += card.spellPower
+	return spellpower
+	
+func getTotalCursePower() -> int:
+	var cursepower = 0
+	for card in get_children():
+		cursepower += card.cursePower
+	return cursepower
 
 func getRandomCard() -> Card:
 	return get_child(randi_range(0, get_child_count() - 1))
+
+func containsAProtectCard() -> bool:
+	for card in get_children():
+		if card.hasProtect:
+			return true
+	return false

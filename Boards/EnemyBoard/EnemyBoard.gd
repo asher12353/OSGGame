@@ -60,10 +60,11 @@ func _removeMysterySprite(childNum):
 	if card is MysteryCard:
 		card.free()
 	else:
-		for child in card.get_children():
-			if child.name == "MysteryCard":
-				child.free()
-			card.hasFullArt = true
+		if card:
+			for child in card.get_children():
+				if child.name == "MysteryCard":
+					child.free()
+				card.hasFullArt = true
 
 func _createRandomCard():
 	var randomNum = %masterLogicHandler.rng.randi_range(0, %masterLogicHandler.neutralCardLibrary.size() - 1)
