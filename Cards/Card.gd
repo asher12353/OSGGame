@@ -87,6 +87,10 @@ func _process(_delta):
 func _Card():
 	hoverTimer = Timer.new()
 	add_child(hoverTimer)
+	if isEffigy:
+		imbuedCurses = Node2D.new()
+		add_child(imbuedCurses)
+		imbuedCurses.hide()
 	_createCollisionShape()
 	_createCardArt()
 	_createStatLabels()
@@ -207,7 +211,19 @@ func _givePlus1Plus1():
 func _givePlus1Plus1XTimes(x):
 	for i in range(x):
 		_givePlus1Plus1()
-		
+
+func _giveRandomCardPlus1Plus1():
+	var randomCard = getRandomCardOtherThanSelf()
+	if randomCard:
+		randomCard._givePlus1Plus1()
+	
+func getRandomCardOtherThanSelf() -> Card:
+	if board.get_child_count() == 1:
+		return
+	var randomCard = board.get_child(MasterLogicHandler.rng.randi_range(0, board.get_child_count() - 1)) as Card
+	while randomCard == self:
+		randomCard = board.get_child(MasterLogicHandler.rng.randi_range(0, board.get_child_count() - 1)) as Card
+	return randomCard
 
 func _whenEnteringCombat():
 	if isEffigy and imbuedCurses:

@@ -6,7 +6,7 @@ static var CARD_TYPE = 2002
 
 func _init():
 	attack = 2
-	health = 4
+	health = 3
 	isCadaver = true
 	cardArtPath = "res://Cards/witchCardLibrary/ALeg/ALeg.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/ALeg/ALegFull.png"

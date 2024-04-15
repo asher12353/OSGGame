@@ -8,4 +8,5 @@ func _init():
 	fullArtPath = "res://Cards/WitchCardLibrary/SpecialStitches/AnArmAndALeg/AnArmAndALegFull.png"
 	nameString = "An Arm and a Leg"
 	textString = ""
+	_giveStats(2, 2)
 	_Card()

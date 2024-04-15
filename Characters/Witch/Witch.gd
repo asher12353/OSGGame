@@ -116,7 +116,6 @@ func _createAmalgam():
 			hasLeg = true
 	if hasArm and hasLeg:
 		newCard = playerHand.createCard(AnArmAndALeg.new())
-		newCard._giveStats(5, 4)
 	else:
 		newCard = playerHand.createCard(Amalgam.new())
 	for card in cardsInCauldron:

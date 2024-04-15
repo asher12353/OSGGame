@@ -23,4 +23,5 @@ func _whenSpellIsCrafted(spell):
 	spell.isTargeted = true
 
 func _spellEffect(target):
-	target._givePlus1Plus1()
+	var spellpower = MasterLogicHandler.mainCharacter.spellPower
+	target._giveStats((1 + spellpower), (1 + spellpower))

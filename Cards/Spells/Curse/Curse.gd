@@ -24,7 +24,7 @@ func _playSpell(target):
 		if isTargeted:
 			offering._spellEffect(target)
 		else:
-			offering._spellEffect()	
+			offering._spellEffect()
 	if target.health <= 0:
 		MasterLogicHandler.fightScreen._kill(target)
 	queue_free()

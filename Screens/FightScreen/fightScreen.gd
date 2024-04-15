@@ -20,8 +20,10 @@ var enemyAttackIndex : int
 var attackerOGPos : Vector2
 var attacker : Card
 var defender : Card
-var fightMoveSpeed = 1.5
+var fightMoveSpeed = 2
 var fightReturnSpeed = 6
+var fightTimerCooldown = (fightMoveSpeed * 3) / 4
+var fightReturnCooldown = fightReturnSpeed / 10
 
 var ante : int
 var isEliteFight : bool
@@ -72,6 +74,7 @@ func _startCombat():
 	_combatLoop()
 	startCombatButton.disabled = true
 	anteSlider.editable = false
+	MasterLogicHandler.inCombat = true
 
 func _decideStartingAttacker():
 	playerAttackIndex = 0
@@ -93,7 +96,7 @@ func _decideStartingAttacker():
 
 func _combatLoop():
 	#fightTimer.one_shot = false
-	fightTimer.start()
+	fightTimer.start(fightTimerCooldown)
 	attacker = getAttacker()
 	attackerOGPos = attacker.position
 	defender = getDefender()
@@ -144,7 +147,7 @@ func _on_timer_timeout():
 		return
 	_resolveAttack()
 	defender = null
-	returnFightTimer.start()
+	returnFightTimer.start(fightReturnCooldown)
 
 func _on_return_combat_timer_timeout():
 	if not attacker == null:
@@ -153,7 +156,7 @@ func _on_return_combat_timer_timeout():
 	if not attacker == null:
 		attackerOGPos = attacker.position
 	defender = getDefender()
-	fightTimer.start()
+	fightTimer.start(fightTimerCooldown)
 
 func cardsAreLeft() -> bool:
 	return playerCombatBoard.get_child_count() <= 0 or enemyBoard.get_child_count() <= 0
@@ -173,6 +176,7 @@ func _stopCombat():
 	%masterLogicHandler._changeScreen(mainGameScreen)
 	startCombatButton.disabled = false
 	anteSlider.editable = true
+	MasterLogicHandler.inCombat = false
 	if isEliteFight and not playerLost:
 		_acquireRandomArtifact()
 	for card in playerHand.get_children():

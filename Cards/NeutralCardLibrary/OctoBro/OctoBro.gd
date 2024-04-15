@@ -15,16 +15,3 @@ func _init():
 
 func _WhenPlayed():
 	_giveRandomCardPlus1Plus1()
-
-func _giveRandomCardPlus1Plus1():
-	var randomCard = getRandomCardOtherThanSelf()
-	if randomCard:
-		randomCard._givePlus1Plus1()
-	
-func getRandomCardOtherThanSelf() -> Card:
-	if board.get_child_count() == 1:
-		return
-	var randomCard = board.get_child(MasterLogicHandler.rng.randi_range(0, board.get_child_count() - 1)) as Card
-	while randomCard == self:
-		randomCard = board.get_child(MasterLogicHandler.rng.randi_range(0, board.get_child_count() - 1)) as Card
-	return randomCard

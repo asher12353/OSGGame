@@ -20,8 +20,9 @@ static var currentScreen : Screen
 static var mainCharacter : Character
 
 static var cardsAreMovable : bool
+static var inCombat : bool
 
-static var neutralCardLibrary = [Frg.new(), OctoBro.new(), TownGuard.new()]
+static var neutralCardLibrary = [Frg.new(), OctoBro.new(), TownGuard.new(), Farmer.new()]
 static var uniqueCardLibrary = [Spawn.new()]
 static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new(), VoodooDoll.new(), CursedScroll.new()]
 
@@ -58,7 +59,7 @@ func _process(_delta):
 		_playCard()
 		
 func cardCanBeRelocated() -> bool:
-	return currentPos != 0 and currentCardInADropZone and currentCardInADropZone.get_parent() == currentShownBoard
+	return currentPos != 0 and currentCardInADropZone and currentCardInADropZone.get_parent() == currentShownBoard and not inCombat
 
 func _relocateCardToCurrentPosition():
 	if cardIsToTheRight():
