@@ -8,6 +8,9 @@ func _init():
 	fullArtPath = "res://Cards/Spells/Curse/CurseFull.png"
 	nameString = "Curse"
 	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
+	spellText = ""
+	for offering in offerings:
+		spellText = spellText + "\n" + offering.spellText
 	_Spell()
 
 func _playSpell(target):

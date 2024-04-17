@@ -16,7 +16,7 @@ func _playSpell(_target):
 	pass
 
 func _process(_delta):
-	if is_dragging and global_position.y < board.boardY - 210:
+	if is_dragging and board and global_position.y < board.boardY - 210:
 		hide()
 		if isTargeted:
 			Input.set_custom_mouse_cursor(targetCursor)

@@ -11,6 +11,7 @@ func _init():
 	fullArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColoredFull.png"
 	nameString = "Frog"
 	textString = "When Played: Gain 1 gold"
+	whenPlayedSynergy = true
 	_Card()
 	
 

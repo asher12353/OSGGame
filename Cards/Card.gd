@@ -52,6 +52,40 @@ var cursePower : int
 
 var playerHand : Board
 
+# these are if they are synergystic towards a strategy
+# THIS SHOULD PARALLEL EnemyBoard.gd!!!
+var whenPlayedSynergy : bool
+var whenItDiesSynergy : bool
+var protectSynergy : bool
+var tokenSynergy : bool
+
+var spellSynergy : bool
+var undeadSynergy : bool
+var curseSynergy : bool
+
+var bananaSynergy : bool
+var attackSynergy : bool
+var hitmanSynergy : bool
+
+var forgeSynergy : bool
+var investSynergy : bool
+# synergy 3
+
+var synergies = [
+  whenPlayedSynergy,
+  whenItDiesSynergy,
+  protectSynergy,
+  tokenSynergy,
+  spellSynergy,
+  undeadSynergy,
+  curseSynergy,
+  bananaSynergy,
+  attackSynergy,
+  hitmanSynergy,
+  forgeSynergy,
+  investSynergy
+]
+
 static var dragged_card: Card = null
 static var mouseIsHoveredOver : Card = null
 static var MasterLogicHandler 

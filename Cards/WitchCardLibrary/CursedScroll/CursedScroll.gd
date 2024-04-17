@@ -12,4 +12,5 @@ func _init():
 	fullArtPath = "res://Cards/WitchCardLibrary/CursedScroll/CursedScrollFull.png"
 	nameString = "Cursed Scroll"
 	textString = "Curse Power +1"
+	curseSynergy = true
 	_Card()

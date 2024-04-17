@@ -10,6 +10,10 @@ extends Screen
 var act1Rooms
 var currentRoom : Screen
 
+var endlessMode = false
+var isShop = false
+var isFight = true
+
 var actNum : int
 var roomNum : int
 
@@ -23,12 +27,23 @@ func _initalizeVariables():
 	act1Rooms = get_children()
 
 func _moveToNextRoom():
-	if roomNum == 10:
-		actNum += 1
-		roomNum = 1
-	else:
+	if endlessMode:
+		if isShop:
+			currentRoom = act1Rooms[7]
+			isShop = false
+			isFight = true
+		elif isFight:
+			currentRoom = act1Rooms[8]
+			isShop = true
+			isFight = false
 		roomNum += 1
-		currentRoom = act1Rooms[roomNum - 1]
+	else:
+		if roomNum == 10:
+			actNum += 1
+			roomNum = 1
+		else:
+			roomNum += 1
+			currentRoom = act1Rooms[roomNum - 1]
 
 func _on_battle_button_pressed():
 	fightScreen.isEliteFight = false
@@ -71,6 +86,7 @@ func _changeScreenToNextRoom():
 	%masterLogicHandler._changeScreen(self)
 
 func _setupBoards():
+	enemyBoard._updatePool()
 	enemyBoard._instantiateBoard()
 	enemyBoard.show()
 	playerCombatBoard._instantiateBoard()

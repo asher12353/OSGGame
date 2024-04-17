@@ -137,7 +137,6 @@ func _createCurse():
 
 func _removeCardsFromCauldron():
 	for card in cardsInCauldron:
-		print(card)
 		card.free()
 	cardsInCauldron.clear()
 

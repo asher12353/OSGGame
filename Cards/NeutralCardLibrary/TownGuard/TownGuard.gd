@@ -12,4 +12,5 @@ func _init():
 	fullArtPath = "res://Cards/NeutralCardLibrary/TownGuard/TownGuardFull.png"
 	nameString = "Town Guard"
 	textString = "Protect"
+	protectSynergy = true
 	_Card()

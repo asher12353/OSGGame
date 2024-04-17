@@ -13,6 +13,7 @@ func _init():
 	_updateText()
 	_updateSpellText()
 	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
+	curseSynergy = true
 	_Card()
 
 func _whenSpellIsCrafted(spell):

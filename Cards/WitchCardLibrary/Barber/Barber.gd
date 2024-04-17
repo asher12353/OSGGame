@@ -11,6 +11,8 @@ func _init():
 	fullArtPath = "res://Cards/WitchCardLibrary/Barber/BarberFull.png"
 	nameString = "Evil Barber"
 	textString = "When Played: Add a\n 0/1 hair to your hand"
+	curseSynergy = true
+	whenPlayedSynergy = true
 	_Card()
 
 func _WhenPlayed():

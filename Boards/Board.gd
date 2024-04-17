@@ -22,7 +22,9 @@ func createCard(card) -> Card:
 	newCard._copyStats(card)
 	newCard.board = self
 	if card.imbuedCurses:
-		newCard.imbuedCurses = card.imbuedCurses
+		newCard.imbuedCurses = Node2D.new()
+		for curse in card.imbuedCurses.get_children():
+			createCard(curse).reparent(newCard.imbuedCurses)
 	if card is Curse:
 		newCard.offerings = card.offerings
 		newCard.isTargeted = card.isTargeted

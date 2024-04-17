@@ -61,6 +61,9 @@ func _attack(attackerCard, defenderCard):
 		
 func _kill(card):
 	var board = card.get_parent()
+	if board == enemyBoard and "numLeftInPool" in card:
+		card.numLeftInPool += 1
+		board.totalNumCardsInPool += 1
 	if card.has_method("_WhenItDies"):
 		card._WhenItDies()
 	board.remove_child(card)
@@ -171,6 +174,11 @@ func _stopCombat():
 	enemyBoard.hide()
 	for card in playerCombatBoard.get_children():
 		card.free()
+	for card in enemyBoard.get_children():
+		if "numLeftInPool" in card:
+			card.numLeftInPool += 1
+			enemyBoard.totalNumCardsInPool += 1
+		card.free()
 	playerCombatBoard.hide()
 	playerHand.hide()
 	%masterLogicHandler._changeScreen(mainGameScreen)
@@ -181,6 +189,8 @@ func _stopCombat():
 		_acquireRandomArtifact()
 	for card in playerHand.get_children():
 		card._whenLeavingCombat()
+	attacker = null
+	defender = null
 	
 func _acquireRandomArtifact():
 	var character = %masterLogicHandler.mainCharacter
@@ -195,8 +205,9 @@ func _determineDamage():
 
 func _determinePayout():
 	if playerCombatBoard.get_child_count() > 0:
-		%masterLogicHandler._updateMoney(ante * 3)
-	elif playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() == 0:
+		%masterLogicHandler._updateMoney(3 + ante)
+	#elif playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() == 0:
+	else:
 		%masterLogicHandler._updateMoney(3)
 		
 
