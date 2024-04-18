@@ -54,21 +54,21 @@ var playerHand : Board
 
 # these are if they are synergystic towards a strategy
 # THIS SHOULD PARALLEL EnemyBoard.gd!!!
-var whenPlayedSynergy : bool
-var whenItDiesSynergy : bool
-var protectSynergy : bool
-var tokenSynergy : bool
+var whenPlayedSynergy : int
+var whenItDiesSynergy : int
+var protectSynergy : int
+var tokenSynergy : int
 
-var spellSynergy : bool
-var undeadSynergy : bool
-var curseSynergy : bool
+var spellSynergy : int
+var undeadSynergy : int
+var curseSynergy : int
 
-var bananaSynergy : bool
-var attackSynergy : bool
-var hitmanSynergy : bool
+var bananaSynergy : int
+var attackSynergy : int
+var hitmanSynergy : int
 
-var forgeSynergy : bool
-var investSynergy : bool
+var forgeSynergy : int
+var investSynergy : int
 # synergy 3
 
 var synergies = [

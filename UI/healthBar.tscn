@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://duew5vp18d84b"]
+[gd_scene load_steps=5 format=3 uid="uid://duew5vp18d84b"]
+
+[ext_resource type="PackedScene" uid="uid://c873qe6p1715e" path="res://UI/HealthBar/10HealthLines.tscn" id="1_ii4oh"]
+[ext_resource type="PackedScene" uid="uid://d0smao8f1dr8m" path="res://UI/HealthBar/5HealthLines.tscn" id="2_v8rna"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3irhu"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)
@@ -18,7 +21,7 @@ step = 1.0
 value = 2.0
 show_percentage = false
 
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 27, 0, 0, 13, 0, 13, 27, 26, 27, 26, 0, 39, 0, 39, 27, 52, 27, 52, 0, 65, 0, 65, 27, 78, 27, 78, 0, 91, 0, 91, 27, 104, 27, 104, 0, 117, 0, 117, 27, 130, 27, 130, 0, 0, 0, 0, 27, 130, 27)
-width = 3.0
-default_color = Color(0, 0, 0, 1)
+[node name="Line2D" parent="." instance=ExtResource("1_ii4oh")]
+visible = false
+
+[node name="Line2D2" parent="." instance=ExtResource("2_v8rna")]

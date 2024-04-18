@@ -11,7 +11,8 @@ moneyLabel = NodePath("moneyLabel")
 [node name="healthBar" parent="." instance=ExtResource("1_q8ej0")]
 offset_top = -430.0
 offset_bottom = -403.0
-value = 10.0
+max_value = 5.0
+value = 5.0
 
 [node name="moneyLabel" type="RichTextLabel" parent="."]
 offset_left = 720.0

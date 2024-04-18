@@ -3,6 +3,9 @@ extends Node2D
 @export var healthBar : ProgressBar
 @export var moneyLabel : RichTextLabel
 
+func _ready():
+	healthBar.max_value = MasterLogicHandler.mainCharacterMaxHealth
+
 func _updateHealthBar(newHealth):
 	healthBar.value = newHealth
 

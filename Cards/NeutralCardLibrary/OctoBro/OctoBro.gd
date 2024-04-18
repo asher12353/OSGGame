@@ -11,7 +11,7 @@ func _init():
 	fullArtPath = "res://Cards/NeutralCardLibrary/OctoBro/OctoBroColoredFull.png"
 	nameString = "Octo Bro"
 	textString = "When Played: Give another \nrandom minion you control +1/+1"
-	whenPlayedSynergy = true
+	whenPlayedSynergy = 1
 	_Card()
 
 func _WhenPlayed():

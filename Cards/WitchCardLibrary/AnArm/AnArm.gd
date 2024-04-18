@@ -12,6 +12,6 @@ func _init():
 	fullArtPath = "res://Cards/WitchCardLibrary/AnArm/AnArmFull.png"
 	nameString = "An Arm"
 	textString = "Cadaver"
-	undeadSynergy = true
+	undeadSynergy = 1
 	_Card()
 	

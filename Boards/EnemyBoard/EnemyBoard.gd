@@ -57,21 +57,24 @@ func _updatePool():
 	totalNumCardsInPool = 0
 	for card in MasterLogicHandler.neutralCardLibrary:
 		totalNumCardsInPool += card.numLeftInPool
-	if isWitchFight:
-		for card in MasterLogicHandler.witchCardLibrary:
-			totalNumCardsInPool += card.numLeftInPool
-	if isMonkeFight:
-		for card in MasterLogicHandler.monkeCardLibrary:
-			totalNumCardsInPool += card.numLeftInPool
-	if isDwarfFight:
-		for card in MasterLogicHandler.dwarfCardLibrary:
+	_updatePoolForXLibrary(isWitchFight, MasterLogicHandler.witchCardLibrary)
+	_updatePoolForXLibrary(isMonkeFight, MasterLogicHandler.monkeCardLibrary)
+	_updatePoolForXLibrary(isDwarfFight, MasterLogicHandler.dwarfCardLibrary)
+
+func _updatePoolForXLibrary(isXFight, library):
+	if isXFight:
+		for card in library:
 			totalNumCardsInPool += card.numLeftInPool
 
 # this is where the big fancy algorithm will be written later
 func _instantiateBoard():
 	print("alright, starting the enemies turn")
 	var roomNum = mainGameScreen.roomNum
-	gold = 2 + int(pow(roomNum, 1.7) - roomNum * 1.8)
+	if fightScreen.isEliteFight:
+		gold = 2 + int(pow(roomNum, 1.8) - roomNum * 1.8)
+	else:
+		gold = 3 + int(pow(roomNum, 1.6) - roomNum * 1.7)
+	print(gold)
 	_createTheCards()
 	_obscureCards()
 	for card in get_children():
@@ -81,27 +84,16 @@ func _createTheCards():
 	while gold > 0:
 		var randomNum = rng.randi_range(0, 0)
 		if randomNum == 0 and gold >= 3:
-			print("buying a minion")
 			_buyMinion()
 		else:
 			print("done")
 			break
-	#var numCardsCreated = max(1, int(mainGameScreen.roomNum / 2))
-	#var randomNumber = %masterLogicHandler.rng.randf()
-	#var giveRandomBuffs = true
-	#if(randomNumber <= 0.1):
-		#numCardsCreated += 1
-	#if fightScreen.isEliteFight and numCardsCreated < 7:
-		#numCardsCreated += 1
-		#giveRandomBuffs = false
-	#numCardsCreated = min(numCardsCreated, 7)
-	#for i in range(numCardsCreated):
-		#_createRandomCard()
-	#if fightScreen.isEliteFight and giveRandomBuffs:
-		#var randomBonus = randi_range(1, int(mainGameScreen.roomNum / 3))
-		#for i in range(randomBonus):
-			#getRandomCard()._givePlus1Plus1()
-			
+
+# I know I don't normally orginize members like this, but I think I'll do this for "sudo global" variables that I want between at least two functions
+# Just be sure to keep things orginized by keeping the members by the functions that they are used in
+var threshhold = 0
+var randomNumber = 0
+
 func _buyMinion():
 	gold -= 3
 	var numCards = get_child_count()
@@ -109,35 +101,27 @@ func _buyMinion():
 		print("selling minion")
 		_sellMinion()
 	var newCard
-	var threshhold = 0
-	var randomNumber = rng.randi_range(0, totalNumCardsInPool - 1)
-	for card in %masterLogicHandler.neutralCardLibrary:
-		if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
-			newCard = createCard(card)
-			card.numLeftInPool -= 1
-			totalNumCardsInPool -= 1
-			newCard._WhenPlayed()
-			print(newCard.CARD_TYPE, newCard.numLeftInPool)
-			return
-		else:
-			threshhold += card.numLeftInPool
-	var retVal = createNonNeutralCard(isWitchFight, MasterLogicHandler.witchCardLibrary, randomNumber, threshhold)
+	print("buying a minion")
+	threshhold = 0
+	randomNumber = rng.randi_range(0, totalNumCardsInPool - 1)
+	var retVal = makeNewCardFromLibrary(true, MasterLogicHandler.neutralCardLibrary)
 	if retVal == null:
-		retVal = createNonNeutralCard(isMonkeFight, MasterLogicHandler.monkeCardLibrary, randomNumber, threshhold)
+		retVal = makeNewCardFromLibrary(isWitchFight, MasterLogicHandler.witchCardLibrary)
 	if retVal == null:
-		retVal = createNonNeutralCard(isDwarfFight, MasterLogicHandler.dwarfCardLibrary, randomNumber, threshhold)
-	threshhold = retVal[0] # there's gotta be a better way to do this
-	newCard = retVal[1]
-	print(newCard.CARD_TYPE, newCard.numLeftInPool)
+		retVal = makeNewCardFromLibrary(isMonkeFight, MasterLogicHandler.monkeCardLibrary)
+	if retVal == null:
+		retVal = makeNewCardFromLibrary(isDwarfFight, MasterLogicHandler.dwarfCardLibrary)
+	newCard = retVal
+	print(newCard.nameString, newCard.numLeftInPool)
 	newCard._WhenPlayed()
 
-func createNonNeutralCard(isXFight, library, randomNumber, threshhold):
+func makeNewCardFromLibrary(isXFight, library):
 	if isXFight:
 		for card in library:
 			if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
 				card.numLeftInPool -= 1
 				totalNumCardsInPool -= 1
-				return [threshhold, createCard(card)]
+				return createCard(card)
 			else:
 				threshhold += card.numLeftInPool
 	else:
@@ -157,7 +141,7 @@ func _sellLowestStatMinion():
 			min = card.attack + card.health
 	lowestCard.numLeftInPool += 1
 	totalNumCardsInPool += 1
-	print(lowestCard.CARD_TYPE, lowestCard.numLeftInPool)
+	print(lowestCard.nameString, lowestCard.numLeftInPool)
 	lowestCard.free()
 	gold += 1
 
@@ -213,3 +197,23 @@ func createRandomCard():
 			return createCard(%masterLogicHandler.monkeCardLibrary[randomNum - neutralCardPoolSize])
 		if isDwarfFight:
 			return createCard(%masterLogicHandler.dwarfCardLibrary[randomNum - neutralCardPoolSize])
+
+
+#######################################################ABANDONED CODE##########################################################
+
+#func _createTheCards():
+	#var numCardsCreated = max(1, int(mainGameScreen.roomNum / 2))
+		#var randomNumber = %masterLogicHandler.rng.randf()
+		#var giveRandomBuffs = true
+		#if(randomNumber <= 0.1):
+			#numCardsCreated += 1
+		#if fightScreen.isEliteFight and numCardsCreated < 7:
+			#numCardsCreated += 1
+			#giveRandomBuffs = false
+		#numCardsCreated = min(numCardsCreated, 7)
+		#for i in range(numCardsCreated):
+			#_createRandomCard()
+		#if fightScreen.isEliteFight and giveRandomBuffs:
+			#var randomBonus = randi_range(1, int(mainGameScreen.roomNum / 3))
+			#for i in range(randomBonus):
+				#getRandomCard()._givePlus1Plus1()

@@ -1,7 +1,7 @@
 extends Node2D
 class_name Character
 
-var health = 10
+var health = MasterLogicHandler.mainCharacterMaxHealth
 var money = 3
 var shopLevel = 1
 var shadowLevel = 2 # this is how many cards are obscured

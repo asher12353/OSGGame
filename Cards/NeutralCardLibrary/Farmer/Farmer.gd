@@ -11,8 +11,8 @@ func _init():
 	fullArtPath = "res://Cards/NeutralCardLibrary/Farmer/FarmerFull.png"
 	nameString = "Farmer"
 	textString = "When it dies: Create a 1/1 \nskeleton"
-	tokenSynergy = true
-	whenItDiesSynergy = true
+	tokenSynergy = 1
+	whenItDiesSynergy = 1
 	_Card()
 
 func _WhenItDies():

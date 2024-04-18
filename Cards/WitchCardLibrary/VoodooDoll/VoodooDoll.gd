@@ -13,5 +13,5 @@ func _init():
 	fullArtPath = "res://Cards/WitchCardLibrary/VoodooDoll/VoodooDollFull.png"
 	nameString = "Voodoo Doll"
 	textString = "Effigy 1"
-	curseSynergy = true
+	curseSynergy = 1
 	_Card()

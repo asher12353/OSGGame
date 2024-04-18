@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c873qe6p1715e"]
+
+[node name="Line2D" type="Line2D"]
+points = PackedVector2Array(0, 27, 0, 0, 13, 0, 13, 27, 26, 27, 26, 0, 39, 0, 39, 27, 52, 27, 52, 0, 65, 0, 65, 27, 78, 27, 78, 0, 91, 0, 91, 27, 104, 27, 104, 0, 117, 0, 117, 27, 130, 27, 130, 0, 0, 0, 0, 27, 130, 27)
+width = 3.0
+default_color = Color(0, 0, 0, 1)

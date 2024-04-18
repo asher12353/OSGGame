@@ -18,6 +18,7 @@ static var shopScreen : Screen
 
 static var currentScreen : Screen
 static var mainCharacter : Character
+static var mainCharacterMaxHealth = 5
 
 static var cardsAreMovable : bool
 static var inCombat : bool

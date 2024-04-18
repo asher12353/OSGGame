@@ -32,6 +32,7 @@ func _ready():
 	ante = 1
 	isEliteFight = false
 	startCombatButton = get_child(0)
+	anteSlider.max_value = MasterLogicHandler.mainCharacterMaxHealth
 	
 func _process(delta):
 	if attacker and defender:

@@ -12,12 +12,8 @@ func _init():
 	fullArtPath = "res://Cards/WitchCardLibrary/Newt/NewtFull.png"
 	nameString = "Newt"
 	textString = "Reagent: Give a minion +1/+1"
-	spellSynergy = true
-	if MasterLogicHandler and MasterLogicHandler.mainCharacter:
-		var spellpower = MasterLogicHandler.mainCharacter.spellPower
-		spellText = "Give a minion +%d/+%d" % [1 + spellpower, 1 + spellpower]
-	else:
-		spellText = "Give a minion +1/+1"
+	_updateSpellText()
+	spellSynergy = 1
 	_Card()
 
 func _whenSpellIsCrafted(spell):
@@ -26,3 +22,10 @@ func _whenSpellIsCrafted(spell):
 func _spellEffect(target):
 	var spellpower = MasterLogicHandler.mainCharacter.spellPower
 	target._giveStats((1 + spellpower), (1 + spellpower))
+
+func _updateSpellText():
+	if MasterLogicHandler and MasterLogicHandler.mainCharacter:
+		var spellpower = MasterLogicHandler.mainCharacter.spellPower
+		spellText = "Give a minion +%d/+%d" % [1 + spellpower, 1 + spellpower]
+	else:
+		spellText = "Give a minion +1/+1"
