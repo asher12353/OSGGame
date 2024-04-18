@@ -11,6 +11,7 @@ func _init():
 	nameString = "Spawn of N'zoth"
 	textString = "When it dies: \nGive your minions +1/+1"
 	whenItDiesSynergy = 1
+	synergies[whenItDiesSynergyIndex] = whenItDiesSynergy
 	_Card()
 	
 func _WhenItDies():

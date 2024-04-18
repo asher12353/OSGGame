@@ -69,6 +69,8 @@ func _updatePoolForXLibrary(isXFight, library):
 # this is where the big fancy algorithm will be written later
 func _instantiateBoard():
 	print("alright, starting the enemies turn")
+	for i in range(synergies.size()):
+		synergies[i] = 0
 	var roomNum = mainGameScreen.roomNum
 	if fightScreen.isEliteFight:
 		gold = 2 + int(pow(roomNum, 1.8) - roomNum * 1.8)
@@ -114,8 +116,18 @@ func _buyMinion():
 	newCard = retVal
 	print(newCard.nameString, newCard.numLeftInPool)
 	newCard._WhenPlayed()
+	_updateSynergies(newCard, true)
+	print(synergies)
 
-func makeNewCardFromLibrary(isXFight, library):
+func _updateSynergies(card, isBuying):
+	if isBuying:
+		for i in range(synergies.size()):
+			synergies[i] += card.synergies[i]
+	else:
+		for i in range(synergies.size()):
+			synergies[i] -= card.synergies[i]
+
+func makeNewCardFromLibrary(isXFight, library): # -> Card
 	if isXFight:
 		for card in library:
 			if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
@@ -129,18 +141,43 @@ func makeNewCardFromLibrary(isXFight, library):
 
 func _sellMinion():
 	if synergies.max() == 0:
-		_sellLowestStatMinion()
+		_sellLowestStatMinion(get_children())
+	else:
+		var lowestSynergyIndex = getLowestSynergy()
+		var cards = getLowestSynergyMinions(lowestSynergyIndex)
+		print("selling lowest stat low synergy minion with synergy")
+		print(lowestSynergyIndex)
+		print("possible options:")
+		print(cards)
+		_sellLowestStatMinion(cards)
 	_relocateCards()
 
-func _sellLowestStatMinion():
+func getLowestSynergy() -> int:
+	var min = 9223372036854775807
+	var lowestSynergy
+	for i in range(synergies.size()):
+		if synergies[i] < min and synergies[i] != 0:
+			min = synergies[i]
+			lowestSynergy = i
+	return lowestSynergy
+
+func getLowestSynergyMinions(synergyIndex):
+	var retArray = []
+	for card in get_children():
+		if card.synergies[synergyIndex] > 0:
+			retArray.append(card)
+	return retArray
+
+func _sellLowestStatMinion(cards):
 	var min = 9223372036854775807
 	var lowestCard
-	for card in get_children():
+	for card in cards:
 		if card.attack + card.health < min:
 			lowestCard = card
 			min = card.attack + card.health
 	lowestCard.numLeftInPool += 1
 	totalNumCardsInPool += 1
+	_updateSynergies(lowestCard, false)
 	print(lowestCard.nameString, lowestCard.numLeftInPool)
 	lowestCard.free()
 	gold += 1

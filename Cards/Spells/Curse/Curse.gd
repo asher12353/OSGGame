@@ -8,10 +8,8 @@ func _init():
 	fullArtPath = "res://Cards/Spells/Curse/CurseFull.png"
 	nameString = "Curse"
 	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
-	spellText = ""
-	for offering in offerings:
-		spellText = spellText + "\n" + offering.spellText
 	_Spell()
+	_updateSpellText()
 
 func _playSpell(target):
 	if target.isEffigy and target.imbuedCurses.get_child_count() < target.effigyValue:
@@ -34,6 +32,9 @@ func _playSpell(target):
 	Input.set_custom_mouse_cursor(null)
 
 func _onCursePowerChanged():
+	_updateSpellText()
+
+func _updateSpellText():
 	textString = ""
 	for offering in offerings:
 		offering._updateSpellText()

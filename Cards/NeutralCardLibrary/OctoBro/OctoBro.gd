@@ -12,6 +12,7 @@ func _init():
 	nameString = "Octo Bro"
 	textString = "When Played: Give another \nrandom minion you control +1/+1"
 	whenPlayedSynergy = 1
+	synergies[whenPlayedSynergyIndex] = whenPlayedSynergy
 	_Card()
 
 func _WhenPlayed():

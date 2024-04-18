@@ -11,4 +11,5 @@ func _init():
 	nameString = "Amalgam"
 	textString = ""
 	undeadSynergy = 1
+	synergies[undeadSynergyIndex] = undeadSynergy
 	_Card()

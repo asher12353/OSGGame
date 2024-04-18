@@ -15,7 +15,11 @@ const xValuesForCards = [
 ]
 
 func createCard(card) -> Card:
-	if get_child_count() == 7:
+	var ignoreMax = false
+	for token in MasterLogicHandler.tokenCardLibrary:
+		if "CARD_TYPE" in card and token.CARD_TYPE == card.CARD_TYPE:
+			ignoreMax = true
+	if get_child_count() == 7 and not ignoreMax:
 		return
 	var newCard = card.duplicate()
 	add_child(newCard)
@@ -24,11 +28,14 @@ func createCard(card) -> Card:
 	if card.imbuedCurses:
 		newCard.imbuedCurses = Node2D.new()
 		for curse in card.imbuedCurses.get_children():
-			createCard(curse).reparent(newCard.imbuedCurses)
+			var newCurse = createCard(curse)
+			if newCurse: #maybe delete this
+				newCurse.reparent(newCard.imbuedCurses)
 	if card is Curse:
 		newCard.offerings = card.offerings
 		newCard.isTargeted = card.isTargeted
 		newCard._Spell()
+		newCard._updateSpellText()
 	_relocateCards()
 	return newCard
 
@@ -44,7 +51,8 @@ func _relocateMultipleCards(numCards):
 	var cards = get_children()
 	numCards -= 1 # this is just due to indexing
 	for card in cards:
-		card.set_position(Vector2(xValuesForCards[numCards][card.get_index()], boardY))
+		if numCards < 7:
+			card.set_position(Vector2(xValuesForCards[numCards][card.get_index()], boardY))
 		
 func getTotalSpellPower() -> int:
 	var spellpower = 0

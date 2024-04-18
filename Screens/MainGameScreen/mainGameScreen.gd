@@ -33,7 +33,7 @@ func _moveToNextRoom():
 			isShop = false
 			isFight = true
 		elif isFight:
-			currentRoom = act1Rooms[8]
+			currentRoom = act1Rooms[6]
 			isShop = true
 			isFight = false
 		roomNum += 1

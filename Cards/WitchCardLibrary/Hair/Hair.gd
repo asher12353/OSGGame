@@ -14,6 +14,7 @@ func _init():
 	_updateSpellText()
 	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
 	curseSynergy = 1
+	synergies[curseSynergyIndex] = curseSynergy
 	_Card()
 
 func _whenSpellIsCrafted(spell):

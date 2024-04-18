@@ -12,7 +12,9 @@ func _init():
 	nameString = "Evil Barber"
 	textString = "When Played: Add a\n 0/1 hair to your hand"
 	curseSynergy = 1
+	synergies[curseSynergyIndex] = curseSynergy
 	whenPlayedSynergy = 1
+	synergies[whenPlayedSynergyIndex] = whenPlayedSynergy
 	_Card()
 
 func _WhenPlayed():

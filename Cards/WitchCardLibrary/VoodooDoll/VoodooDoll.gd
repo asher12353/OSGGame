@@ -14,4 +14,5 @@ func _init():
 	nameString = "Voodoo Doll"
 	textString = "Effigy 1"
 	curseSynergy = 1
+	synergies[curseSynergyIndex] = curseSynergy
 	_Card()

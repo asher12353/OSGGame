@@ -9,5 +9,6 @@ func _init():
 	nameString = "An Arm and a Leg"
 	textString = ""
 	undeadSynergy = 1
+	synergies[undeadSynergyIndex] = undeadSynergy
 	_giveStats(2, 2)
 	_Card()

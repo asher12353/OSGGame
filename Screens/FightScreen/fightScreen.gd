@@ -20,9 +20,9 @@ var enemyAttackIndex : int
 var attackerOGPos : Vector2
 var attacker : Card
 var defender : Card
-var fightMoveSpeed = 2
+var fightMoveSpeed = 3
 var fightReturnSpeed = 6
-var fightTimerCooldown = (fightMoveSpeed * 3) / 4
+var fightTimerCooldown = (fightMoveSpeed * 1) / 2
 var fightReturnCooldown = fightReturnSpeed / 10
 
 var ante : int

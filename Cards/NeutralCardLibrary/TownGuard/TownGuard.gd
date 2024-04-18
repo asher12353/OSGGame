@@ -13,4 +13,5 @@ func _init():
 	nameString = "Town Guard"
 	textString = "Protect"
 	protectSynergy = 1
+	synergies[protectSynergyIndex] = protectSynergy
 	_Card()

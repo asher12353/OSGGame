@@ -13,5 +13,6 @@ func _init():
 	nameString = "An Arm"
 	textString = "Cadaver"
 	undeadSynergy = 1
+	synergies[undeadSynergyIndex] = undeadSynergy
 	_Card()
 	

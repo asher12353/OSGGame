@@ -31,7 +31,7 @@ theme_override_colors/default_color = Color(0.498039, 0.462745, 0.160784, 1)
 text = "Sell $$$"
 
 [node name="buyArea" type="Area2D" parent="."]
-position = Vector2(-700, 403)
+position = Vector2(-700, 465)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="buyArea"]
 position = Vector2(672, 0)

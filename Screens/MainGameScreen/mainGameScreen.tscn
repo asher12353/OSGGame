@@ -25,9 +25,8 @@ visible = false
 [node name="tentacleFarm" parent="." instance=ExtResource("6_w02n1")]
 visible = false
 
-[node name="monkeCamp" parent="." instance=ExtResource("7_2r0u2")]
+[node name="forcedFight2" parent="." instance=ExtResource("3_2eap5")]
 visible = false
-script = ExtResource("8_fgmf0")
 
 [node name="potionSeller" parent="." instance=ExtResource("9_d6iiq")]
 visible = false
@@ -38,8 +37,9 @@ visible = false
 [node name="act1Room1" parent="." instance=ExtResource("2_vmig0")]
 visible = false
 
-[node name="forcedFight2" parent="." instance=ExtResource("3_2eap5")]
+[node name="monkeCamp" parent="." instance=ExtResource("7_2r0u2")]
 visible = false
+script = ExtResource("8_fgmf0")
 
 [node name="TempWin" parent="." instance=ExtResource("9_uu5nc")]
 visible = false

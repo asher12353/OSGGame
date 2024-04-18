@@ -55,20 +55,40 @@ var playerHand : Board
 # these are if they are synergystic towards a strategy
 # THIS SHOULD PARALLEL EnemyBoard.gd!!!
 var whenPlayedSynergy : int
+var whenPlayedSynergyIndex = 0
+
 var whenItDiesSynergy : int
+var whenItDiesSynergyIndex = 1
+
 var protectSynergy : int
+var protectSynergyIndex = 2
+
 var tokenSynergy : int
+var tokenSynergyIndex = 3
 
 var spellSynergy : int
+var spellSynergyIndex = 4
+
 var undeadSynergy : int
+var undeadSynergyIndex = 5
+
 var curseSynergy : int
+var curseSynergyIndex = 6
 
 var bananaSynergy : int
+var bananaSynergyIndex = 7
+
 var attackSynergy : int
+var attackSynergyIndex = 8
+
 var hitmanSynergy : int
+var hitmanSynergyIndex = 9
 
 var forgeSynergy : int
+var forgeSynergyIndex = 10
+
 var investSynergy : int
+var investSynergyIndex = 11
 # synergy 3
 
 var synergies = [

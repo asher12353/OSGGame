@@ -13,4 +13,5 @@ func _init():
 	nameString = "Cursed Scroll"
 	textString = "Curse Power +1"
 	curseSynergy = 1
+	synergies[curseSynergyIndex] = curseSynergy
 	_Card()

@@ -12,6 +12,7 @@ func _init():
 	nameString = "Frog"
 	textString = "When Played: Gain 1 gold"
 	whenPlayedSynergy = 1
+	synergies[whenPlayedSynergyIndex] = whenPlayedSynergy
 	_Card()
 	
 
