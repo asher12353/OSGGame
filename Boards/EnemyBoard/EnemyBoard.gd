@@ -23,7 +23,7 @@ var curseSynergy = 0
 var isMonkeFight : bool = true
 
 var bananaSynergy = 0
-var attackSynergy = 0
+var whenItAttacksSynergy = 0
 var hitmanSynergy = 0
 
 var isDwarfFight : bool = false
@@ -41,7 +41,7 @@ var synergies = [
   undeadSynergy,
   curseSynergy,
   bananaSynergy,
-  attackSynergy,
+  whenItAttacksSynergy,
   hitmanSynergy,
   forgeSynergy,
   investSynergy

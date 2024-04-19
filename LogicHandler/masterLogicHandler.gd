@@ -9,6 +9,7 @@ var currentCardInADropZoneIndex : int
 static var playerShopBoard : Board
 static var playerHand: Board
 static var playerCombatBoard : Board
+static var enemyBoard : Board
 static var globalUIElements : Node2D
 
 static var fightScreen : Screen
@@ -27,7 +28,7 @@ static var neutralCardLibrary = [Frg.new(), OctoBro.new(), TownGuard.new(), Farm
 static var tokenCardLibrary = [Skeleton.new()]
 static var uniqueCardLibrary = [Spawn.new()]
 static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new(), VoodooDoll.new(), CursedScroll.new()]
-static var monkeCardLibrary = []
+static var monkeCardLibrary = [MonkeWithBanana.new(), MiffedMonke.new(), HungryMonke.new(), GymMonke.new()]
 static var dwarfCardLibrary = []
 
 static var artifactPool = [SpyGlass.new()]
@@ -50,6 +51,7 @@ func _ready():
 	playerShopBoard = get_node("/root/main/playerShopBoard")
 	playerHand = get_node("/root/main/playerHand")
 	playerCombatBoard = get_node("/root/main/playerCombatBoard")
+	enemyBoard = get_node("/root/main/enemyBoard")
 	globalUIElements = get_node("/root/main/globalUIElements")
 	fightScreen = get_node("/root/main/fightScreen")
 	mainGameScreen = get_node("/root/main/mainGameScreen")

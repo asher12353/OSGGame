@@ -78,8 +78,8 @@ var curseSynergyIndex = 6
 var bananaSynergy : int
 var bananaSynergyIndex = 7
 
-var attackSynergy : int
-var attackSynergyIndex = 8
+var whenItAttacksSynergy : int
+var whenItAttacksSynergyIndex = 8
 
 var hitmanSynergy : int
 var hitmanSynergyIndex = 9
@@ -100,7 +100,7 @@ var synergies = [
   undeadSynergy,
   curseSynergy,
   bananaSynergy,
-  attackSynergy,
+  whenItAttacksSynergy,
   hitmanSynergy,
   forgeSynergy,
   investSynergy
@@ -162,6 +162,12 @@ func _WhenPlayed():
 	pass
 
 func _WhenItDies():
+	pass
+
+func _WhenItAttacks():
+	pass
+
+func _WhenBananaIsPlayedOnSelf():
 	pass
 
 func _establishConnections():
