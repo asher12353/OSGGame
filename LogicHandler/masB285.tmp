@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bndywo7bhj1a2"]
+[gd_scene load_steps=4 format=3 uid="uid://bndywo7bhj1a2"]
 
 [ext_resource type="Script" path="res://LogicHandler/masterLogicHandler.gd" id="1_bwgol"]
 [ext_resource type="Script" path="res://LogicHandler/cardDropZones/dropZone.gd" id="2_h26g6"]
+[ext_resource type="Shape2D" uid="uid://cotb5pwaq2ryw" path="res://LogicHandler/cardDropZones/cardDropZoneArea.tres" id="3_oy4ow"]
 
 [node name="masterLogicHandler" type="Node2D"]
 script = ExtResource("1_bwgol")
@@ -12,34 +13,60 @@ script = ExtResource("1_bwgol")
 position = Vector2(-700, 140)
 script = ExtResource("2_h26g6")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos1"]
+shape = ExtResource("3_oy4ow")
+
 [node name="pos2" type="Area2D" parent="cardDropZones"]
 position = Vector2(-500, 140)
 script = ExtResource("2_h26g6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos2"]
+shape = ExtResource("3_oy4ow")
 
 [node name="pos3" type="Area2D" parent="cardDropZones"]
 position = Vector2(-300, 140)
 script = ExtResource("2_h26g6")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos3"]
+shape = ExtResource("3_oy4ow")
+
 [node name="pos4" type="Area2D" parent="cardDropZones"]
 position = Vector2(-100, 140)
 script = ExtResource("2_h26g6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos4"]
+shape = ExtResource("3_oy4ow")
 
 [node name="pos5" type="Area2D" parent="cardDropZones"]
 position = Vector2(100, 140)
 script = ExtResource("2_h26g6")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos5"]
+shape = ExtResource("3_oy4ow")
+
 [node name="pos6" type="Area2D" parent="cardDropZones"]
 position = Vector2(300, 140)
 script = ExtResource("2_h26g6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos6"]
+shape = ExtResource("3_oy4ow")
 
 [node name="pos7" type="Area2D" parent="cardDropZones"]
 position = Vector2(500, 140)
 script = ExtResource("2_h26g6")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos7"]
+shape = ExtResource("3_oy4ow")
+
 [node name="pos8" type="Area2D" parent="cardDropZones"]
 position = Vector2(700, 140)
 script = ExtResource("2_h26g6")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cardDropZones/pos8"]
+shape = ExtResource("3_oy4ow")
+
+[connection signal="area_entered" from="cardDropZones/pos1" to="." method="_on_pos_1_area_entered"]
+[connection signal="area_exited" from="cardDropZones/pos1" to="." method="_on_pos_1_area_exited"]
 [connection signal="area_entered" from="cardDropZones/pos2" to="." method="_on_pos_2_area_entered"]
 [connection signal="area_exited" from="cardDropZones/pos2" to="." method="_on_pos_2_area_exited"]
 [connection signal="area_entered" from="cardDropZones/pos3" to="." method="_on_pos_3_area_entered"]

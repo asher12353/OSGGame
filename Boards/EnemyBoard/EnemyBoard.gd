@@ -153,11 +153,11 @@ func _sellMinion():
 	_relocateCards()
 
 func getLowestSynergy() -> int:
-	var min = 9223372036854775807
+	var minValue = 9223372036854775807
 	var lowestSynergy
 	for i in range(synergies.size()):
-		if synergies[i] < min and synergies[i] != 0:
-			min = synergies[i]
+		if synergies[i] < minValue and synergies[i] != 0:
+			minValue = synergies[i]
 			lowestSynergy = i
 	return lowestSynergy
 
@@ -169,12 +169,12 @@ func getLowestSynergyMinions(synergyIndex):
 	return retArray
 
 func _sellLowestStatMinion(cards):
-	var min = 9223372036854775807
+	var minValue = 9223372036854775807
 	var lowestCard
 	for card in cards:
-		if card.attack + card.health < min:
+		if card.attack + card.health < minValue:
 			lowestCard = card
-			min = card.attack + card.health
+			minValue = card.attack + card.health
 	lowestCard.numLeftInPool += 1
 	totalNumCardsInPool += 1
 	_updateSynergies(lowestCard, false)

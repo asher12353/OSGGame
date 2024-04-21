@@ -1,16 +1,12 @@
 extends Node2D
 class_name LogicHandler
 
-var currentPos : int
-var currentShownBoard : Board
-var currentCardInADropZone : Card
-var currentCardInADropZoneIndex : int
-
 static var playerShopBoard : Board
 static var playerHand: Board
 static var playerCombatBoard : Board
 static var enemyBoard : Board
 static var globalUIElements : Node2D
+static var currentShownBoard : Board
 
 static var fightScreen : Screen
 static var mainGameScreen : Screen
@@ -57,42 +53,6 @@ func _ready():
 	mainGameScreen = get_node("/root/main/mainGameScreen")
 	startScreen = get_node("/root/main/startScreen")
 	shopScreen = get_node("/root/main/shopScreen")
-	
-func _process(_delta):
-	if cardCanBeRelocated() and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		_relocateCardToCurrentPosition()
-	if cardCanBePlaced():
-		_playCard()
-		
-func cardCanBeRelocated() -> bool:
-	return currentPos != 0 and currentCardInADropZone and currentCardInADropZone.get_parent() == currentShownBoard and not inCombat
-
-func _relocateCardToCurrentPosition():
-	if cardIsToTheRight():
-		currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
-	elif cardIsToTheLeft():
-		currentShownBoard.move_child(currentCardInADropZone, currentPos - 2)
-	currentPos = 0
-	
-func cardIsToTheLeft() -> bool:
-	return currentPos - 1 > currentCardInADropZoneIndex
-	
-func cardIsToTheRight() -> bool:
-	return currentPos - 1 < currentCardInADropZoneIndex
-	
-func cardCanBePlaced() -> bool:
-	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone and currentCardInADropZone.get_parent() == playerHand and currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell and not currentShownBoard == playerCombatBoard
-
-func _playCard():
-	currentCardInADropZone.board = playerShopBoard
-	currentCardInADropZone.reparent(playerShopBoard)
-	currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
-	currentCardInADropZone._WhenPlayed()
-	currentPos = 0
-	playerHand._relocateCards()
-	if currentCardInADropZone.cursePower > 0:
-		mainCharacter.cursePower = playerShopBoard.getTotalCursePower()
-		mainCharacter.emit_signal("curse_power_changed")
 
 func _changeScreen(screen):
 	if currentScreen == mainGameScreen.currentRoom:
@@ -121,94 +81,86 @@ func _relocateCardDropZones():
 		var numCards = playerShopBoard.get_child_count()
 		var children = get_child(0).get_children()
 		for i in range(0, numCards + 1):
-			children[i].monitoring = true
-			children[i].show()
-			children[i].set_position(Vector2(xValuesForCardDropZones[numCards][i], playerShopBoard.boardY))
+			var child = children[i]
+			var offset = 0
+			if i == 0 or i == numCards:
+				child._setShape(100 * (7 - numCards), child.height)
+				if i == 0:
+					offset = -65 * (numCards)
+				else:
+					offset = 65 * (numCards)
+			else:
+				child._setShape(child.width, child.height)
+			child.monitoring = true
+			child.show()
+			child.set_position(Vector2(xValuesForCardDropZones[numCards][i] + offset, playerShopBoard.boardY))
 		for i in range(numCards + 1, 8):
-			children[i].monitoring = false
-			children[i].hide()
+			var child = children[i]
+			child._setShape(child.width, child.height)
+			child.monitoring = false
+			child.hide()
 			
 func _initializeDropZones():
 	currentShownBoard = playerShopBoard
 	_relocateCardDropZones()
 	currentShownBoard = null
 
-func _updateCurrentCardPosition():
-	if not currentShownBoard:
-		return
-	for i in range(currentShownBoard.get_child_count()):
-		if currentShownBoard.get_child(i) == currentCardInADropZone:
-			currentCardInADropZoneIndex = i
-			break
-		else:
-			i += 1
-	
-func _cardDropZoneEntered(card, pos):
-	currentPos = pos
-	if card is Card:
-		currentCardInADropZone = card
-	_updateCurrentCardPosition()
-	
-func _cardDropZoneExited():
-	currentPos = 0
-	currentCardInADropZone = null
-	
 # consider looking at alternatives for ALLL of these functions
-func _on_pos_1_area_entered(area):
-	_cardDropZoneEntered(area, 1)
-
-func _on_pos_1_area_exited(_area):
-	_cardDropZoneExited()
-
-func _on_pos_2_area_entered(area):
-	_cardDropZoneEntered(area, 2)
-
-func _on_pos_2_area_exited(_area):
-	_cardDropZoneExited()
-
-
-func _on_pos_3_area_entered(area):
-	_cardDropZoneEntered(area, 3)
-
-
-func _on_pos_3_area_exited(_area):
-	_cardDropZoneExited()
-
-
-func _on_pos_4_area_entered(area):
-	_cardDropZoneEntered(area, 4)
-
-
-func _on_pos_4_area_exited(_area):
-	_cardDropZoneExited()
-
-
-func _on_pos_5_area_entered(area):
-	_cardDropZoneEntered(area, 5)
-
-
-func _on_pos_5_area_exited(_area):
-	_cardDropZoneExited()
-
-
-func _on_pos_6_area_entered(area):
-	_cardDropZoneEntered(area, 6)
-
-func _on_pos_6_area_exited(_area):
-	_cardDropZoneExited()
-
-
-func _on_pos_7_area_entered(area):
-	_cardDropZoneEntered(area, 7)
-
-
-func _on_pos_7_area_exited(_area):
-	_cardDropZoneExited()
-
-
-func _on_pos_8_area_entered(area):
-	_cardDropZoneEntered(area, 8)
-
-
-func _on_pos_8_area_exited(_area):
-	_cardDropZoneExited()
+#func _on_pos_1_area_entered(area):
+	#_cardDropZoneEntered(area, 1)
+#
+#func _on_pos_1_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#func _on_pos_2_area_entered(area):
+	#_cardDropZoneEntered(area, 2)
+#
+#func _on_pos_2_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#
+#func _on_pos_3_area_entered(area):
+	#_cardDropZoneEntered(area, 3)
+#
+#
+#func _on_pos_3_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#
+#func _on_pos_4_area_entered(area):
+	#_cardDropZoneEntered(area, 4)
+#
+#
+#func _on_pos_4_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#
+#func _on_pos_5_area_entered(area):
+	#_cardDropZoneEntered(area, 5)
+#
+#
+#func _on_pos_5_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#
+#func _on_pos_6_area_entered(area):
+	#_cardDropZoneEntered(area, 6)
+#
+#func _on_pos_6_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#
+#func _on_pos_7_area_entered(area):
+	#_cardDropZoneEntered(area, 7)
+#
+#
+#func _on_pos_7_area_exited(_area):
+	#_cardDropZoneExited()
+#
+#
+#func _on_pos_8_area_entered(area):
+	#_cardDropZoneEntered(area, 8)
+#
+#
+#func _on_pos_8_area_exited(_area):
+	#_cardDropZoneExited()

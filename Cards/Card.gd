@@ -26,7 +26,7 @@ var spellText : String
 var spellPower : int
 
 var hoverTimer : Timer
-var hoverCooldown = 0.2
+var hoverCooldown = 0.5
 
 var cardWidth = 150
 var cardHeight = 210
@@ -127,8 +127,7 @@ func _process(_delta):
 				mouseIsHoveredOver = null
 			_setDraggable(false)
 			fullArtNode.hide()
-			if not hoverTimer.is_stopped():
-				hoverTimer.stop()
+			hoverTimer.stop()
 		if is_draggable:
 			_startDraggingCard()
 			# or
