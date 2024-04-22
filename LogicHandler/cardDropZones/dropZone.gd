@@ -1,8 +1,11 @@
 extends Area2D
 class_name dropZone
 
-var width = 80
-var height = 170
+var baseWidth = 80
+var baseHeight = 170
+var width = baseWidth
+var height = baseHeight
+
 
 var pos : int
 
@@ -39,6 +42,8 @@ func _process(_delta):
 
 func _setShape(w, h):
 	var collisionShape = get_child(0)
+	width = w
+	height = h
 	collisionShape.shape.size = Vector2(w, h)
 
 func cardCanBeRelocated() -> bool:
