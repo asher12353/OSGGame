@@ -17,5 +17,7 @@ func _init():
 	
 
 func _WhenPlayed():
-	if board.name == "playerShopBoard": 
+	if board == MasterLogicHandler.playerShopBoard: 
 		MasterLogicHandler._updateMoney(1)
+	if board == MasterLogicHandler.enemyBoard:
+		board.gold += 1

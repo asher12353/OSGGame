@@ -100,10 +100,10 @@ func _decideStartingAttacker():
 
 func _combatLoop():
 	#fightTimer.one_shot = false
-	fightTimer.start(fightTimerCooldown)
-	attacker = getAttacker()
-	attackerOGPos = attacker.position
-	defender = getDefender()
+	returnFightTimer.start(fightReturnCooldown)
+	#attacker = getAttacker()
+	#attackerOGPos = attacker.position
+	#defender = getDefender()
 	
 func _resolveAttack():
 	_attack(attacker, defender)
@@ -158,6 +158,7 @@ func _on_return_combat_timer_timeout():
 		attacker.board._relocateCards()
 	attacker = getAttacker()
 	if not attacker == null:
+		attacker._WhenItAttacks()
 		attackerOGPos = attacker.position
 	defender = getDefender()
 	fightTimer.start(fightTimerCooldown)
