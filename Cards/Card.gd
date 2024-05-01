@@ -91,6 +91,8 @@ var investSynergy : int
 var investSynergyIndex = 11
 # synergy 3
 
+var hasNoSynergy : bool = false
+
 var synergies = [
   whenPlayedSynergy,
   whenItDiesSynergy,
@@ -235,7 +237,7 @@ func _createCollisionShape():
 	collisionShape.shape = rect
 
 func _on_timeout():
-	if hasFullArt:
+	if hasFullArt and not is_dragging:
 		fullArtNode.show()
 	hoverTimer.stop()
 	

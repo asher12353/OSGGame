@@ -5,12 +5,12 @@ static var numLeftInPool : int = 20
 static var CARD_TYPE = 4000
 
 func _init():
+	nameString = "Monke With a Banana"
+	textString = "When Played: Add a\n banana to your hand"
 	attack = 3
 	health = 1
 	cardArtPath = "res://Cards/MonkeCardLibrary/MonkeWithBanana/MonkeWithBanana.png"
 	fullArtPath = "res://Cards/MonkeCardLibrary/MonkeWithBanana/MonkeWithBananaFull.png"
-	nameString = "Monke With a Banana"
-	textString = "When Played: Add a\n banana to your hand"
 	bananaSynergy = 1
 	synergies[bananaSynergyIndex] = bananaSynergy
 	whenPlayedSynergy = 1

@@ -207,9 +207,9 @@ func _determineDamage():
 
 func _determinePayout():
 	if playerCombatBoard.get_child_count() > 0:
-		%masterLogicHandler._updateMoney(3 + ante)
+		%masterLogicHandler._updateMoney(3 + ante + mainGameScreen.roomNum / 2)
 	#elif playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() == 0:
 	else:
-		%masterLogicHandler._updateMoney(3)
+		%masterLogicHandler._updateMoney(3 + mainGameScreen.roomNum / 3)
 		
 

@@ -155,10 +155,15 @@ func _sellMinion():
 func getLowestSynergy() -> int:
 	var minValue = 9223372036854775807
 	var lowestSynergy
+	var lowestSynergies = []
 	for i in range(synergies.size()):
-		if synergies[i] < minValue and synergies[i] != 0:
+		if lowestSynergies.size() == 0 and synergies[i] <= minValue and synergies[i] != 0:
 			minValue = synergies[i]
-			lowestSynergy = i
+			lowestSynergies.append(i)
+		elif synergies[i] < minValue and synergies[i] != 0:
+			minValue = synergies[i]
+			lowestSynergies = [synergies[i]]
+	lowestSynergy = lowestSynergies.pick_random()
 	return lowestSynergy
 
 func getLowestSynergyMinions(synergyIndex):

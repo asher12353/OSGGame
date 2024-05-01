@@ -47,7 +47,7 @@ func _setShape(w, h):
 	collisionShape.shape.size = Vector2(w, h)
 
 func cardCanBeRelocated() -> bool:
-	return currentPos != 0 and currentCardInADropZone and currentCardInADropZone.get_parent() == MasterLogicHandler.currentShownBoard and not inCombat
+	return currentPos != 0 and currentCardInADropZone != null and currentCardInADropZone.get_parent() == MasterLogicHandler.currentShownBoard and not inCombat
 
 func _relocateCardToCurrentPosition():
 	if cardIsToTheRight():
@@ -63,7 +63,7 @@ func cardIsToTheRight() -> bool:
 	return currentPos - 1 < currentCardInADropZoneIndex
 
 func cardCanBePlaced() -> bool:
-	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone and currentCardInADropZone.get_parent() == playerHand and MasterLogicHandler.currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell and not MasterLogicHandler.currentShownBoard == playerCombatBoard
+	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone != null and currentCardInADropZone.get_parent() == playerHand and MasterLogicHandler.currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell and not MasterLogicHandler.currentShownBoard == playerCombatBoard
 
 func _playCard():
 	currentCardInADropZone.board = playerShopBoard
@@ -78,7 +78,7 @@ func _playCard():
 
 func _cardDropZoneEntered(card):
 	currentPos = pos
-	if card is Card and monitoring:
+	if not card == null and card is Card and monitoring:
 		currentCardInADropZone = card
 	_updateCurrentCardPosition()
 	
