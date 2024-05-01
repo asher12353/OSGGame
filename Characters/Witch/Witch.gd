@@ -98,6 +98,7 @@ func _createSpell():
 	for card in cardsInCauldron:
 		spell.reagents.append(card)
 	for reagent in spell.reagents:
+		reagent.numLeftInPool += 1
 		reagent._whenSpellIsCrafted(spell)
 		reagent.hide()
 		spell.textString = spell.textString + "\n" + reagent.spellText 
@@ -110,6 +111,7 @@ func _createAmalgam():
 	var hasArm = false
 	var hasLeg = false
 	for card in cardsInCauldron:
+		card.numLeftInPool += 1
 		if card is AnArm:
 			hasArm = true
 		elif card is ALeg:
@@ -126,6 +128,7 @@ func _createAmalgam():
 func _createCurse():
 	var curse = playerHand.createCard(Curse.new())
 	for card in cardsInCauldron:
+		card.numLeftInPool += 1
 		curse.offerings.append(card)
 	for offering in curse.offerings:
 		offering._whenSpellIsCrafted(curse)

@@ -1,0 +1,110 @@
+[gd_scene load_steps=15 format=3 uid="uid://c47bbtoif3x0g"]
+
+[ext_resource type="PackedScene" uid="uid://cogyqppxxlkgl" path="res://Screens/StartScreen/startScreen.tscn" id="1_pifeg"]
+[ext_resource type="PackedScene" uid="uid://bn45m7r7brtvc" path="res://Screens/CharacterSelectScreen/characterSelectScreen.tscn" id="2_ylahs"]
+[ext_resource type="PackedScene" uid="uid://dpts3y5i2m2r7" path="res://Screens/MainGameScreen/mainGameScreen.tscn" id="3_7wqtd"]
+[ext_resource type="PackedScene" uid="uid://bndywo7bhj1a2" path="res://LogicHandler/masterLogicHandler.tscn" id="4_xc11i"]
+[ext_resource type="Script" path="res://Boards/PlayerBoard/PlayerShopBoard.gd" id="5_jcoh3"]
+[ext_resource type="Script" path="res://Boards/PlayerBoard/PlayerCombatBoard.gd" id="6_rrvtv"]
+[ext_resource type="PackedScene" uid="uid://7sobnid870y2" path="res://Screens/FightScreen/fightScreen.tscn" id="7_0swil"]
+[ext_resource type="Script" path="res://Boards/EnemyBoard/EnemyBoard.gd" id="8_4muok"]
+[ext_resource type="PackedScene" uid="uid://cm6nfxnposfhg" path="res://UI/globalUIElements.tscn" id="9_xohqa"]
+[ext_resource type="PackedScene" uid="uid://bt53lenppa4jb" path="res://Screens/ShopScreen/shopScreen.tscn" id="10_bog5t"]
+[ext_resource type="Script" path="res://Boards/EnemyBoard/npcShopBoard.gd" id="11_lwswd"]
+[ext_resource type="Script" path="res://Boards/PlayerBoard/playerHand.gd" id="12_dahk5"]
+[ext_resource type="Script" path="res://Characters/Character.gd" id="13_bao62"]
+[ext_resource type="PackedScene" uid="uid://dlln0n11sq1v8" path="res://UI/Settings/settings.tscn" id="14_5ph5h"]
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1.08083, 1.05024)
+
+[node name="startScreen" parent="." node_paths=PackedStringArray("characterSelectScreen", "options") instance=ExtResource("1_pifeg")]
+characterSelectScreen = NodePath("../characterSelectScreen")
+options = NodePath("../settings")
+
+[node name="characterSelectScreen" parent="." node_paths=PackedStringArray("mainGameScreen", "globalUIElements") instance=ExtResource("2_ylahs")]
+mainGameScreen = NodePath("../mainGameScreen")
+globalUIElements = NodePath("../globalUIElements")
+
+[node name="mainGameScreen" parent="." node_paths=PackedStringArray("fightScreen", "shopScreen", "playerCombatBoard", "playerShopBoard", "enemyBoard", "playerHand") instance=ExtResource("3_7wqtd")]
+visible = false
+fightScreen = NodePath("../fightScreen")
+shopScreen = NodePath("../shopScreen")
+playerCombatBoard = NodePath("../playerCombatBoard")
+playerShopBoard = NodePath("../playerShopBoard")
+enemyBoard = NodePath("../enemyBoard")
+playerHand = NodePath("../playerHand")
+
+[node name="masterLogicHandler" parent="." instance=ExtResource("4_xc11i")]
+unique_name_in_owner = true
+
+[node name="playerShopBoard" type="Node2D" parent="."]
+visible = false
+script = ExtResource("5_jcoh3")
+
+[node name="playerCombatBoard" type="Node2D" parent="." node_paths=PackedStringArray("playerShopBoard")]
+visible = false
+script = ExtResource("6_rrvtv")
+playerShopBoard = NodePath("../playerShopBoard")
+
+[node name="fightScreen" parent="." node_paths=PackedStringArray("playerCombatBoard", "playerHand", "enemyBoard", "fightTimer", "returnFightTimer", "globalUIElements", "mainGameScreen") instance=ExtResource("7_0swil")]
+visible = false
+playerCombatBoard = NodePath("../playerCombatBoard")
+playerHand = NodePath("../playerHand")
+enemyBoard = NodePath("../enemyBoard")
+fightTimer = NodePath("../combatTimer")
+returnFightTimer = NodePath("../returnCombatTimer")
+globalUIElements = NodePath("../globalUIElements")
+mainGameScreen = NodePath("../mainGameScreen")
+
+[node name="enemyBoard" type="Node2D" parent="." node_paths=PackedStringArray("fightScreen")]
+visible = false
+script = ExtResource("8_4muok")
+fightScreen = NodePath("../fightScreen")
+
+[node name="combatTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+one_shot = true
+
+[node name="returnCombatTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.6
+one_shot = true
+
+[node name="globalUIElements" parent="." instance=ExtResource("9_xohqa")]
+visible = false
+
+[node name="shopScreen" parent="." node_paths=PackedStringArray("playerShopBoard", "npcShopBoard", "playerHand", "mainGameScreen") instance=ExtResource("10_bog5t")]
+unique_name_in_owner = true
+visible = false
+playerShopBoard = NodePath("../playerShopBoard")
+npcShopBoard = NodePath("../npcShopBoard")
+playerHand = NodePath("../playerHand")
+mainGameScreen = NodePath("../mainGameScreen")
+
+[node name="npcShopBoard" type="Node2D" parent="."]
+visible = false
+script = ExtResource("11_lwswd")
+
+[node name="playerHand" type="Node2D" parent="."]
+visible = false
+script = ExtResource("12_dahk5")
+
+[node name="mainCharacter" type="Node2D" parent="."]
+visible = false
+script = ExtResource("13_bao62")
+
+[node name="settings" parent="." instance=ExtResource("14_5ph5h")]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 1
+size_flags_vertical = 0

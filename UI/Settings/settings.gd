@@ -1,9 +1,9 @@
 extends Control
 
-@onready var resOptionButton = $HBoxContainer/VBoxContainer/ResolutionOptionButton
-@onready var fullScreenCheckBox = $HBoxContainer/VBoxContainer/FullScreenCheckBox
-@onready var label = $HBoxContainer/VBoxContainer/HBoxContainer/Label
-@onready var h_slider = $HBoxContainer/VBoxContainer/HBoxContainer/HSlider
+@onready var resOptionButton = $MarginContainer/VBoxContainer/TabContainer/Graphics/ResolutionOptionButton
+@onready var fullScreenCheckBox = $MarginContainer/VBoxContainer/TabContainer/Graphics/FullScreenCheckBox
+#@onready var label = $MarginContainer/TabContainer/Graphics/HBoxContainer/Label
+#@onready var h_slider = $MarginContainer/TabContainer/Graphics/HBoxContainer/HSlider
 
 var Resolutions : Dictionary = {
 	"3840x2160":Vector2i(3840,2160),
@@ -63,11 +63,11 @@ func _on_resolution_option_button_item_selected(index):
 	_centreWindow()
 
 
-func _on_h_slider_value_changed(value):
-	var resolutionScale = value/100.00
-	var resolutionText = str(round(get_window().get_size().x * resolutionScale)) + "x" + str(round(get_window().get_size().y * resolutionScale))
-	label.set_text(str(value) + "% - " + resolutionText)
-	get_viewport().set_scaling_3d_scale(resolutionScale)
+#func _on_h_slider_value_changed(value):
+	#var resolutionScale = value/100.00
+	#var resolutionText = str(round(get_window().get_size().x * resolutionScale)) + "x" + str(round(get_window().get_size().y * resolutionScale))
+	#label.set_text(str(value) + "% - " + resolutionText)
+	#get_viewport().set_scaling_3d_scale(resolutionScale)
 
 
 func _on_button_pressed():
