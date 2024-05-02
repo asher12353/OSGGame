@@ -18,6 +18,7 @@ var fullArtBackPath = "res://Cards/FullArtCard.png"
 var hasFullArt = true
 var artSize = Vector2(768, 1024)
 var artScale = Vector2(0.19, 0.19)
+var fullArtScale = Vector2(0.27, 0.27)
 
 var nameLabel : RichTextLabel
 var nameString : String
@@ -177,8 +178,8 @@ func _establishConnections():
 	hoverTimer.timeout.connect(Callable(self, "_on_timeout"))
 	
 func _createCardArt():
-	cardArt = createNewSprite2D(cardArt, cardArtPath)
-	cardBack = createNewSprite2D(cardBack, cardBackPath)
+	cardArt = createNewSprite2D(cardArt, cardArtPath, artScale)
+	cardBack = createNewSprite2D(cardBack, cardBackPath, Vector2(1, 1))
 	cardBack.scale = Vector2(1, 1)
 	_createFullArtNode()
 
@@ -186,20 +187,20 @@ func _createFullArtNode():
 	fullArtNode = Node2D.new()
 	add_child(fullArtNode)
 	fullArtNode.hide()
-	fullArt = createNewSprite2D(fullArt, fullArtPath)
+	fullArt = createNewSprite2D(fullArt, fullArtPath, fullArtScale)
 	fullArt.reparent(fullArtNode)
 	fullArt.set_position(Vector2(-225, -100))
-	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath)
+	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath, Vector2(1, 1))
 	fullArtBack.reparent(fullArtNode)
 	fullArtBack.set_position(Vector2(-225, 0))
 	fullArtNode.z_index = 3
 
-func createNewSprite2D(art, path):
+func createNewSprite2D(art, path, Scale):
 	art = Sprite2D.new()
 	add_child(art)
 	var cardArtTexture = load(path)
 	art.texture = cardArtTexture
-	art.scale = artScale
+	art.scale = Scale
 	return art
 
 func _createStatLabels():
