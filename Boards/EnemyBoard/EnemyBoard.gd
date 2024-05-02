@@ -6,6 +6,7 @@ class_name EnemyBoard
 var mainGameScreen : Screen
 var totalNumCardsInPool
 var rng
+var mysteryArtScale = Vector2(1.05, 1.10)
 
 # these booleans are just set to how they'll be for the demo
 # THIS PARALLELS TO Card.gd!!!
@@ -51,6 +52,7 @@ var gold : int
 func _ready():
 	boardY = -140
 	mainGameScreen = %masterLogicHandler.mainGameScreen
+	fightScreen = MasterLogicHandler.fightScreen
 	rng = MasterLogicHandler.rng
 
 func _updatePool():
@@ -120,7 +122,7 @@ func _buyMinion():
 	if retVal == null:
 		retVal = makeNewCardFromLibrary(isDwarfFight, MasterLogicHandler.dwarfCardLibrary)
 	newCard = retVal
-	#if newCard is OctoBro or newCard is MonkeWithBanana:
+	#if newCard is BlacksmithApprentice or newCard is MonkeWithBanana:
 	#	print(newCard.nameString, newCard.numLeftInPool)
 	newCard._WhenPlayed()
 	_updateSynergies(newCard, true)
@@ -202,9 +204,11 @@ func _sellLowestStatMinion(cards):
 func _obscureCards():
 	var shadowLevel = %masterLogicHandler.mainCharacter.shadowLevel
 	while get_child_count() < shadowLevel:
-		createCard(MysteryCard.new())
+		var card = createCard(MysteryCard.new())
+		card.cardArt.scale *= mysteryArtScale 
 	for i in range(shadowLevel):
-		if not get_child(i) is MysteryCard:
+		var card = get_child(i)
+		if not card is MysteryCard:
 			_makeMysterySprite(i)
 	
 func _makeMysterySprite(childNum):
@@ -212,6 +216,7 @@ func _makeMysterySprite(childNum):
 	var card = get_child(childNum)
 	spr.name = "MysteryCard"
 	spr.texture = load("res://Cards/MysteryCard/MysteryCard.png")
+	spr.scale = Card.artScale * mysteryArtScale
 	spr.z_index = 2
 	card.add_child(spr)
 	card.hasFullArt = false

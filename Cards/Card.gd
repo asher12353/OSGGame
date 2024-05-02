@@ -17,8 +17,8 @@ var fullArtBack : Sprite2D
 var fullArtBackPath = "res://Cards/FullArtCard.png"
 var hasFullArt = true
 var artSize = Vector2(768, 1024)
-var artScale = Vector2(0.19, 0.19)
 var fullArtScale = Vector2(0.27, 0.27)
+static var artScale = Vector2(0.19, 0.19)
 
 var nameLabel : RichTextLabel
 var nameString : String

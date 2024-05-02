@@ -167,6 +167,8 @@ func cardsAreLeft() -> bool:
 	return playerCombatBoard.get_child_count() <= 0 or enemyBoard.get_child_count() <= 0
 	
 func _stopCombat():
+	
+	%masterLogicHandler._changeScreen(mainGameScreen)
 	fightTimer.one_shot = true
 	fightTimer.stop()
 	var playerLost = didPlayerLose()
@@ -183,7 +185,6 @@ func _stopCombat():
 		card.free()
 	playerCombatBoard.hide()
 	playerHand.hide()
-	%masterLogicHandler._changeScreen(mainGameScreen)
 	startCombatButton.disabled = false
 	anteSlider.editable = true
 	MasterLogicHandler.inCombat = false
@@ -202,8 +203,7 @@ func didPlayerLose() -> bool:
 	return playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() > 0
 
 func _determineDamage():
-	%masterLogicHandler.mainCharacter.health -= ante
-	globalUIElements._updateHealthBar(%masterLogicHandler.mainCharacter.health)
+	MasterLogicHandler.mainCharacter._updateHealth(-ante)
 
 func _determinePayout():
 	if playerCombatBoard.get_child_count() > 0:

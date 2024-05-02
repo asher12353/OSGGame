@@ -121,7 +121,7 @@ func _createAmalgam():
 		elif card is ALeg:
 			hasLeg = true
 	if hasArm and hasLeg:
-		newCard = playerHand.createCard(AnArmAndALeg.new())
+		newCard = playerHand.createCard(Zombie.new())
 	else:
 		newCard = playerHand.createCard(Amalgam.new())
 	for card in cardsInCauldron:

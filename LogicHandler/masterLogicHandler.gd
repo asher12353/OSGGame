@@ -20,7 +20,7 @@ static var mainCharacterMaxHealth = 5
 static var cardsAreMovable : bool
 static var inCombat : bool
 
-static var neutralCardLibrary = [Frg.new(), OctoBro.new(), TownGuard.new(), Farmer.new()]
+static var neutralCardLibrary = [Frg.new(), BlacksmithApprentice.new(), TownGuard.new(), Farmer.new()]
 static var tokenCardLibrary = [Skeleton.new()]
 static var uniqueCardLibrary = [Spawn.new()]
 static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new(), VoodooDoll.new(), CursedScroll.new()]

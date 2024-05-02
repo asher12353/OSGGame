@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjcescdvh3a0c"]
+[gd_scene load_steps=16 format=3 uid="uid://bjcescdvh3a0c"]
 
 [ext_resource type="PackedScene" uid="uid://cogyqppxxlkgl" path="res://Screens/StartScreen/startScreen.tscn" id="1_x2d06"]
 [ext_resource type="PackedScene" uid="uid://bn45m7r7brtvc" path="res://Screens/CharacterSelectScreen/characterSelectScreen.tscn" id="2_421i6"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Boards/PlayerBoard/playerHand.gd" id="12_e7flv"]
 [ext_resource type="Script" path="res://Characters/Character.gd" id="13_idjuh"]
 [ext_resource type="PackedScene" uid="uid://dlln0n11sq1v8" path="res://UI/Settings/settings.tscn" id="14_sonmc"]
+[ext_resource type="PackedScene" uid="uid://3yb1bkcky5oo" path="res://Screens/GameOverScreen/gameOverScreen.tscn" id="15_l4pg7"]
 
 [node name="main" type="Node2D"]
 
@@ -58,10 +59,10 @@ returnFightTimer = NodePath("../returnCombatTimer")
 globalUIElements = NodePath("../globalUIElements")
 mainGameScreen = NodePath("../mainGameScreen")
 
-[node name="enemyBoard" type="Node2D" parent="." node_paths=PackedStringArray("fightScreen")]
+[node name="enemyBoard" type="Node2D" parent="."]
 visible = false
 script = ExtResource("8_jxyjj")
-fightScreen = NodePath("../fightScreen")
+fightScreen = null
 
 [node name="combatTimer" type="Timer" parent="."]
 process_callback = 0
@@ -100,6 +101,9 @@ visible = false
 custom_minimum_size = Vector2(1900, 1000)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="gameOverScreen" parent="." instance=ExtResource("15_l4pg7")]
+visible = false
 
 [connection signal="timeout" from="combatTimer" to="fightScreen" method="_on_timer_timeout"]
 [connection signal="timeout" from="returnCombatTimer" to="fightScreen" method="_on_return_combat_timer_timeout"]
