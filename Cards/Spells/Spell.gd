@@ -22,6 +22,8 @@ func _process(_delta):
 			Input.set_custom_mouse_cursor(targetCursor)
 			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and Card.mouseIsHoveredOver and not Card.mouseIsHoveredOver is Spell:
 				_playSpell(Card.mouseIsHoveredOver)
+				playerHand.remove_child(self)
+				playerHand._relocateCards()
 				return
 	else:
 		show()

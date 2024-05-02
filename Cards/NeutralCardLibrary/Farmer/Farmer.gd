@@ -5,12 +5,12 @@ static var numLeftInPool : int = 20
 static var CARD_TYPE = 4
 
 func _init():
+	nameString = "Farmer"
+	textString = "When it dies: Create a 1/1 \nskeleton"
 	attack = 1
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/Farmer/Farmer.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/Farmer/FarmerFull.png"
-	nameString = "Farmer"
-	textString = "When it dies: Create a 1/1 \nskeleton"
 	tokenSynergy = 1
 	synergies[tokenSynergyIndex] = tokenSynergy
 	whenItDiesSynergy = 1

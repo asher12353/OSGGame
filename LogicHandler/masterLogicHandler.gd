@@ -20,7 +20,7 @@ static var mainCharacterMaxHealth = 5
 static var cardsAreMovable : bool
 static var inCombat : bool
 
-static var neutralCardLibrary = [Frg.new(), OctoBro.new(), TownGuard.new(), Farmer.new()]
+static var neutralCardLibrary = [Frg.new(), BlacksmithApprentice.new(), TownGuard.new(), Farmer.new()]
 static var tokenCardLibrary = [Skeleton.new()]
 static var uniqueCardLibrary = [Spawn.new()]
 static var witchCardLibrary = [AnArm.new(), ALeg.new(), Newt.new(), Barber.new(), VoodooDoll.new(), CursedScroll.new()]
@@ -41,6 +41,7 @@ const xValuesForCardDropZones = [
 	[-600, -400, -200, 0,    200, 400, 600],
 	[-700, -500, -300, -100, 100, 300, 500, 700]
 	]
+const dropZonesTotalWidth = 1500
 
 func _ready():
 	currentScreen = startScreen
@@ -83,18 +84,19 @@ func _relocateCardDropZones():
 		for i in range(0, numCards + 1):
 			var child = children[i]
 			var offset = 0
-			#if i == 0 or i == numCards:
-			#	child._setShape(100 * (8 - numCards), child.baseHeight)
-			#	var baseOffset = 200
-			#	var numCardsRatio = 1.2#800.0/100
-			#	offset = 220 * (numCards + 1)/2
-			#	if offset < 0:
-			#		offset *= -1
-			#	print(offset)
-			#	if i == 0:
-			#		offset *= -1
-			#else:
-			child._setShape(child.baseWidth, child.baseHeight)
+			if i == 0 or i == numCards:
+				child._setShape((dropZonesTotalWidth) / (numCards + 1), child.baseHeight)
+				if numCards == 0:
+					offset = 0
+				else:
+					offset = 300 - (numCards * 50)
+				if offset < 0:
+					offset *= -1
+				if i == 0:
+					offset *= -1
+				#print(offset)
+			else:
+				child._setShape(child.baseWidth, child.baseHeight)
 			child.monitoring = true
 			child.show()
 			child.set_position(Vector2(xValuesForCardDropZones[numCards][i] + offset, playerShopBoard.boardY))

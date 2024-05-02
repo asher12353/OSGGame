@@ -5,12 +5,12 @@ static var numLeftInPool : int = 20
 static var CARD_TYPE = 1
 
 func _init():
+	nameString = "Frog"
+	textString = "When Played: Gain 1 gold"
 	attack = 2
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColored.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/Frg/FrgColoredFull.png"
-	nameString = "Frog"
-	textString = "When Played: Gain 1 gold"
 	whenPlayedSynergy = 1
 	synergies[whenPlayedSynergyIndex] = whenPlayedSynergy
 	_Card()

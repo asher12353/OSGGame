@@ -4,9 +4,9 @@ class_name Curse
 var offerings = []
 
 func _init():
+	nameString = "Curse"
 	cardArtPath = "res://Cards/Spells/Curse/Curse.png"
 	fullArtPath = "res://Cards/Spells/Curse/CurseFull.png"
-	nameString = "Curse"
 	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
 	_Spell()
 	_updateSpellText()

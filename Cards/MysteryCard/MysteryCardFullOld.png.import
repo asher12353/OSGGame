@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uv2em47yy0do"
-path="res://.godot/imported/AnArmAndALeg.png-47a7f9b6dc58941105d558dd0ecea502.ctex"
+uid="uid://cm7j7du2yrjss"
+path="res://.godot/imported/MysteryCardFullOld.png-d4280f90d7e73af29000a775c0b739a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Cards/WitchCardLibrary/SpecialStitches/AnArmAndALeg/AnArmAndALeg.png"
-dest_files=["res://.godot/imported/AnArmAndALeg.png-47a7f9b6dc58941105d558dd0ecea502.ctex"]
+source_file="res://Cards/MysteryCard/MysteryCardFullOld.png"
+dest_files=["res://.godot/imported/MysteryCardFullOld.png-d4280f90d7e73af29000a775c0b739a6.ctex"]
 
 [params]
 

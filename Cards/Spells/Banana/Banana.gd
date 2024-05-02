@@ -2,10 +2,10 @@ extends Spell
 class_name Banana
 
 func _init():
-	cardArtPath = "res://Cards/Spells/Banana/Banana.png"
-	fullArtPath = "res://Cards/Spells/Banana/BananaFull.png"
 	nameString = "Banana"
 	textString = "Give a minion +1/+1"
+	cardArtPath = "res://Cards/Spells/Banana/Banana.png"
+	fullArtPath = "res://Cards/Spells/Banana/BananaFull.png"
 	isTargeted = true
 	_Spell()
 

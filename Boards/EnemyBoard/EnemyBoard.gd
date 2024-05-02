@@ -6,6 +6,7 @@ class_name EnemyBoard
 var mainGameScreen : Screen
 var totalNumCardsInPool
 var rng
+var mysteryArtScale = Vector2(1.05, 1.10)
 
 # these booleans are just set to how they'll be for the demo
 # THIS PARALLELS TO Card.gd!!!
@@ -51,6 +52,7 @@ var gold : int
 func _ready():
 	boardY = -140
 	mainGameScreen = %masterLogicHandler.mainGameScreen
+	fightScreen = MasterLogicHandler.fightScreen
 	rng = MasterLogicHandler.rng
 
 func _updatePool():
@@ -73,9 +75,9 @@ func _instantiateBoard():
 		synergies[i] = 0
 	var roomNum = mainGameScreen.roomNum
 	if fightScreen.isEliteFight:
-		gold = 2 + int(pow(roomNum, 1.8) - roomNum * 1.8)
+		gold = 2 + int(pow(roomNum, 1.9) - roomNum * 1.8)
 	else:
-		gold = 3 + int(pow(roomNum, 1.6) - roomNum * 1.7)
+		gold = 3 + int(pow(roomNum, 1.7) - roomNum * 1.7)
 	print(gold)
 	_createTheCards()
 	_obscureCards()
@@ -84,11 +86,17 @@ func _instantiateBoard():
 
 func _createTheCards():
 	while gold > 0:
-		var randomNum = rng.randi_range(0, 0)
+		var randomNum = rng.randi_range(0, 1)
 		if randomNum == 0 and gold >= 3:
 			_buyMinion()
+		elif randomNum == 1 and gold >= 2:
+			if get_child_count() != 0:
+				var card = getRandomCard()
+				if card != null:
+					card._givePlus1Plus1()
+					gold -= 2
 		else:
-			print("done")
+			#print("done")
 			break
 
 # I know I don't normally orginize members like this, but I think I'll do this for "sudo global" variables that I want between at least two functions
@@ -100,10 +108,10 @@ func _buyMinion():
 	gold -= 3
 	var numCards = get_child_count()
 	if numCards >= 7:
-		print("selling minion")
+		#print("selling minion")
 		_sellMinion()
 	var newCard
-	print("buying a minion")
+	#print("buying a minion")
 	threshhold = 0
 	randomNumber = rng.randi_range(0, totalNumCardsInPool - 1)
 	var retVal = makeNewCardFromLibrary(true, MasterLogicHandler.neutralCardLibrary)
@@ -114,10 +122,11 @@ func _buyMinion():
 	if retVal == null:
 		retVal = makeNewCardFromLibrary(isDwarfFight, MasterLogicHandler.dwarfCardLibrary)
 	newCard = retVal
-	print(newCard.nameString, newCard.numLeftInPool)
+	#if newCard is BlacksmithApprentice or newCard is MonkeWithBanana:
+	#	print(newCard.nameString, newCard.numLeftInPool)
 	newCard._WhenPlayed()
 	_updateSynergies(newCard, true)
-	print(synergies)
+	#print(synergies)
 
 func _updateSynergies(card, isBuying):
 	if isBuying:
@@ -145,24 +154,34 @@ func _sellMinion():
 	else:
 		var lowestSynergyIndex = getLowestSynergy()
 		var cards = getLowestSynergyMinions(lowestSynergyIndex)
-		print("selling lowest stat low synergy minion with synergy")
-		print(lowestSynergyIndex)
-		print("possible options:")
-		print(cards)
+		#print("selling lowest stat low synergy minion with synergy")
+		#print(lowestSynergyIndex)
+		#print("possible options:")
+		#print(cards)
 		_sellLowestStatMinion(cards)
 	_relocateCards()
 
 func getLowestSynergy() -> int:
 	var minValue = 9223372036854775807
 	var lowestSynergy
+	var lowestSynergies = []
 	for i in range(synergies.size()):
-		if synergies[i] < minValue and synergies[i] != 0:
+		if lowestSynergies.size() == 0 and synergies[i] <= minValue and synergies[i] != 0:
 			minValue = synergies[i]
-			lowestSynergy = i
+			lowestSynergies.append(i)
+		elif synergies[i] < minValue and synergies[i] != 0:
+			minValue = synergies[i]
+			lowestSynergies = [i]
+	lowestSynergy = lowestSynergies.pick_random()
 	return lowestSynergy
 
 func getLowestSynergyMinions(synergyIndex):
 	var retArray = []
+	for card in get_children():
+		if card.hasNoSynergy:
+			retArray.append(card)
+	if not retArray.is_empty():
+		return retArray
 	for card in get_children():
 		if card.synergies[synergyIndex] > 0:
 			retArray.append(card)
@@ -178,16 +197,18 @@ func _sellLowestStatMinion(cards):
 	lowestCard.numLeftInPool += 1
 	totalNumCardsInPool += 1
 	_updateSynergies(lowestCard, false)
-	print(lowestCard.nameString, lowestCard.numLeftInPool)
+	#print(lowestCard.nameString, lowestCard.numLeftInPool)
 	lowestCard.free()
 	gold += 1
 
 func _obscureCards():
 	var shadowLevel = %masterLogicHandler.mainCharacter.shadowLevel
 	while get_child_count() < shadowLevel:
-		createCard(MysteryCard.new())
+		var card = createCard(MysteryCard.new())
+		card.cardArt.scale *= mysteryArtScale 
 	for i in range(shadowLevel):
-		if not get_child(i) is MysteryCard:
+		var card = get_child(i)
+		if not card is MysteryCard:
 			_makeMysterySprite(i)
 	
 func _makeMysterySprite(childNum):
@@ -195,6 +216,7 @@ func _makeMysterySprite(childNum):
 	var card = get_child(childNum)
 	spr.name = "MysteryCard"
 	spr.texture = load("res://Cards/MysteryCard/MysteryCard.png")
+	spr.scale = Card.artScale * mysteryArtScale
 	spr.z_index = 2
 	card.add_child(spr)
 	card.hasFullArt = false

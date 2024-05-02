@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhi5kauwnlq6y"
-path="res://.godot/imported/AnArmAndALegFull.png-989fbc0b94f68ef2ae4d655c660eda02.ctex"
+uid="uid://0qhmf4xaalm5"
+path="res://.godot/imported/blackCauldron.png-a569679f46aedb81dfc63ee9da046a99.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Cards/WitchCardLibrary/SpecialStitches/AnArmAndALeg/AnArmAndALegFull.png"
-dest_files=["res://.godot/imported/AnArmAndALegFull.png-989fbc0b94f68ef2ae4d655c660eda02.ctex"]
+source_file="res://Characters/Witch/blackCauldron.png"
+dest_files=["res://.godot/imported/blackCauldron.png-a569679f46aedb81dfc63ee9da046a99.ctex"]
 
 [params]
 

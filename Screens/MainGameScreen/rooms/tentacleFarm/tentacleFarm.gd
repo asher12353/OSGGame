@@ -6,8 +6,7 @@ func _ready():
 	lh = get_node("/root/main/masterLogicHandler")
 
 func _event1():
-	lh.mainCharacter.health += 1
-	lh.globalUIElements._updateHealthBar(lh.mainCharacter.health)
+	MasterLogicHandler.mainCharacter._updateHealth(1)
 	
 func _event2():
 	lh.currentShownBoard = lh.playerShopBoard

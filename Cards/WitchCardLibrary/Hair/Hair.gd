@@ -4,12 +4,12 @@ class_name Hair
 static var CARD_TYPE = 2006
 
 func _init():
+	nameString = "Strand of Hair"
 	attack = 0
 	health = 1
 	isOffering = true
 	cardArtPath = "res://Cards/WitchCardLibrary/Hair/Hair.png"
 	fullArtPath = "res://Cards/WitchCardLibrary/Hair/HairFull.png"
-	nameString = "Strand of Hair"
 	_updateText()
 	_updateSpellText()
 	MasterLogicHandler.mainCharacter.curse_power_changed.connect(Callable(self, "_onCursePowerChanged"))
