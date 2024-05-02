@@ -16,6 +16,8 @@ var fullArtPath : String
 var fullArtBack : Sprite2D
 var fullArtBackPath = "res://Cards/FullArtCard.png"
 var hasFullArt = true
+var artSize = Vector2(768, 1024)
+var artScale = Vector2(0.19, 0.19)
 
 var nameLabel : RichTextLabel
 var nameString : String
@@ -28,8 +30,8 @@ var spellPower : int
 var hoverTimer : Timer
 var hoverCooldown = 0.5
 
-var cardWidth = 150
-var cardHeight = 210
+var cardWidth = (artSize * artScale).x
+var cardHeight = (artSize * artScale).y
 
 var is_dragging = false
 var is_draggable = false
@@ -177,6 +179,7 @@ func _establishConnections():
 func _createCardArt():
 	cardArt = createNewSprite2D(cardArt, cardArtPath)
 	cardBack = createNewSprite2D(cardBack, cardBackPath)
+	cardBack.scale = Vector2(1, 1)
 	_createFullArtNode()
 
 func _createFullArtNode():
@@ -196,6 +199,7 @@ func createNewSprite2D(art, path):
 	add_child(art)
 	var cardArtTexture = load(path)
 	art.texture = cardArtTexture
+	art.scale = artScale
 	return art
 
 func _createStatLabels():

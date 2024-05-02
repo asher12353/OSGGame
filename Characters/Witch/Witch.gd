@@ -5,7 +5,7 @@ var playerShopBoard : Board
 var playerHand : Board
 
 var cauldron : Area2D
-var cauldronPos = Vector2(800, 400)
+var cauldronPos = Vector2(850, 400)
 var cardsInCauldron = []
 var cardInCauldronArea : Card
 var cauldronIsSpellcrafting : bool
@@ -14,6 +14,9 @@ var cauldronIsCursing : bool
 
 var spellPower : int = 0
 var cursePower : int = 0
+
+var cardArtSize = Vector2(768, 1024)
+var cardScale = Vector2(0.25, 0.25)
 
 func _process(_delta):
 	if cardCanBeAddedToCauldron():
@@ -38,12 +41,13 @@ func _initializeCauldron():
 	var collisionShape = CollisionShape2D.new()
 	cauldron.add_child(collisionShape)
 	var rect = RectangleShape2D.new()
-	rect.size = Vector2(150, 210)
+	rect.size = cardArtSize * cardScale
 	collisionShape.shape = rect
 	var art = Sprite2D.new()
 	cauldron.add_child(art)
-	var cardArtTexture = load("res://Characters/Witch/black cauldron.jpg")
+	var cardArtTexture = load("res://Characters/Witch/blackCauldron.png")
 	art.texture = cardArtTexture
+	art.scale = cardScale
 	cauldron.area_entered.connect(Callable(self, "_card_entered_cauldron_area"))
 	cauldron.area_exited.connect(Callable(self, "_card_exited_cauldron_area"))
 	cauldronIsSpellcrafting = false
