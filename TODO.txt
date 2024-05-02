@@ -1,6 +1,5 @@
 TODOS:
 make options
-make resolution options
 make sounds
 make sound options
 make 2 more relics
