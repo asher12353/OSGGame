@@ -1,30 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm6nfxnposfhg"]
+[gd_scene load_steps=3 format=3 uid="uid://dtminaf74depd"]
 
 [ext_resource type="Script" path="res://UI/globalUIElements.gd" id="1_endeq"]
 [ext_resource type="PackedScene" uid="uid://duew5vp18d84b" path="res://UI/healthBar.tscn" id="1_q8ej0"]
 
-[node name="globalUIElements" type="Node2D" node_paths=PackedStringArray("healthBar", "moneyLabel")]
+[node name="globalUIElements" type="Control" node_paths=PackedStringArray("healthBar", "moneyLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_endeq")
 healthBar = NodePath("healthBar")
 moneyLabel = NodePath("moneyLabel")
 
 [node name="healthBar" parent="." instance=ExtResource("1_q8ej0")]
-offset_top = -430.0
-offset_bottom = -403.0
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 131.0
+offset_bottom = 27.0
 max_value = 5.0
 value = 5.0
 
 [node name="moneyLabel" type="RichTextLabel" parent="."]
-offset_left = 720.0
-offset_top = -430.0
-offset_right = 871.0
-offset_bottom = -390.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -151.0
+offset_bottom = 40.0
+grow_horizontal = 0
 text = "Money: 0"
 
 [node name="artifactContainer" type="VBoxContainer" parent="."]
-offset_left = -934.0
-offset_top = -505.0
-offset_right = -830.0
-offset_bottom = 485.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -490.0
+offset_right = 100.0
+offset_bottom = 510.0
+grow_vertical = 2

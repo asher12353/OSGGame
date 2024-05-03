@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b71swxmpxni26"]
+
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.gd" id="1_meaa8"]
+[ext_resource type="Texture2D" uid="uid://d121lg8pagvao" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.png" id="2_vt1x2"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton.gd" id="3_4vkh1"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/shopButton/shopButton.gd" id="4_btmek"]
+
+[node name="potionSeller" type="Node2D"]
+script = ExtResource("1_meaa8")
+
+[node name="PotionSeller" type="Sprite2D" parent="."]
+position = Vector2(8.50003, -51)
+scale = Vector2(0.747396, 0.707407)
+texture = ExtResource("2_vt1x2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="eventButton" type="Button" parent="."]
+offset_left = -689.0
+offset_top = 352.0
+offset_right = 36.0
+offset_bottom = 417.0
+text = "Potion seller, I'm going into battle, and I need your strongest potion (5 money: +1 health)"
+script = ExtResource("3_4vkh1")
+
+[node name="shopButton" type="Button" parent="."]
+offset_left = -685.0
+offset_top = 445.0
+offset_right = -484.0
+offset_bottom = 507.0
+text = "I have no need for your potions potion seller, but show me your other wares (Go to the shop)"
+script = ExtResource("4_btmek")

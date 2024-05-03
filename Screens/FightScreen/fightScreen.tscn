@@ -1,30 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://7sobnid870y2"]
+[gd_scene load_steps=2 format=3 uid="uid://c6ffctb4ymrs1"]
 
 [ext_resource type="Script" path="res://Screens/FightScreen/fightScreen.gd" id="1_7llxr"]
 
-[node name="fightScreen" type="Node2D" node_paths=PackedStringArray("anteLabel", "anteSlider")]
+[node name="fightScreen" type="Control" node_paths=PackedStringArray("anteLabel", "anteSlider")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_7llxr")
-anteLabel = NodePath("anteSlider/anteLabel")
-anteSlider = NodePath("anteSlider")
+anteLabel = NodePath("VBoxContainer/anteSlider/anteLabel")
+anteSlider = NodePath("VBoxContainer/anteSlider")
 
-[node name="startCombatButton" type="Button" parent="."]
-offset_left = -833.0
-offset_top = -29.0
-offset_right = -702.0
-offset_bottom = 24.0
-text = "Start Combat
-"
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = -25.5
+offset_right = 211.0
+offset_bottom = 25.5
+grow_vertical = 2
 
-[node name="anteSlider" type="HSlider" parent="."]
-offset_left = -843.0
-offset_top = -89.0
-offset_right = -683.0
-offset_bottom = -73.0
+[node name="anteSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
 min_value = 1.0
 max_value = 10.0
 value = 1.0
 
-[node name="anteLabel" type="RichTextLabel" parent="anteSlider"]
+[node name="anteLabel" type="RichTextLabel" parent="VBoxContainer/anteSlider"]
 layout_mode = 0
 offset_left = 52.0
 offset_top = -31.0
@@ -32,5 +38,10 @@ offset_right = 158.0
 offset_bottom = 6.0
 text = "Ante: 1"
 
-[connection signal="pressed" from="startCombatButton" to="." method="_on_start_combat_button_pressed"]
-[connection signal="value_changed" from="anteSlider" to="." method="_on_ante_slider_value_changed"]
+[node name="startCombatButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start Combat
+"
+
+[connection signal="value_changed" from="VBoxContainer/anteSlider" to="." method="_on_ante_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/startCombatButton" to="." method="_on_start_combat_button_pressed"]

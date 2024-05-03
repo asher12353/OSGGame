@@ -2,6 +2,7 @@ extends Control
 
 @onready var resOptionButton = $MarginContainer/VBoxContainer/TabContainer/Graphics/ResolutionOptionButton
 @onready var fullScreenCheckBox = $MarginContainer/VBoxContainer/TabContainer/Graphics/FullScreenCheckBox
+var startScreen : Screen
 #@onready var label = $MarginContainer/TabContainer/Graphics/HBoxContainer/Label
 #@onready var h_slider = $MarginContainer/TabContainer/Graphics/HBoxContainer/HSlider
 
@@ -19,6 +20,7 @@ var Resolutions : Dictionary = {
 }
 
 func _ready():
+	startScreen = get_node("/root/main/startScreen")
 	_addResolutions()
 	_checkVariables()
 
@@ -72,3 +74,4 @@ func _on_resolution_option_button_item_selected(index):
 
 func _on_button_pressed():
 	hide()
+	startScreen.show()

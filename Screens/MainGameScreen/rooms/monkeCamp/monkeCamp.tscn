@@ -1,34 +1,53 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb763mvlxviti"]
+[gd_scene load_steps=6 format=3 uid="uid://dj65f53xjdydu"]
 
-[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/robOrShop/rpbOrShop.gd" id="1_2m4aj"]
+[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeCamp.gd" id="1_q3fr6"]
 [ext_resource type="Texture2D" uid="uid://y1176fo3jtsv" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeyCamp.jpg" id="2_llroe"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton.gd" id="3_hnia7"]
 [ext_resource type="PackedScene" uid="uid://c78f3gv15dn3l" path="res://Screens/MainGameScreen/rooms/buttons/combatButton/combatButton.tscn" id="4_pj1wm"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eliteFightButton/eliteFightButton.gd" id="5_otjtl"]
 
-[node name="act1Room5" type="Node2D"]
-script = ExtResource("1_2m4aj")
+[node name="monkeCamp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q3fr6")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 150
 
-[node name="MonkeyCamp" type="Sprite2D" parent="."]
-position = Vector2(-38.5, -57.5)
-scale = Vector2(1.26074, 1.25195)
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
 texture = ExtResource("2_llroe")
+expand_mode = 2
 
-[node name="eventButton" type="Button" parent="."]
-offset_left = -689.0
-offset_top = 352.0
-offset_right = -492.0
-offset_bottom = 412.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -89.0
+offset_right = 200.0
+grow_vertical = 0
+
+[node name="eventButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
 text = "Sneak away"
 script = ExtResource("3_hnia7")
 
-[node name="combatButton" parent="." instance=ExtResource("4_pj1wm")]
-offset_left = -695.0
-offset_top = 275.0
-offset_right = -495.0
-offset_bottom = 338.0
+[node name="combatButton" parent="VBoxContainer" instance=ExtResource("4_pj1wm")]
+layout_mode = 2
 text = "Challenge the camp!
 (Elite fight: +1 relic)"
 script = ExtResource("5_otjtl")

@@ -5,12 +5,14 @@ var playerShopBoard : Board
 var playerHand : Board
 
 var cauldron : Area2D
-var cauldronPos = Vector2(850, 400)
+#var cauldronPos = Vector2(850, 400)
 var cardsInCauldron = []
 var cardInCauldronArea : Card
 var cauldronIsSpellcrafting : bool
 var cauldronIsStitching : bool
 var cauldronIsCursing : bool
+
+var shopScreen : Screen
 
 var spellPower : int = 0
 var cursePower : int = 0
@@ -30,21 +32,25 @@ func _process(_delta):
 				_createCurse()
 
 func _init():
-	_initializeCauldron()
 	playerShopBoard = MasterLogicHandler.playerShopBoard
 	playerHand = MasterLogicHandler.playerHand
+	shopScreen = MasterLogicHandler.shopScreen
+	_initializeCauldron()
 
 func _initializeCauldron():
+	var heroPowerControl = shopScreen.find_child("heroPowerControl") as Control
 	cauldron = Area2D.new()
-	MasterLogicHandler.shopScreen.add_child(cauldron)
-	cauldron.global_position = cauldronPos
+	heroPowerControl.add_child(cauldron)
 	var collisionShape = CollisionShape2D.new()
 	cauldron.add_child(collisionShape)
 	var rect = RectangleShape2D.new()
-	rect.size = cardArtSize * cardScale
+	var shapeSize = cardArtSize * cardScale
+	rect.size = shapeSize
+	heroPowerControl.custom_minimum_size = shapeSize
+	cauldron.position = Vector2(heroPowerControl.custom_minimum_size.x / 2, heroPowerControl.custom_minimum_size.y / 2)
 	collisionShape.shape = rect
-	var art = Sprite2D.new()
-	cauldron.add_child(art)
+	var art = TextureRect.new()
+	heroPowerControl.add_child(art)
 	var cardArtTexture = load("res://Characters/Witch/blackCauldron.png")
 	art.texture = cardArtTexture
 	art.scale = cardScale
@@ -86,7 +92,7 @@ func _stopDraggingCard():
 	cardInCauldronArea.is_dragging = false
 	cardInCauldronArea.is_draggable = false
 	cardInCauldronArea.is_draggable_at_all = false
-	cardInCauldronArea.set_global_position(cauldronPos)
+	cardInCauldronArea.set_global_position(cauldron.global_position)
 	Card.dragged_card = null
 	playerShopBoard._relocateCards()
 

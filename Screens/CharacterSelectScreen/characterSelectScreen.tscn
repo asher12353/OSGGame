@@ -1,18 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn45m7r7brtvc"]
+[gd_scene load_steps=3 format=3 uid="uid://ck1a8tkvbt332"]
 
 [ext_resource type="Texture2D" uid="uid://bwoc6yd8dhe6e" path="res://Characters/Witch/witch.png" id="1_8rv2e"]
 [ext_resource type="Script" path="res://Screens/CharacterSelectScreen/characterSelectScreen.gd" id="1_232wd"]
 
-[node name="characterSelectScreen" type="Node2D"]
-visible = false
+[node name="characterSelectScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_232wd")
 
-[node name="witchSelect" type="Button" parent="."]
-offset_left = -326.0
-offset_top = -184.0
-offset_right = 372.0
-offset_bottom = 966.0
-scale = Vector2(0.3, 0.3)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 246.0
+offset_top = 129.0
+offset_right = 428.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.715, 0.715)
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="witchSelect" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
 icon = ExtResource("1_8rv2e")
 
-[connection signal="pressed" from="witchSelect" to="." method="_on_witch_select_pressed"]
+[node name="witchSelect2" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+icon = ExtResource("1_8rv2e")
+
+[node name="witchSelect3" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+icon = ExtResource("1_8rv2e")
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/witchSelect" to="." method="_on_witch_select_pressed"]
