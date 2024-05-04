@@ -1,3 +1,3 @@
 # Base class Screen
-extends Node2D
+extends Control
 class_name Screen

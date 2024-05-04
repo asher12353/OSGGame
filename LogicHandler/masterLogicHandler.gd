@@ -5,7 +5,7 @@ static var playerShopBoard : Board
 static var playerHand: Board
 static var playerCombatBoard : Board
 static var enemyBoard : Board
-static var globalUIElements : Node2D
+static var globalUIElements : Control
 static var currentShownBoard : Board
 
 static var fightScreen : Screen

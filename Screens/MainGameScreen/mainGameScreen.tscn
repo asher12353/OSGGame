@@ -1,45 +1,70 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpts3y5i2m2r7"]
+[gd_scene load_steps=9 format=3 uid="uid://cura8n3ftrije"]
 
 [ext_resource type="Script" path="res://Screens/MainGameScreen/mainGameScreen.gd" id="1_ucafy"]
-[ext_resource type="PackedScene" uid="uid://co7jca4w1spxb" path="res://Screens/MainGameScreen/rooms/forcedShop/forcedShop.tscn" id="2_vmig0"]
-[ext_resource type="PackedScene" uid="uid://bj6jjpv7ib0qk" path="res://Screens/MainGameScreen/rooms/forcedFight/forcedFight.tscn" id="3_2eap5"]
-[ext_resource type="PackedScene" uid="uid://bqglnoku8h0rp" path="res://Screens/MainGameScreen/rooms/robOrShop/robOrShop.tscn" id="5_gvpyd"]
-[ext_resource type="PackedScene" uid="uid://dkky5ttjslyw1" path="res://Screens/MainGameScreen/rooms/tentacleFarm/tentacleFarm.tscn" id="6_w02n1"]
-[ext_resource type="PackedScene" uid="uid://bb763mvlxviti" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeCamp.tscn" id="7_2r0u2"]
-[ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeCamp.gd" id="8_fgmf0"]
-[ext_resource type="PackedScene" uid="uid://b71swxmpxni26" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.tscn" id="9_d6iiq"]
-[ext_resource type="PackedScene" uid="uid://qal0e4s7nwks" path="res://Screens/MainGameScreen/rooms/tempWin/tempWin.tscn" id="9_uu5nc"]
+[ext_resource type="PackedScene" uid="uid://bmlbxtlj0q5ve" path="res://Screens/MainGameScreen/rooms/forcedShop/forcedShop.tscn" id="2_vmig0"]
+[ext_resource type="PackedScene" uid="uid://bjsy6xj3quy30" path="res://Screens/MainGameScreen/rooms/forcedFight/forcedFight.tscn" id="3_2eap5"]
+[ext_resource type="PackedScene" uid="uid://cs6iil76fdlrp" path="res://Screens/MainGameScreen/rooms/robOrShop/robOrShop.tscn" id="5_gvpyd"]
+[ext_resource type="PackedScene" uid="uid://dm8p50kl2y8as" path="res://Screens/MainGameScreen/rooms/tentacleFarm/tentacleFarm.tscn" id="6_w02n1"]
+[ext_resource type="PackedScene" uid="uid://dj65f53xjdydu" path="res://Screens/MainGameScreen/rooms/monkeCamp/monkeCamp.tscn" id="7_2r0u2"]
+[ext_resource type="PackedScene" uid="uid://cyk5jfexfjk4b" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.tscn" id="9_d6iiq"]
+[ext_resource type="PackedScene" uid="uid://l4r14ohrffb8" path="res://Screens/MainGameScreen/rooms/tempWin/tempWin.tscn" id="9_uu5nc"]
 
-[node name="MainGameScreen" type="Node2D"]
+[node name="mainGameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_ucafy")
 
 [node name="forcedShop" parent="." instance=ExtResource("2_vmig0")]
-visible = false
+layout_mode = 1
+mouse_filter = 2
 
 [node name="forcedFight" parent="." instance=ExtResource("3_2eap5")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
 [node name="robOrShop" parent="." instance=ExtResource("5_gvpyd")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
 [node name="tentacleFarm" parent="." instance=ExtResource("6_w02n1")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
 [node name="forcedFight2" parent="." instance=ExtResource("3_2eap5")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
 [node name="potionSeller" parent="." instance=ExtResource("9_d6iiq")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
-[node name="act1Room2" parent="." instance=ExtResource("3_2eap5")]
+[node name="forcedFight3" parent="." instance=ExtResource("3_2eap5")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
-[node name="act1Room1" parent="." instance=ExtResource("2_vmig0")]
+[node name="forcedShop2" parent="." instance=ExtResource("2_vmig0")]
 visible = false
+layout_mode = 1
+mouse_filter = 2
 
 [node name="monkeCamp" parent="." instance=ExtResource("7_2r0u2")]
 visible = false
-script = ExtResource("8_fgmf0")
+layout_mode = 1
+mouse_filter = 2
 
-[node name="TempWin" parent="." instance=ExtResource("9_uu5nc")]
+[node name="tempWin" parent="." instance=ExtResource("9_uu5nc")]
 visible = false
+layout_mode = 1
+mouse_filter = 2

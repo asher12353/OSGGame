@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @export var healthBar : ProgressBar
 @export var moneyLabel : RichTextLabel

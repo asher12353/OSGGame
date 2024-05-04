@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt53lenppa4jb"]
+
+[ext_resource type="Script" path="res://Screens/ShopScreen/shopScreen.gd" id="1_1qk5v"]
+[ext_resource type="Texture2D" uid="uid://l3ted2t6yq4i" path="res://Screens/ShopScreen/tempSellBackground.png" id="2_2vncs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbh8q"]
+size = Vector2(1494, 210)
+
+[node name="shopScreen" type="Node2D" node_paths=PackedStringArray("upgradeShopButton")]
+script = ExtResource("1_1qk5v")
+upgradeShopButton = NodePath("upgradeShopButton")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="sellArea" type="Area2D" parent="."]
+position = Vector2(0, -404)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sellArea"]
+shape = SubResource("RectangleShape2D_sbh8q")
+
+[node name="Sprite2D" type="Sprite2D" parent="sellArea"]
+visible = false
+texture = ExtResource("2_2vncs")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="sellArea/Sprite2D"]
+offset_left = -30.0
+offset_top = -14.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(0.498039, 0.462745, 0.160784, 1)
+text = "Sell $$$"
+
+[node name="buyArea" type="Area2D" parent="."]
+position = Vector2(-700, 465)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="buyArea"]
+position = Vector2(672, 0)
+shape = SubResource("RectangleShape2D_sbh8q")
+
+[node name="Sprite2D" type="Sprite2D" parent="buyArea"]
+visible = false
+texture = ExtResource("2_2vncs")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="buyArea/Sprite2D"]
+offset_left = -30.0
+offset_top = -14.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(0.498039, 0.462745, 0.160784, 1)
+text = "Buy $$$"
+
+[node name="refreshButton" type="Button" parent="."]
+offset_left = 600.0
+offset_top = -400.0
+offset_right = 675.0
+offset_bottom = -340.0
+text = "Refresh
+Cost: 1"
+
+[node name="upgradeShopButton" type="Button" parent="."]
+offset_left = 700.0
+offset_top = -400.0
+offset_right = 775.0
+offset_bottom = -340.0
+text = "Level: 7
+Cost: 21"
+
+[node name="leaveShopButton" type="Button" parent="."]
+offset_left = -815.0
+offset_top = -400.0
+offset_right = -684.0
+offset_bottom = -373.0
+text = "Leave the Shop"
+
+[connection signal="area_entered" from="sellArea" to="." method="_on_sell_area_area_entered"]
+[connection signal="area_exited" from="sellArea" to="." method="_on_sell_area_area_exited"]
+[connection signal="area_entered" from="buyArea" to="." method="_on_buy_area_area_entered"]
+[connection signal="area_exited" from="buyArea" to="." method="_on_buy_area_area_exited"]
+[connection signal="pressed" from="refreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="upgradeShopButton" to="." method="_on_upgrade_shop_button_pressed"]
+[connection signal="pressed" from="leaveShopButton" to="." method="_on_leave_shop_button_pressed"]

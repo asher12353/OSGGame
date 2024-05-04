@@ -1,32 +1,51 @@
-[gd_scene load_steps=5 format=3 uid="uid://b71swxmpxni26"]
+[gd_scene load_steps=5 format=3 uid="uid://cyk5jfexfjk4b"]
 
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.gd" id="1_meaa8"]
 [ext_resource type="Texture2D" uid="uid://d121lg8pagvao" path="res://Screens/MainGameScreen/rooms/potionSeller/potionSeller.png" id="2_vt1x2"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/eventButtons/eventButton.gd" id="3_4vkh1"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/buttons/shopButton/shopButton.gd" id="4_btmek"]
 
-[node name="potionSeller" type="Node2D"]
+[node name="potionSeller" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_meaa8")
 
-[node name="PotionSeller" type="Sprite2D" parent="."]
-position = Vector2(8.50003, -51)
-scale = Vector2(0.747396, 0.707407)
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 150
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
 texture = ExtResource("2_vt1x2")
+expand_mode = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 200.0
+grow_vertical = 0
 
-[node name="eventButton" type="Button" parent="."]
-offset_left = -689.0
-offset_top = 352.0
-offset_right = 36.0
-offset_bottom = 417.0
+[node name="eventButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
 text = "Potion seller, I'm going into battle, and I need your strongest potion (5 money: +1 health)"
 script = ExtResource("3_4vkh1")
 
-[node name="shopButton" type="Button" parent="."]
-offset_left = -685.0
-offset_top = 445.0
-offset_right = -484.0
-offset_bottom = 507.0
+[node name="shopButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
 text = "I have no need for your potions potion seller, but show me your other wares (Go to the shop)"
 script = ExtResource("4_btmek")

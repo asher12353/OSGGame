@@ -7,7 +7,7 @@ extends Screen
 @export var enemyBoard : Board
 @export var fightTimer : Timer
 @export var returnFightTimer : Timer # may need a better name, but this makes the card that just attacked return to it's og pos
-@export var globalUIElements : Node2D
+@export var globalUIElements : Control
 @export var mainGameScreen : Screen
 
 var startCombatButton : Button
@@ -31,7 +31,7 @@ var isEliteFight : bool
 func _ready():
 	ante = 1
 	isEliteFight = false
-	startCombatButton = get_child(0)
+	startCombatButton = find_child("startCombatButton")
 	anteSlider.max_value = MasterLogicHandler.mainCharacterMaxHealth
 	
 func _process(delta):
@@ -144,8 +144,7 @@ func getDefender() -> Card:
 		var randomNumber = %masterLogicHandler.rng.randi_range(0, playerDefending.get_child_count() - 1)
 		return playerDefending.get_child(randomNumber)
 
-		
-func _on_timer_timeout():
+func _on_combat_timer_timeout():
 	if cardsAreLeft():
 		_stopCombat()
 		return
@@ -212,4 +211,3 @@ func _determinePayout():
 	else:
 		%masterLogicHandler._updateMoney(3 + mainGameScreen.roomNum / 3)
 		
-

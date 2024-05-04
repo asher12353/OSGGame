@@ -1,15 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj6jjpv7ib0qk"]
+[gd_scene load_steps=4 format=3 uid="uid://bjsy6xj3quy30"]
 
 [ext_resource type="Texture2D" uid="uid://bkqxh3tnl7ybv" path="res://Screens/MainGameScreen/rooms/forcedFight/1.Guay_.png" id="1_eqxfy"]
 [ext_resource type="Script" path="res://Screens/MainGameScreen/rooms/forcedFight/forcedFight.gd" id="1_fbwl8"]
 [ext_resource type="PackedScene" uid="uid://c78f3gv15dn3l" path="res://Screens/MainGameScreen/rooms/buttons/combatButton/combatButton.tscn" id="2_71u04"]
 
-[node name="forcedFight" type="Node2D"]
+[node name="forcedFight" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_fbwl8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.50002, -38)
-scale = Vector2(1.4, 0.906)
-texture = ExtResource("1_eqxfy")
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 150
 
-[node name="combatButton" parent="." instance=ExtResource("2_71u04")]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_eqxfy")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 200.0
+grow_vertical = 0
+
+[node name="combatButton" parent="VBoxContainer" instance=ExtResource("2_71u04")]
+layout_mode = 2

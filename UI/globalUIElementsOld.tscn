@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm6nfxnposfhg"]
+
+[ext_resource type="Script" path="res://UI/globalUIElements.gd" id="1_endeq"]
+[ext_resource type="PackedScene" uid="uid://duew5vp18d84b" path="res://UI/healthBar.tscn" id="1_q8ej0"]
+
+[node name="globalUIElements" type="Node2D" node_paths=PackedStringArray("healthBar", "moneyLabel")]
+script = ExtResource("1_endeq")
+healthBar = NodePath("healthBar")
+moneyLabel = NodePath("moneyLabel")
+
+[node name="healthBar" parent="." instance=ExtResource("1_q8ej0")]
+offset_top = -430.0
+offset_bottom = -403.0
+max_value = 5.0
+value = 5.0
+
+[node name="moneyLabel" type="RichTextLabel" parent="."]
+offset_left = 720.0
+offset_top = -430.0
+offset_right = 871.0
+offset_bottom = -390.0
+text = "Money: 0"
+
+[node name="artifactContainer" type="VBoxContainer" parent="."]
+offset_left = -934.0
+offset_top = -505.0
+offset_right = -830.0
+offset_bottom = 485.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
