@@ -41,13 +41,21 @@ offset_top = -89.0
 offset_right = 200.0
 grow_vertical = 0
 
-[node name="eventButton" type="Button" parent="VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-text = "Sneak away"
-script = ExtResource("3_hnia7")
+text = "You've come across a camp of monkes!
+They don't seem to notice you,
+yet you see they are guarding an artifact."
+fit_content = true
+autowrap_mode = 0
 
 [node name="combatButton" parent="VBoxContainer" instance=ExtResource("4_pj1wm")]
 layout_mode = 2
 text = "Challenge the camp!
 (Elite fight: +1 relic)"
 script = ExtResource("5_otjtl")
+
+[node name="eventButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Steal a banana"
+script = ExtResource("3_hnia7")

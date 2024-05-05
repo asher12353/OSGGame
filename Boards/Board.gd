@@ -14,37 +14,21 @@ const xValuesForCards = [
 	[-600, -400, -200, 0, 200, 400, 600]
 ]
 
-func createCard(card) -> Card:
-	var ignoreMax = false
-	for token in MasterLogicHandler.tokenCardLibrary:
-		if "CARD_TYPE" in card and token.CARD_TYPE == card.CARD_TYPE:
-			ignoreMax = true
+func createCard(card : Card) -> Card:
+	var ignoreMax = isCardToken(card)
 	if get_child_count() == 7 and not ignoreMax:
 		return
 	var newCard = card.duplicate()
+	_copyValues(card, newCard)
 	add_child(newCard)
-	newCard._copyStats(card)
-	newCard.board = self
-	if card.imbuedCurses:
-		newCard.imbuedCurses = Node2D.new()
-		for curse in card.imbuedCurses.get_children():
-			var newCurse = createCard(curse)
-			if newCurse: #maybe delete this
-				newCurse.reparent(newCard.imbuedCurses)
-	if card is Curse:
-		newCard.offerings = card.offerings
-		newCard.isTargeted = card.isTargeted
-		newCard._Spell()
-		newCard._updateSpellText()
 	_relocateCards()
 	return newCard
 
 func _relocateCards():
 	var cards = get_children()
 	var numCards = cards.size()
-	if(numCards == 0): return
-	else: _relocateMultipleCards(numCards)
-	if not name == "npcShopBoard":
+	_relocateMultipleCards(numCards)
+	if name != "npcShopBoard":
 		%masterLogicHandler._relocateCardDropZones()
 
 func _relocateMultipleCards(numCards):
@@ -74,3 +58,30 @@ func containsAProtectCard() -> bool:
 		if card.hasProtect:
 			return true
 	return false
+	
+func isCardToken(card) -> bool:
+	for token in MasterLogicHandler.tokenCardLibrary:
+			if "CARD_TYPE" in card and token.CARD_TYPE == card.CARD_TYPE:
+				return true
+	return false
+
+func _copyValues(card : Card, newCard : Card):
+	newCard._copyStats(card)
+	newCard.board = self
+	if card.imbuedCurses:
+		_copyImbuedCurses(card, newCard)
+	if card is Curse:
+		_copyOfferings(card, newCard)
+
+func _copyImbuedCurses(card : Card, newCard : Card):
+	newCard.imbuedCurses = Node2D.new()
+	for curse in card.imbuedCurses.get_children():
+		var newCurse = createCard(curse)
+		if newCurse: #maybe delete this
+			newCurse.reparent(newCard.imbuedCurses)
+
+func _copyOfferings(card : Card, newCard : Card):
+	newCard.offerings = card.offerings
+	newCard.isTargeted = card.isTargeted
+	newCard._Spell()
+	newCard._updateSpellText()

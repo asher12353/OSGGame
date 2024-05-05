@@ -1,10 +1,4 @@
-extends Screen
-
-var lh : LogicHandler
-
-func _ready():
-	lh = get_node("/root/main/masterLogicHandler")
-
+extends Room
 
 func _on_button_pressed():
 	var parent = get_parent()

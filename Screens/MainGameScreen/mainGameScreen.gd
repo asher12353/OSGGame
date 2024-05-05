@@ -25,6 +25,8 @@ func _initalizeVariables():
 	actNum = 1
 	roomNum = 0
 	act1Rooms = get_children()
+	for room in act1Rooms:
+		room._Room()
 
 func _moveToNextRoom():
 	if endlessMode:

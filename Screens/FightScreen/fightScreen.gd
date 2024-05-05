@@ -166,8 +166,7 @@ func cardsAreLeft() -> bool:
 	return playerCombatBoard.get_child_count() <= 0 or enemyBoard.get_child_count() <= 0
 	
 func _stopCombat():
-	
-	%masterLogicHandler._changeScreen(mainGameScreen)
+	MasterLogicHandler._changeScreen(mainGameScreen)
 	fightTimer.one_shot = true
 	fightTimer.stop()
 	var playerLost = didPlayerLose()
@@ -195,8 +194,8 @@ func _stopCombat():
 	defender = null
 	
 func _acquireRandomArtifact():
-	var character = %masterLogicHandler.mainCharacter
-	character._acquireArtifact(%masterLogicHandler.artifactPool[%masterLogicHandler.rng.randi_range(0, %masterLogicHandler.artifactPool.size() - 1)])
+	var character = MasterLogicHandler.mainCharacter
+	character._acquireArtifact(MasterLogicHandler.artifactPool[MasterLogicHandler.rng.randi_range(0, MasterLogicHandler.artifactPool.size() - 1)])
 
 func didPlayerLose() -> bool:
 	return playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() > 0
@@ -206,8 +205,8 @@ func _determineDamage():
 
 func _determinePayout():
 	if playerCombatBoard.get_child_count() > 0:
-		%masterLogicHandler._updateMoney(3 + ante + mainGameScreen.roomNum / 2)
+		MasterLogicHandler._updateMoney(3 + ante + mainGameScreen.roomNum / 2)
 	#elif playerCombatBoard.get_child_count() == 0 and enemyBoard.get_child_count() == 0:
 	else:
-		%masterLogicHandler._updateMoney(3 + mainGameScreen.roomNum / 3)
+		MasterLogicHandler._updateMoney(3 + mainGameScreen.roomNum / 3)
 		

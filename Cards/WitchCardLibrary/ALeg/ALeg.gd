@@ -15,4 +15,3 @@ func _init():
 	undeadSynergy = 1
 	synergies[undeadSynergyIndex] = undeadSynergy
 	_Card()
-	

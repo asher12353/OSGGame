@@ -51,7 +51,7 @@ var gold : int
 
 func _ready():
 	boardY = -140
-	mainGameScreen = %masterLogicHandler.mainGameScreen
+	mainGameScreen = MasterLogicHandler.mainGameScreen
 	fightScreen = MasterLogicHandler.fightScreen
 	rng = MasterLogicHandler.rng
 
@@ -63,7 +63,7 @@ func _updatePool():
 	_updatePoolForXLibrary(isMonkeFight, MasterLogicHandler.monkeCardLibrary)
 	_updatePoolForXLibrary(isDwarfFight, MasterLogicHandler.dwarfCardLibrary)
 
-func _updatePoolForXLibrary(isXFight, library):
+func _updatePoolForXLibrary(isXFight : bool, library : Array):
 	if isXFight:
 		for card in library:
 			totalNumCardsInPool += card.numLeftInPool
@@ -90,11 +90,7 @@ func _createTheCards():
 		if randomNum == 0 and gold >= 3:
 			_buyMinion()
 		elif randomNum == 1 and gold >= 2:
-			if get_child_count() != 0:
-				var card = getRandomCard()
-				if card != null:
-					card._givePlus1Plus1()
-					gold -= 2
+			_heroPower()
 		else:
 			#print("done")
 			break
@@ -122,13 +118,11 @@ func _buyMinion():
 	if retVal == null:
 		retVal = makeNewCardFromLibrary(isDwarfFight, MasterLogicHandler.dwarfCardLibrary)
 	newCard = retVal
-	#if newCard is BlacksmithApprentice or newCard is MonkeWithBanana:
-	#	print(newCard.nameString, newCard.numLeftInPool)
 	newCard._WhenPlayed()
 	_updateSynergies(newCard, true)
 	#print(synergies)
 
-func _updateSynergies(card, isBuying):
+func _updateSynergies(card : Card, isBuying : bool):
 	if isBuying:
 		for i in range(synergies.size()):
 			synergies[i] += card.synergies[i]
@@ -136,7 +130,7 @@ func _updateSynergies(card, isBuying):
 		for i in range(synergies.size()):
 			synergies[i] -= card.synergies[i]
 
-func makeNewCardFromLibrary(isXFight, library): # -> Card
+func makeNewCardFromLibrary(isXFight : bool, library : Array): # -> Card
 	if isXFight:
 		for card in library:
 			if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
@@ -175,7 +169,7 @@ func getLowestSynergy() -> int:
 	lowestSynergy = lowestSynergies.pick_random()
 	return lowestSynergy
 
-func getLowestSynergyMinions(synergyIndex):
+func getLowestSynergyMinions(synergyIndex : int):
 	var retArray = []
 	for card in get_children():
 		if card.hasNoSynergy:
@@ -187,7 +181,7 @@ func getLowestSynergyMinions(synergyIndex):
 			retArray.append(card)
 	return retArray
 
-func _sellLowestStatMinion(cards):
+func _sellLowestStatMinion(cards : Array):
 	var minValue = 9223372036854775807
 	var lowestCard
 	for card in cards:
@@ -202,7 +196,7 @@ func _sellLowestStatMinion(cards):
 	gold += 1
 
 func _obscureCards():
-	var shadowLevel = %masterLogicHandler.mainCharacter.shadowLevel
+	var shadowLevel = MasterLogicHandler.mainCharacter.shadowLevel
 	while get_child_count() < shadowLevel:
 		var card = createCard(MysteryCard.new())
 		card.cardArt.scale *= mysteryArtScale 
@@ -211,7 +205,7 @@ func _obscureCards():
 		if not card is MysteryCard:
 			_makeMysterySprite(i)
 	
-func _makeMysterySprite(childNum):
+func _makeMysterySprite(childNum : int):
 	var spr = Sprite2D.new()
 	var card = get_child(childNum)
 	spr.name = "MysteryCard"
@@ -226,7 +220,7 @@ func _removeMysterySprites():
 		_removeMysterySprite(i)
 	_relocateCards()
 	
-func _removeMysterySprite(childNum):
+func _removeMysterySprite(childNum : int):
 	var card = get_child(childNum)
 	if card is MysteryCard:
 		card.free()
@@ -257,6 +251,12 @@ func createRandomCard():
 		if isDwarfFight:
 			return createCard(%masterLogicHandler.dwarfCardLibrary[randomNum - neutralCardPoolSize])
 
+func _heroPower():
+	if get_child_count() != 0:
+		var card = getRandomCard()
+		if card != null:
+			card._givePlus1Plus1()
+			gold -= 2
 
 #######################################################ABANDONED CODE##########################################################
 

@@ -40,6 +40,12 @@ offset_top = -40.0
 offset_right = 200.0
 grow_vertical = 0
 
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+text = "Greetings travler, come, come and shop and buy my wonderful potions!"
+fit_content = true
+autowrap_mode = 0
+
 [node name="eventButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Potion seller, I'm going into battle, and I need your strongest potion (5 money: +1 health)"

@@ -5,8 +5,8 @@ extends Screen
 
 func _on_witch_select_pressed():
 	var witch = Witch.new()
-	%masterLogicHandler._changeScreen(mainGameScreen)
+	MasterLogicHandler._changeScreen(mainGameScreen)
 	globalUIElements.show()
-	%masterLogicHandler._setMainCharacter(witch)
-	globalUIElements._updateMoneyLabel(%masterLogicHandler.mainCharacter.money)
+	%masterLogicHandler._setMainCharacter(witch) # can't figure out why right now, but this really wants to be %master instead of Master
+	globalUIElements._updateMoneyLabel(MasterLogicHandler.mainCharacter.money)
 	

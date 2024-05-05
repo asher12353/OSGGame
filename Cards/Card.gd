@@ -113,10 +113,8 @@ var synergies = [
 
 static var dragged_card: Card = null
 static var mouseIsHoveredOver : Card = null
-static var MasterLogicHandler 
 
 func _ready():
-	MasterLogicHandler = get_node("/root/main/masterLogicHandler")
 	playerHand = MasterLogicHandler.playerHand
 
 func _process(_delta):
@@ -143,12 +141,8 @@ func _process(_delta):
 
 # _Card is a class constructor
 func _Card():
-	hoverTimer = Timer.new()
-	add_child(hoverTimer)
-	if isEffigy:
-		imbuedCurses = Node2D.new()
-		add_child(imbuedCurses)
-		imbuedCurses.hide()
+	_instantiateHoverTimer()
+	_instantiateImbuedCurses()
 	_createCollisionShape()
 	_createCardArt()
 	_createStatLabels()
@@ -159,8 +153,6 @@ func _giveStats(atk, hlth):
 	attack += atk
 	health += hlth
 	_updateStatLabels()
-	#if health <= 0:
-	#	return MasterLogicHandler.fightScreen._kill(self)
 
 func _WhenPlayed():
 	pass
@@ -228,11 +220,10 @@ func _updateStatLabels():
 	if healthLabel:
 		healthLabel.set_text(str(health))
 
-func _copyStats(card):
+func _copyStats(card : Card):
 	attack = card.attack
 	health = card.health
 	_updateStatLabels()
-	# trust me, don't try to use _giveStats for this
 
 func _createCollisionShape():
 	var collisionShape = CollisionShape2D.new()
@@ -246,14 +237,14 @@ func _on_timeout():
 		fullArtNode.show()
 	hoverTimer.stop()
 	
-func isMouseOver(mouse_pos) -> bool:
+func isMouseOver(mouse_pos : Vector2) -> bool:
 	@warning_ignore("integer_division")
 	return mouse_pos.x > position.x - cardWidth/2 and mouse_pos.y > position.y - cardHeight/2 and mouse_pos.x < position.x + cardWidth/2 and mouse_pos.y < position.y + cardHeight/2
 
 func timerCanBeStarted() -> bool:
 	return hoverTimer.is_stopped() and not is_dragging and not dragged_card and not fullArtNode.is_visible_in_tree()
 
-func _setDraggable(condition):
+func _setDraggable(condition : bool):
 	if not is_dragging and is_draggable_at_all:
 			is_draggable = condition
 
@@ -269,7 +260,6 @@ func _stopDraggingCard():
 		is_dragging = false
 		dragged_card = null
 		board._relocateCards()
-
 
 func _givePlus1Plus1():
 	_giveStats(1, 1)
@@ -303,6 +293,16 @@ func _whenLeavingCombat():
 		b.remove_child(self)
 		queue_free()
 		b._relocateCards()
+		
+func _instantiateImbuedCurses():
+	if isEffigy:
+		imbuedCurses = Node2D.new()
+		add_child(imbuedCurses)
+		imbuedCurses.hide()
+		
+func _instantiateHoverTimer():
+	hoverTimer = Timer.new()
+	add_child(hoverTimer)
 
 ############################################################################################################################################################################################
 # Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use
@@ -327,3 +327,7 @@ func _whenLeavingCombat():
 			#fullArtNode.hide()
 		#if not is_dragging and is_draggable_at_all:
 			#is_draggable = false
+
+func _changeBoard(newBoard : Board):
+	board = newBoard
+	reparent(newBoard)

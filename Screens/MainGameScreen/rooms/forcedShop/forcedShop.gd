@@ -1,1 +1,1 @@
-extends Screen
+extends Room

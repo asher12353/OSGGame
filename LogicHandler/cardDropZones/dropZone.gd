@@ -6,27 +6,22 @@ var baseHeight = 200
 var width = baseWidth
 var height = baseHeight
 
-
 var pos : int
 
-static var currentPos : int
 var currentCardInADropZone : Card
 var currentCardInADropZoneIndex : int
+static var currentPos : int
 
-var inCombat
-var playerHand
-var playerCombatBoard
-var playerShopBoard
+var playerHand : Board
+var playerCombatBoard : Board
+var playerShopBoard : Board
 
 func _ready():
-	_createCollisionShape()
-	inCombat = MasterLogicHandler.inCombat
 	playerHand = MasterLogicHandler.playerHand
 	playerCombatBoard = MasterLogicHandler.playerCombatBoard
 	playerShopBoard = MasterLogicHandler.playerShopBoard
-	var number_string = name.lstrip("pos")  # Get the last character
-	if number_string.is_valid_int():  # Check if it's a number
-		pos = int(number_string)
+	_parseNameForPos()
+	_createCollisionShape()
 	_setShape(width, height)
 
 func _process(_delta):
@@ -40,14 +35,14 @@ func _process(_delta):
 	if cardCanBePlaced():
 		_playCard()
 
-func _setShape(w, h):
+func _setShape(w : int, h : int):
 	var collisionShape = get_child(0)
 	width = w
 	height = h
 	collisionShape.shape.size = Vector2(w, h)
 
 func cardCanBeRelocated() -> bool:
-	return currentPos != 0 and currentCardInADropZone != null and currentCardInADropZone.get_parent() == MasterLogicHandler.currentShownBoard and not inCombat
+	return currentPos != 0 and currentCardInADropZone != null and currentCardInADropZone.get_parent() == MasterLogicHandler.currentShownBoard and not MasterLogicHandler.inCombat
 
 func _relocateCardToCurrentPosition():
 	if cardIsToTheRight():
@@ -66,14 +61,12 @@ func cardCanBePlaced() -> bool:
 	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone != null and currentCardInADropZone.get_parent() == playerHand and MasterLogicHandler.currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell and not MasterLogicHandler.currentShownBoard == playerCombatBoard
 
 func _playCard():
-	currentCardInADropZone.board = playerShopBoard
-	currentCardInADropZone.reparent(playerShopBoard)
+	currentCardInADropZone._changeBoard(playerShopBoard)
 	MasterLogicHandler.currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
 	currentCardInADropZone._WhenPlayed()
 	currentPos = 0
 	playerHand._relocateCards()
 	if currentCardInADropZone.cursePower > 0:
-		MasterLogicHandler.mainCharacter.cursePower = playerShopBoard.getTotalCursePower()
 		MasterLogicHandler.mainCharacter.emit_signal("curse_power_changed")
 
 func _cardDropZoneEntered(card):
@@ -106,3 +99,8 @@ func _createCollisionShape():
 func isMouseOver(mouse_pos) -> bool:
 	@warning_ignore("integer_division")
 	return mouse_pos.x > position.x - width/2 and mouse_pos.y > position.y - height/2 and mouse_pos.x < position.x + width/2 and mouse_pos.y < position.y + height/2 and monitoring
+
+func _parseNameForPos():
+	var number_string = name.lstrip("pos")  # Get the last character
+	if number_string.is_valid_int():  # Check if it's a number
+		pos = int(number_string)
