@@ -20,12 +20,8 @@ func createCard(card : Card) -> Card:
 	if get_child_count() == 7 and not ignoreMax:
 		return
 	newCard = card.duplicate()
-	_copyValues(card, newCard)
+	_copyValues(card)
 	add_child(newCard)
-	if card.imbuedCurses:
-		_copyImbuedCurses(card, newCard)
-	if card is Curse:
-		_copyOfferings(card, newCard)
 	_relocateCards()
 	return newCard
 
@@ -70,22 +66,22 @@ func isCardToken(card) -> bool:
 				return true
 	return false
 
-func _copyValues(card : Card, newCard : Card):
+func _copyValues(card : Card):
 	newCard._copyStats(card)
 	newCard.board = self
 	if card.imbuedCurses:
-		_copyImbuedCurses(card, newCard)
+		_copyImbuedCurses(card)
 	if card is Curse:
-		_copyOfferings(card, newCard)
+		_copyOfferings(card)
 
-func _copyImbuedCurses(card : Card, newCard : Card):
+func _copyImbuedCurses(card : Card):
 	newCard.imbuedCurses = Node2D.new()
 	for curse in card.imbuedCurses.get_children():
 		var newCurse = createCard(curse)
 		if newCurse: #maybe delete this
 			newCurse.reparent(newCard.imbuedCurses)
 
-func _copyOfferings(card : Card, newCard : Card):
+func _copyOfferings(card : Card):
 	newCard.offerings = card.offerings
 	newCard.isTargeted = card.isTargeted
 	newCard._Spell()
