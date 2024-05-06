@@ -3,6 +3,7 @@ extends Node2D
 class_name Board
 
 var boardY : int
+var newCard
 
 const xValuesForCards = [
 	[0],
@@ -18,9 +19,13 @@ func createCard(card : Card) -> Card:
 	var ignoreMax = isCardToken(card)
 	if get_child_count() == 7 and not ignoreMax:
 		return
-	var newCard = card.duplicate()
+	newCard = card.duplicate()
 	_copyValues(card, newCard)
 	add_child(newCard)
+	if card.imbuedCurses:
+		_copyImbuedCurses(card, newCard)
+	if card is Curse:
+		_copyOfferings(card, newCard)
 	_relocateCards()
 	return newCard
 

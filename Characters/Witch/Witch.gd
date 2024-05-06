@@ -141,7 +141,8 @@ func _createAmalgam():
 func _createCurse():
 	var curse = playerHand.createCard(Curse.new())
 	for card in cardsInCauldron:
-		card.numLeftInPool += 1
+		if card.numLeftInPool != null:
+			card.numLeftInPool += 1
 		curse.offerings.append(card)
 	for offering in curse.offerings:
 		offering._whenSpellIsCrafted(curse)
