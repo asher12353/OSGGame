@@ -4,7 +4,7 @@ class_name Character
 var gameOverScreen : Screen
 
 var health = MasterLogicHandler.mainCharacterMaxHealth
-var money = 300
+var money = 3
 var shopLevel = 1
 var shadowLevel = 2 # this is how many cards are obscured
 
