@@ -72,7 +72,6 @@ func _setMainCharacter(character):
 	shopScreen.npcShopBoard._updatePool()
 	_initializeDropZones()
 
-
 func _updateMoney(difference):
 	mainCharacter.money += difference
 	globalUIElements._updateMoneyLabel(mainCharacter.money)
@@ -110,63 +109,3 @@ func _initializeDropZones():
 	currentShownBoard = playerShopBoard
 	_relocateCardDropZones()
 	currentShownBoard = null
-
-# consider looking at alternatives for ALLL of these functions
-#func _on_pos_1_area_entered(area):
-	#_cardDropZoneEntered(area, 1)
-#
-#func _on_pos_1_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#func _on_pos_2_area_entered(area):
-	#_cardDropZoneEntered(area, 2)
-#
-#func _on_pos_2_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#
-#func _on_pos_3_area_entered(area):
-	#_cardDropZoneEntered(area, 3)
-#
-#
-#func _on_pos_3_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#
-#func _on_pos_4_area_entered(area):
-	#_cardDropZoneEntered(area, 4)
-#
-#
-#func _on_pos_4_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#
-#func _on_pos_5_area_entered(area):
-	#_cardDropZoneEntered(area, 5)
-#
-#
-#func _on_pos_5_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#
-#func _on_pos_6_area_entered(area):
-	#_cardDropZoneEntered(area, 6)
-#
-#func _on_pos_6_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#
-#func _on_pos_7_area_entered(area):
-	#_cardDropZoneEntered(area, 7)
-#
-#
-#func _on_pos_7_area_exited(_area):
-	#_cardDropZoneExited()
-#
-#
-#func _on_pos_8_area_entered(area):
-	#_cardDropZoneEntered(area, 8)
-#
-#
-#func _on_pos_8_area_exited(_area):
-	#_cardDropZoneExited()

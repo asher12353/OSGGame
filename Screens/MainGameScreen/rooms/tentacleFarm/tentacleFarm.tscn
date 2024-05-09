@@ -36,16 +36,22 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 200.0
+offset_top = -93.0
+offset_right = 531.0
 grow_vertical = 0
 
-[node name="eventButton1" type="Button" parent="VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-text = "You've heard of their restorative properties, eat one (+1 health)"
-script = ExtResource("3_bet5g")
+text = "You come across a farm for n'zoth, there are many of his spawn here"
+fit_content = true
+autowrap_mode = 0
 
 [node name="eventButton2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Recruit one of these creatures: (gain a spawn of n'zoth)"
 script = ExtResource("4_o0x4m")
+
+[node name="eventButton1" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "You've heard of their restorative properties, eat one (+1 health)"
+script = ExtResource("3_bet5g")

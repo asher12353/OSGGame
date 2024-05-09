@@ -1,12 +1,18 @@
 extends Node2D
 class_name Artifact
 
-var artifactContainer : VBoxContainer
 var artifactArtPath : String
 var artifactArt : TextureRect
 
+static var artifactContainer : VBoxContainer
+
+func _ready():
+	artifactContainer = MasterLogicHandler.globalUIElements.find_child("artifactContainer")
+
 func _Artifact():
-	artifactContainer = MasterLogicHandler.globalUIElements.get_child(2) # gotta be a better way than this but feeling lazy rn
+	_makeArtifactTextureRect()
+
+func _makeArtifactTextureRect():
 	artifactArt = TextureRect.new()
 	artifactArt.texture = load(artifactArtPath)
 	artifactContainer.add_child(artifactArt)

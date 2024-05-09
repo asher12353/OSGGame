@@ -25,8 +25,8 @@ func _refreshBoard():
 	
 func _createCardFromPool():
 	var threshhold = 0
-	var randomNumber = %masterLogicHandler.rng.randi_range(0, totalNumCardsInPool - 1)
-	for card in %masterLogicHandler.neutralCardLibrary:
+	var randomNumber = MasterLogicHandler.rng.randi_range(0, totalNumCardsInPool - 1)
+	for card in MasterLogicHandler.neutralCardLibrary:
 		if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
 			createCard(card)
 			card.numLeftInPool -= 1

@@ -27,7 +27,7 @@ grow_vertical = 2
 [node name="anteSlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
-max_value = 10.0
+max_value = 5.0
 value = 1.0
 
 [node name="anteLabel" type="RichTextLabel" parent="VBoxContainer/anteSlider"]

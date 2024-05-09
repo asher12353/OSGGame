@@ -2,6 +2,7 @@ extends Card
 class_name Hair
 
 static var CARD_TYPE = 2006
+static var numLeftInPool = 0
 
 func _init():
 	nameString = "Strand of Hair"

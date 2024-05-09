@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/globalUIElements.gd" id="1_endeq"]
 [ext_resource type="PackedScene" uid="uid://duew5vp18d84b" path="res://UI/healthBar.tscn" id="1_q8ej0"]
 
-[node name="globalUIElements" type="Control" node_paths=PackedStringArray("healthBar", "moneyLabel")]
+[node name="globalUIElements" type="Control" node_paths=PackedStringArray("healthBar", "moneyLabel", "pauseContainer", "artifactContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,8 @@ mouse_filter = 2
 script = ExtResource("1_endeq")
 healthBar = NodePath("healthBar")
 moneyLabel = NodePath("moneyLabel")
+pauseContainer = NodePath("pauseContainer")
+artifactContainer = NodePath("artifactContainer")
 
 [node name="healthBar" parent="." instance=ExtResource("1_q8ej0")]
 layout_mode = 1
@@ -43,3 +45,42 @@ offset_top = -490.0
 offset_right = 100.0
 offset_bottom = 510.0
 grow_vertical = 2
+
+[node name="pauseContainer" type="TabContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -250.0
+offset_right = 150.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PAUSED" type="Control" parent="pauseContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pauseContainer/PAUSED"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="resumeButton" type="Button" parent="pauseContainer/PAUSED/VBoxContainer"]
+layout_mode = 2
+text = "resume"
+
+[connection signal="pressed" from="pauseContainer/PAUSED/VBoxContainer/resumeButton" to="." method="_on_resume_button_pressed"]

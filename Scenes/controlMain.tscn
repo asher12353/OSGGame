@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dlln0n11sq1v8" path="res://UI/Settings/settings.tscn" id="14_5ph5h"]
 
 [node name="main" type="Control"]
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,6 +129,8 @@ characterSelectScreen = NodePath("../characterSelectScreen")
 options = NodePath("../settings")
 
 [node name="globalUIElements" parent="." instance=ExtResource("9_xohqa")]
+process_mode = 3
+visible = false
 layout_mode = 1
 
 [connection signal="timeout" from="combatTimer" to="fightScreen" method="_on_combat_timer_timeout"]

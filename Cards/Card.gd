@@ -5,6 +5,9 @@ var attack : int
 var health : int
 var attackLabel : RichTextLabel
 var healthLabel : RichTextLabel
+var fullAttackLabel : RichTextLabel 
+var fullHealthLabel : RichTextLabel
+
 
 var cardArt : Sprite2D
 var cardArtPath : String
@@ -17,13 +20,9 @@ var fullArtBack : Sprite2D
 var fullArtBackPath = "res://Cards/FullArtCard.png"
 var hasFullArt = true
 var artSize = Vector2(768, 1024)
+var fullArtSize = Vector2(1024, 768)
 var fullArtScale = Vector2(0.27, 0.27)
 static var artScale = Vector2(0.19, 0.19)
-
-var nameLabel : RichTextLabel
-var nameString : String
-var textLabel : RichTextLabel
-var textString : String
 
 var spellText : String
 var spellPower : int
@@ -33,6 +32,13 @@ var hoverCooldown = 0.5
 
 var cardWidth = (artSize * artScale).x
 var cardHeight = (artSize * artScale).y
+var fullCardWidth = (fullArtSize * fullArtScale).x
+var fullCardHeight = (fullArtSize * fullArtScale).y
+
+var nameLabel : RichTextLabel
+var nameString : String
+var textLabel : RichTextLabel
+var textString : String
 
 var is_dragging = false
 var is_draggable = false
@@ -113,10 +119,8 @@ var synergies = [
 
 static var dragged_card: Card = null
 static var mouseIsHoveredOver : Card = null
-static var MasterLogicHandler 
 
 func _ready():
-	MasterLogicHandler = get_node("/root/main/masterLogicHandler")
 	playerHand = MasterLogicHandler.playerHand
 
 func _process(_delta):
@@ -143,12 +147,8 @@ func _process(_delta):
 
 # _Card is a class constructor
 func _Card():
-	hoverTimer = Timer.new()
-	add_child(hoverTimer)
-	if isEffigy:
-		imbuedCurses = Node2D.new()
-		add_child(imbuedCurses)
-		imbuedCurses.hide()
+	_instantiateHoverTimer()
+	_instantiateImbuedCurses()
 	_createCollisionShape()
 	_createCardArt()
 	_createStatLabels()
@@ -159,8 +159,6 @@ func _giveStats(atk, hlth):
 	attack += atk
 	health += hlth
 	_updateStatLabels()
-	#if health <= 0:
-	#	return MasterLogicHandler.fightScreen._kill(self)
 
 func _WhenPlayed():
 	pass
@@ -206,20 +204,27 @@ func createNewSprite2D(art, path, Scale):
 func _createStatLabels():
 	attackLabel = createLabel(self, Vector2(-55, 65), attack)
 	healthLabel = createLabel(self, Vector2(48, 65), health)
-	nameLabel = createLabel(fullArtNode, Vector2(-230 + nameString.length() * -5, -25), nameString)
-	textLabel = createLabel(fullArtNode, Vector2(-330, 30), textString)
+	nameLabel = createLabel(fullArtNode, Vector2(-fullCardWidth/2 + fullArtBack.position.x, -23), nameString, true)
+	textLabel = createLabel(fullArtNode, Vector2(-fullCardWidth/2 + fullArtBack.position.x, 30), textString, true)
+	fullAttackLabel = createLabel(fullArtNode, Vector2(-fullCardWidth + fullArtBack.position.x/2 + 48, 145), attack)
+	fullHealthLabel = createLabel(fullArtNode, Vector2(fullArtBack.position.x/2 - 5, 145), health)
 	
 func _updateLabel(label, text):
 	label.text = text
 	
-func createLabel(parent, pos, text) -> RichTextLabel:
+func createLabel(parent, pos, text, center=false) -> RichTextLabel:
 	var label = RichTextLabel.new()
 	parent.add_child(label)
 	var theme = load("res://UI/Themes/newTheme.tres")
 	label.set_theme(theme)
-	label.set_text(str(text))
-	label.set_size(Vector2(300, 300))
+	if center:
+		label.bbcode_enabled = true
+		label.set_text("[center]" + str(text) + "[/center]")
+	else:
+		label.set_text(str(text))
+	label.set_size(Vector2(fullCardWidth, 0))
 	label.set_position(pos)
+	label.fit_content = true
 	return label
 
 func _updateStatLabels():
@@ -228,11 +233,10 @@ func _updateStatLabels():
 	if healthLabel:
 		healthLabel.set_text(str(health))
 
-func _copyStats(card):
+func _copyStats(card : Card):
 	attack = card.attack
 	health = card.health
 	_updateStatLabels()
-	# trust me, don't try to use _giveStats for this
 
 func _createCollisionShape():
 	var collisionShape = CollisionShape2D.new()
@@ -246,14 +250,14 @@ func _on_timeout():
 		fullArtNode.show()
 	hoverTimer.stop()
 	
-func isMouseOver(mouse_pos) -> bool:
+func isMouseOver(mouse_pos : Vector2) -> bool:
 	@warning_ignore("integer_division")
 	return mouse_pos.x > position.x - cardWidth/2 and mouse_pos.y > position.y - cardHeight/2 and mouse_pos.x < position.x + cardWidth/2 and mouse_pos.y < position.y + cardHeight/2
 
 func timerCanBeStarted() -> bool:
 	return hoverTimer.is_stopped() and not is_dragging and not dragged_card and not fullArtNode.is_visible_in_tree()
 
-func _setDraggable(condition):
+func _setDraggable(condition : bool):
 	if not is_dragging and is_draggable_at_all:
 			is_draggable = condition
 
@@ -269,7 +273,6 @@ func _stopDraggingCard():
 		is_dragging = false
 		dragged_card = null
 		board._relocateCards()
-
 
 func _givePlus1Plus1():
 	_giveStats(1, 1)
@@ -303,6 +306,16 @@ func _whenLeavingCombat():
 		b.remove_child(self)
 		queue_free()
 		b._relocateCards()
+		
+func _instantiateImbuedCurses():
+	if isEffigy:
+		imbuedCurses = Node2D.new()
+		add_child(imbuedCurses)
+		imbuedCurses.hide()
+		
+func _instantiateHoverTimer():
+	hoverTimer = Timer.new()
+	add_child(hoverTimer)
 
 ############################################################################################################################################################################################
 # Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use
@@ -327,3 +340,7 @@ func _whenLeavingCombat():
 			#fullArtNode.hide()
 		#if not is_dragging and is_draggable_at_all:
 			#is_draggable = false
+
+func _changeBoard(newBoard : Board):
+	board = newBoard
+	reparent(newBoard)

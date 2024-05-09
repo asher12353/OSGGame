@@ -40,6 +40,14 @@ offset_top = -40.0
 offset_right = 200.0
 grow_vertical = 0
 
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+text = "You see a goblin setting up his market stall.
+He's unaware of your presence and you notice a pouch of gold
+sitting out of his sight."
+fit_content = true
+autowrap_mode = 0
+
 [node name="shopButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Browse his wares"

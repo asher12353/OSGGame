@@ -1,14 +1,9 @@
-extends Screen
-
-var lh : LogicHandler
-
-func _ready():
-	lh = get_node("/root/main/masterLogicHandler")
+extends Room
 
 func _event1():
 	MasterLogicHandler.mainCharacter._updateHealth(1)
 	
 func _event2():
-	lh.currentShownBoard = lh.playerShopBoard
-	lh.playerShopBoard.createCard(Spawn.new())
-	lh.currentShownBoard = null
+	MasterLogicHandler.currentShownBoard = MasterLogicHandler.playerShopBoard
+	MasterLogicHandler.playerShopBoard.createCard(Spawn.new())
+	MasterLogicHandler.currentShownBoard = null

@@ -1,9 +1,6 @@
-extends Screen
+extends Room
 
-var lh : LogicHandler
-
-func _ready():
-	lh = get_node("/root/main/masterLogicHandler")
+var reward = 3
 
 func _event():
-	lh._updateMoney(3)
+	MasterLogicHandler._updateMoney(reward)

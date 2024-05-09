@@ -17,7 +17,6 @@ func _init():
 	synergies[whenItDiesSynergyIndex] = whenItDiesSynergy
 	_Card()
 
-# right now, if a curse is played on this a new skeleton won't shop up
 func _WhenItDies():
 	var card = board.createCard(Skeleton.new())
 	board.move_child(card, get_index())

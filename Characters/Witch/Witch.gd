@@ -1,6 +1,8 @@
 extends Character
 class_name Witch
 
+signal curse_power_changed
+
 var playerShopBoard : Board
 var playerHand : Board
 
@@ -35,6 +37,7 @@ func _init():
 	playerShopBoard = MasterLogicHandler.playerShopBoard
 	playerHand = MasterLogicHandler.playerHand
 	shopScreen = MasterLogicHandler.shopScreen
+	curse_power_changed.connect(_updateCursePower)
 	_initializeCauldron()
 
 func _initializeCauldron():
@@ -138,7 +141,8 @@ func _createAmalgam():
 func _createCurse():
 	var curse = playerHand.createCard(Curse.new())
 	for card in cardsInCauldron:
-		card.numLeftInPool += 1
+		if card.numLeftInPool != null:
+			card.numLeftInPool += 1
 		curse.offerings.append(card)
 	for offering in curse.offerings:
 		offering._whenSpellIsCrafted(curse)
@@ -153,4 +157,5 @@ func _removeCardsFromCauldron():
 		card.free()
 	cardsInCauldron.clear()
 
-signal curse_power_changed
+func _updateCursePower():
+	cursePower = playerShopBoard.getTotalCursePower()

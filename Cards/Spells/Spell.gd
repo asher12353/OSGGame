@@ -16,13 +16,14 @@ func _playSpell(_target):
 	pass
 
 func _process(_delta):
-	if is_dragging and board and global_position.y < board.boardY - 210:
+	if is_dragging and board and position.y < board.boardY - 210:
 		hide()
 		if isTargeted:
 			Input.set_custom_mouse_cursor(targetCursor)
 			if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and Card.mouseIsHoveredOver and not Card.mouseIsHoveredOver is Spell:
 				_playSpell(Card.mouseIsHoveredOver)
-				playerHand.remove_child(self)
+				if get_parent() == playerHand:
+					playerHand.remove_child(self)
 				playerHand._relocateCards()
 				return
 	else:

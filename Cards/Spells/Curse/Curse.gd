@@ -11,21 +11,11 @@ func _init():
 	_Spell()
 	_updateSpellText()
 
-func _playSpell(target):
+func _playSpell(target : Card):
 	if target.isEffigy and target.imbuedCurses.get_child_count() < target.effigyValue:
-		reparent(target.imbuedCurses)
-		#global_position.y = 500 # replace with dynamic resolution value later
-		#hide()
-		is_dragging = false
-		is_draggable_at_all = false
-		Card.dragged_card = null
-		Input.set_custom_mouse_cursor(null)
+		_imbueCurse(target)
 		return
-	for offering in offerings:
-		if isTargeted:
-			offering._spellEffect(target)
-		else:
-			offering._spellEffect()
+	_playSpellEffects(target)
 	if target.health <= 0:
 		MasterLogicHandler.fightScreen._kill(target)
 	queue_free()
@@ -40,3 +30,17 @@ func _updateSpellText():
 		offering._updateSpellText()
 		textString = textString + "\n" + offering.spellText
 	_updateLabel(textLabel, textString)
+
+func _imbueCurse(target : Card):
+	reparent(target.imbuedCurses)
+	is_dragging = false
+	is_draggable_at_all = false
+	Card.dragged_card = null
+	Input.set_custom_mouse_cursor(null)
+
+func _playSpellEffects(target : Card):
+	for offering in offerings:
+		if isTargeted:
+			offering._spellEffect(target)
+		else:
+			offering._spellEffect()

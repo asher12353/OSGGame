@@ -8,9 +8,6 @@ func _init():
 	textString = ""
 	cardArtPath = "res://Cards/Spells/BrewedSpell/BrewedSpell.png"
 	fullArtPath = "res://Cards/Spells/BrewedSpell/BrewedSpellFull.png"
-	#for reagent in reagents:
-		#reagent._updateSpellText()
-		#textString = textString + "\n" + reagent.spellText
 	_Spell()
 
 func _playSpell(target):

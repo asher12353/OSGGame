@@ -4,10 +4,6 @@ make sounds
 make sound options
 make 2 more relics
 make relics have different rarity
-make esc key bring up pause
 make saves
 implement background pictures
-make text for each event
-make most parents controls?
-make centering text on cards (plausibly with control)
 make tooltips when hovering over card
