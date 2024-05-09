@@ -6,7 +6,4 @@ make 2 more relics
 make relics have different rarity
 make saves
 implement background pictures
-make text for each event
-make centering text on cards (plausibly with control)
 make tooltips when hovering over card
-make ante tied to health

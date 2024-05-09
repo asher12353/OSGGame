@@ -5,6 +5,9 @@ var attack : int
 var health : int
 var attackLabel : RichTextLabel
 var healthLabel : RichTextLabel
+var fullAttackLabel : RichTextLabel 
+var fullHealthLabel : RichTextLabel
+
 
 var cardArt : Sprite2D
 var cardArtPath : String
@@ -17,13 +20,9 @@ var fullArtBack : Sprite2D
 var fullArtBackPath = "res://Cards/FullArtCard.png"
 var hasFullArt = true
 var artSize = Vector2(768, 1024)
+var fullArtSize = Vector2(1024, 768)
 var fullArtScale = Vector2(0.27, 0.27)
 static var artScale = Vector2(0.19, 0.19)
-
-var nameLabel : RichTextLabel
-var nameString : String
-var textLabel : RichTextLabel
-var textString : String
 
 var spellText : String
 var spellPower : int
@@ -33,6 +32,13 @@ var hoverCooldown = 0.5
 
 var cardWidth = (artSize * artScale).x
 var cardHeight = (artSize * artScale).y
+var fullCardWidth = (fullArtSize * fullArtScale).x
+var fullCardHeight = (fullArtSize * fullArtScale).y
+
+var nameLabel : RichTextLabel
+var nameString : String
+var textLabel : RichTextLabel
+var textString : String
 
 var is_dragging = false
 var is_draggable = false
@@ -198,20 +204,27 @@ func createNewSprite2D(art, path, Scale):
 func _createStatLabels():
 	attackLabel = createLabel(self, Vector2(-55, 65), attack)
 	healthLabel = createLabel(self, Vector2(48, 65), health)
-	nameLabel = createLabel(fullArtNode, Vector2(-230 + nameString.length() * -5, -25), nameString)
-	textLabel = createLabel(fullArtNode, Vector2(-330, 30), textString)
+	nameLabel = createLabel(fullArtNode, Vector2(-fullCardWidth/2 + fullArtBack.position.x, -23), nameString, true)
+	textLabel = createLabel(fullArtNode, Vector2(-fullCardWidth/2 + fullArtBack.position.x, 30), textString, true)
+	fullAttackLabel = createLabel(fullArtNode, Vector2(-fullCardWidth + fullArtBack.position.x/2 + 48, 145), attack)
+	fullHealthLabel = createLabel(fullArtNode, Vector2(fullArtBack.position.x/2 - 5, 145), health)
 	
 func _updateLabel(label, text):
 	label.text = text
 	
-func createLabel(parent, pos, text) -> RichTextLabel:
+func createLabel(parent, pos, text, center=false) -> RichTextLabel:
 	var label = RichTextLabel.new()
 	parent.add_child(label)
 	var theme = load("res://UI/Themes/newTheme.tres")
 	label.set_theme(theme)
-	label.set_text(str(text))
-	label.set_size(Vector2(300, 300))
+	if center:
+		label.bbcode_enabled = true
+		label.set_text("[center]" + str(text) + "[/center]")
+	else:
+		label.set_text(str(text))
+	label.set_size(Vector2(fullCardWidth, 0))
 	label.set_position(pos)
+	label.fit_content = true
 	return label
 
 func _updateStatLabels():
