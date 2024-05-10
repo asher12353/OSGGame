@@ -2,7 +2,11 @@ extends Control
 
 @onready var resOptionButton = $MarginContainer/VBoxContainer/TabContainer/Graphics/ResolutionOptionButton
 @onready var fullScreenCheckBox = $MarginContainer/VBoxContainer/TabContainer/Graphics/FullScreenCheckBox
+@onready var music_volume_slider = $MarginContainer/VBoxContainer/TabContainer/Sound/musicVolume/musicVolumeSlider
+@onready var music_percent = $MarginContainer/VBoxContainer/TabContainer/Sound/musicVolume/musicPercent
+
 var startScreen : Screen
+var masterMusicPlayer : AudioStreamPlayer
 
 var Resolutions : Dictionary = {
 	"3840x2160":Vector2i(3840,2160),
@@ -19,6 +23,7 @@ var Resolutions : Dictionary = {
 
 func _ready():
 	startScreen = get_node("/root/main/startScreen")
+	masterMusicPlayer = get_node("/root/main/masterMusicPlayer")
 	_addResolutions()
 	_checkVariables()
 
@@ -65,3 +70,10 @@ func _on_resolution_option_button_item_selected(index):
 func _on_button_pressed():
 	hide()
 	startScreen.show()
+
+
+func _on_music_volume_slider_value_changed(value):
+	masterMusicPlayer.currentLowerDecible = masterMusicPlayer.lowerDecible + ((100 - value) * masterMusicPlayer.lowerDecible * 0.01)
+	masterMusicPlayer.currentHigherDecible = masterMusicPlayer.higherDecible + ((100 - value) * masterMusicPlayer.lowerDecible * 0.01)
+	masterMusicPlayer.volume_db = masterMusicPlayer.currentHigherDecible
+	music_percent.text = str(value) + "%"

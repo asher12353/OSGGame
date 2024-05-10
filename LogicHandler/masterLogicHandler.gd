@@ -5,8 +5,10 @@ static var playerShopBoard : Board
 static var playerHand: Board
 static var playerCombatBoard : Board
 static var enemyBoard : Board
-static var globalUIElements : Control
 static var currentShownBoard : Board
+
+static var globalUIElements : Control
+static var masterMusicPlayer : AudioStreamPlayer
 
 static var fightScreen : Screen
 static var mainGameScreen : Screen
@@ -54,12 +56,18 @@ func _ready():
 	mainGameScreen = get_node("/root/main/mainGameScreen")
 	startScreen = get_node("/root/main/startScreen")
 	shopScreen = get_node("/root/main/shopScreen")
+	masterMusicPlayer = get_node("/root/main/masterMusicPlayer")
 
 func _changeScreen(screen):
+	#if screen == fightScreen:
+		#masterMusicPlayer._changeMusic(masterMusicPlayer.BATTLE)
+	#elif screen == shopScreen:
+		#masterMusicPlayer._changeMusic(masterMusicPlayer.SHOP)
 	if currentScreen == mainGameScreen.currentRoom:
 		mainGameScreen.hide()
 	currentScreen.hide()
 	if screen == mainGameScreen:
+		masterMusicPlayer._changeMusic(masterMusicPlayer.TITLE_SCREEN)
 		screen.show()
 		currentScreen = mainGameScreen.currentRoom
 	else:

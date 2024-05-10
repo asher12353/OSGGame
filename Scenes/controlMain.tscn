@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c47bbtoif3x0g"]
+[gd_scene load_steps=18 format=3 uid="uid://c47bbtoif3x0g"]
 
 [ext_resource type="PackedScene" uid="uid://bvur7wrqxmyfo" path="res://Screens/StartScreen/startScreen.tscn" id="1_pifeg"]
 [ext_resource type="PackedScene" uid="uid://ck1a8tkvbt332" path="res://Screens/CharacterSelectScreen/characterSelectScreen.tscn" id="2_ylahs"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://cub0hnymiyl8y" path="res://Screens/GameOverScreen/gameOverScreen.tscn" id="12_u4jrk"]
 [ext_resource type="Script" path="res://Characters/Character.gd" id="13_bao62"]
 [ext_resource type="PackedScene" uid="uid://dlln0n11sq1v8" path="res://UI/Settings/settings.tscn" id="14_5ph5h"]
+[ext_resource type="AudioStream" uid="uid://dv186c1fhe32c" path="res://Audio/Music/titleScreen.mp3" id="16_r7auc"]
+[ext_resource type="Script" path="res://Audio/Music/masterMusicPlayer.gd" id="17_h6ecu"]
 
 [node name="main" type="Control"]
 process_mode = 1
@@ -132,6 +134,11 @@ options = NodePath("../settings")
 process_mode = 3
 visible = false
 layout_mode = 1
+
+[node name="masterMusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_r7auc")
+autoplay = true
+script = ExtResource("17_h6ecu")
 
 [connection signal="timeout" from="combatTimer" to="fightScreen" method="_on_combat_timer_timeout"]
 [connection signal="timeout" from="returnCombatTimer" to="fightScreen" method="_on_return_combat_timer_timeout"]
