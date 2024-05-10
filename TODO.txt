@@ -7,3 +7,9 @@ make relics have different rarity
 make saves
 implement background pictures
 make tooltips when hovering over card
+make attack sound effects
+make attack animations
+make golden minions
+make minions lerp to their place instead of teleport
+add some sort of effect to let the player know that a spell is temporary
+show the imbued count, maybe show the spell when hovering?

@@ -56,9 +56,9 @@ func _on_elite_battle_button_pressed():
 	_changeScreenToFightScreen()
 
 func _changeScreenToFightScreen():
-	%masterLogicHandler._changeScreen(fightScreen)
-	%masterLogicHandler.cardsAreMovable = true
-	%masterLogicHandler.currentShownBoard = playerCombatBoard
+	MasterLogicHandler._changeScreen(fightScreen)
+	MasterLogicHandler.cardsAreMovable = true
+	MasterLogicHandler.currentShownBoard = playerCombatBoard
 	_moveToNextRoom()
 	_setupBoards()
 	for card in playerCombatBoard.get_children():
