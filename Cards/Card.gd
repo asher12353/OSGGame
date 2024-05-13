@@ -8,7 +8,6 @@ var healthLabel : RichTextLabel
 var fullAttackLabel : RichTextLabel 
 var fullHealthLabel : RichTextLabel
 
-
 var cardArt : Sprite2D
 var cardArtPath : String
 var cardBack : Sprite2D
@@ -24,11 +23,16 @@ var fullArtSize = Vector2(1024, 768)
 var fullArtScale = Vector2(0.27, 0.27)
 static var artScale = Vector2(0.19, 0.19)
 
+var attackAnimation : SpriteFrames = preload("res://Cards/attackAnimations/testAnimation/testAnimation.tres")
+var attackAnimationSprite : AnimatedSprite2D
+
 var spellText : String
 var spellPower : int
 
 var hoverTimer : Timer
 var hoverCooldown = 0.5
+
+var connectionsEstablished : bool = false
 
 var cardWidth = (artSize * artScale).x
 var cardHeight = (artSize * artScale).y
@@ -43,6 +47,10 @@ var textString : String
 var is_dragging = false
 var is_draggable = false
 var is_draggable_at_all = true
+
+var defaultSpeed : float = 6.0
+var speed = defaultSpeed
+var targetLocation = null
 
 var board : Board
 var level : int
@@ -123,7 +131,11 @@ static var mouseIsHoveredOver : Card = null
 func _ready():
 	playerHand = MasterLogicHandler.playerHand
 
-func _process(_delta):
+func _process(delta):
+	if targetLocation != null and is_dragging != true:
+		position = lerp(position, targetLocation, speed * delta)
+		if position == targetLocation:
+			speed = defaultSpeed
 	if is_visible_in_tree():
 		var mouse_pos = get_global_mouse_position()
 		if isMouseOver(mouse_pos):
@@ -147,13 +159,17 @@ func _process(_delta):
 
 # _Card is a class constructor
 func _Card():
+	_instantiateAnimationPlayer()
 	_instantiateHoverTimer()
 	_instantiateImbuedCurses()
 	_createCollisionShape()
 	_createCardArt()
 	_createStatLabels()
-	_establishConnections()
 	board = get_parent()
+
+func _enter_tree():
+	if connectionsEstablished == false:
+		_establishConnections()
 
 func _giveStats(atk, hlth):
 	attack += atk
@@ -174,6 +190,8 @@ func _WhenBananaIsPlayedOnSelf():
 
 func _establishConnections():
 	hoverTimer.timeout.connect(Callable(self, "_on_timeout"))
+	attackAnimationSprite.animation_looped.connect(MasterLogicHandler.fightScreen._on_attack_animation_stopped)
+	connectionsEstablished = true
 	
 func _createCardArt():
 	cardArt = createNewSprite2D(cardArt, cardArtPath, artScale)
@@ -316,6 +334,12 @@ func _instantiateImbuedCurses():
 func _instantiateHoverTimer():
 	hoverTimer = Timer.new()
 	add_child(hoverTimer)
+
+func _instantiateAnimationPlayer():
+	attackAnimationSprite = AnimatedSprite2D.new()
+	add_child(attackAnimationSprite)
+	if attackAnimation:
+		attackAnimationSprite.sprite_frames = attackAnimation
 
 ############################################################################################################################################################################################
 # Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use

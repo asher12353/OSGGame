@@ -21,25 +21,27 @@ func _refreshBoard():
 		totalNumCardsInPool += 1
 		child.free()
 	for i in range(numCardsInShop):
-		_createCardFromPool()
-	
-func _createCardFromPool():
+		createCardFromPool()
+	for card in get_children():
+		card.position = Vector2(xValuesForCards[numCardsInShop - 1][numCardsInShop - 1], boardY)
+		card.targetLocation = Vector2(xValuesForCards[numCardsInShop - 1][card.get_index()], boardY)
+		card.speed = 12.0
+
+func createCardFromPool(): #-> Card:
 	var threshhold = 0
 	var randomNumber = MasterLogicHandler.rng.randi_range(0, totalNumCardsInPool - 1)
 	for card in MasterLogicHandler.neutralCardLibrary:
 		if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
-			createCard(card)
 			card.numLeftInPool -= 1
 			totalNumCardsInPool -= 1
-			return
+			return createCard(card)
 		else:
 			threshhold += card.numLeftInPool
 	if MasterLogicHandler.mainCharacter is Witch:
 		for card in MasterLogicHandler.witchCardLibrary:
 			if randomNumber >= threshhold and randomNumber < threshhold + card.numLeftInPool:
-				createCard(card)
 				card.numLeftInPool -= 1
 				totalNumCardsInPool -= 1
-				return
+				return createCard(card)
 			else:
 				threshhold += card.numLeftInPool

@@ -11,6 +11,7 @@ func _init():
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/BlacksmithApprentice/BlacksmithApprenticeColored.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/BlacksmithApprentice/BlacksmithApprenticeFull.png"
+	attackAnimation = load("res://Cards/attackAnimations/slash/slash.tres")
 	whenPlayedSynergy = 1
 	synergies[whenPlayedSynergyIndex] = whenPlayedSynergy
 	_Card()

@@ -11,6 +11,7 @@ func _init():
 	health = 1
 	cardArtPath = "res://Cards/NeutralCardLibrary/Farmer/Farmer.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/Farmer/FarmerFull.png"
+	attackAnimation = load("res://Cards/attackAnimations/slash/slash.tres")
 	tokenSynergy = 1
 	synergies[tokenSynergyIndex] = tokenSynergy
 	whenItDiesSynergy = 1

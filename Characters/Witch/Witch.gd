@@ -95,7 +95,7 @@ func _stopDraggingCard():
 	cardInCauldronArea.is_dragging = false
 	cardInCauldronArea.is_draggable = false
 	cardInCauldronArea.is_draggable_at_all = false
-	cardInCauldronArea.set_global_position(cauldron.global_position)
+	cardInCauldronArea.targetLocation = cauldron.global_position
 	Card.dragged_card = null
 	playerShopBoard._relocateCards()
 
