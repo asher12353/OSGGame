@@ -50,7 +50,7 @@ var synergies = [
 var gold : int
 
 func _ready():
-	boardY = -140
+	boardY = -100
 	mainGameScreen = MasterLogicHandler.mainGameScreen
 	fightScreen = MasterLogicHandler.fightScreen
 	rng = MasterLogicHandler.rng
@@ -81,6 +81,7 @@ func _instantiateBoard():
 	print(gold)
 	_createTheCards()
 	_obscureCards()
+	_relocateCards()
 	for card in get_children():
 		card.is_draggable_at_all = false
 

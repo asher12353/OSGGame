@@ -27,5 +27,4 @@ fix emalgam art
 
 bugs:
 	tokens lerp instead of teleport
-	when enemy has 7 guys, it positions them like there is 6 and one off to the right
 	curse not hovering

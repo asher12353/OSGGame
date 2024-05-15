@@ -148,12 +148,7 @@ func _on_combat_timer_timeout():
 	if noCardsAreLeft():
 		_stopCombat()
 		return
-
-func _on_attack_animation_stopped():
-	if noCardsAreLeft():
-		_stopCombat()
-		return
-	attacker.attackAnimationSprite.stop()
+	#attacker.attackAnimationSprite.stop()
 	attacker.targetLocation = attackerOGPos
 	_resolveAttack()
 	defender = null
@@ -168,10 +163,10 @@ func _on_return_combat_timer_timeout():
 		attacker._WhenItAttacks()
 		attackerOGPos = attacker.position
 		if defender != null:
-			if attacker.attackAnimation:
-				_playAttackAnimation()
-			else:
-				attacker.targetLocation = defender.position
+			#if attacker.attackAnimation:
+				#_playAttackAnimation()
+			#else:
+			attacker.targetLocation = defender.position
 	fightTimer.start(fightTimerCooldown)
 
 func noCardsAreLeft() -> bool:
@@ -222,24 +217,24 @@ func _determinePayout():
 	else:
 		MasterLogicHandler._updateMoney(3 + mainGameScreen.roomNum / 3)
 		
-func _playAttackAnimation():
-	attacker.attackAnimationSprite.play()
-	var attackVerticalOffset = 150
-	var from
-	var to
-	if attacker.targetLocation == null:
-		from = attacker.global_position
-	else:
-		from = attacker.targetLocation
-	if defender.targetLocation == null:
-		to = defender.global_position
-	else:
-		to = defender.targetLocation
-	var direction = attacker.position - defender.position
-	var rotationValue = direction.angle()
-	attacker.attackAnimationSprite.look_at(defender.global_position)
-	attacker.attackAnimationSprite.rotation_degrees += 90
-	if attacker.board == playerCombatBoard:
-		attacker.attackAnimationSprite.global_position = (attacker.global_position + defender.global_position) / 2#Vector2((attacker.attackAnimationSprite.global_position + defender.attackAnimationSprite.global_position)/2, -attackVerticalOffset)#
-	else:
-		attacker.attackAnimationSprite.global_position = (attacker.global_position + defender.global_position) / 2#Vector2(0, attackVerticalOffset)#
+#func _playAttackAnimation():
+	#attacker.attackAnimationSprite.play()
+	#var attackVerticalOffset = 150
+	#var from
+	#var to
+	#if attacker.targetLocation == null:
+		#from = attacker.global_position
+	#else:
+		#from = attacker.targetLocation
+	#if defender.targetLocation == null:
+		#to = defender.global_position
+	#else:
+		#to = defender.targetLocation
+	#var direction = attacker.position - defender.position
+	#var rotationValue = direction.angle()
+	#attacker.attackAnimationSprite.look_at(defender.global_position)
+	#attacker.attackAnimationSprite.rotation_degrees += 90
+	#if attacker.board == playerCombatBoard:
+		#attacker.attackAnimationSprite.global_position = (attacker.global_position + defender.global_position) / 2#Vector2((attacker.attackAnimationSprite.global_position + defender.attackAnimationSprite.global_position)/2, -attackVerticalOffset)#
+	#else:
+		#attacker.attackAnimationSprite.global_position = (attacker.global_position + defender.global_position) / 2#Vector2(0, attackVerticalOffset)#

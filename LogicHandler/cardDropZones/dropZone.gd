@@ -2,7 +2,7 @@ extends Area2D
 class_name dropZone
 
 var baseWidth = 100
-var baseHeight = 200
+var baseHeight = 180
 var width = baseWidth
 var height = baseHeight
 

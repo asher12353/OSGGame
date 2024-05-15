@@ -159,17 +159,18 @@ func _process(delta):
 
 # _Card is a class constructor
 func _Card():
-	_instantiateAnimationPlayer()
+	#_instantiateAnimationPlayer()
 	_instantiateHoverTimer()
 	_instantiateImbuedCurses()
+	_establishConnections()
 	_createCollisionShape()
 	_createCardArt()
 	_createStatLabels()
 	board = get_parent()
 
-func _enter_tree():
-	if connectionsEstablished == false:
-		_establishConnections()
+#func _enter_tree():
+	#if connectionsEstablished == false:
+		#_establishConnections()
 
 func _giveStats(atk, hlth):
 	attack += atk
@@ -190,7 +191,7 @@ func _WhenBananaIsPlayedOnSelf():
 
 func _establishConnections():
 	hoverTimer.timeout.connect(Callable(self, "_on_timeout"))
-	attackAnimationSprite.animation_looped.connect(MasterLogicHandler.fightScreen._on_attack_animation_stopped)
+	#attackAnimationSprite.animation_looped.connect(MasterLogicHandler.fightScreen._on_attack_animation_stopped)
 	connectionsEstablished = true
 	
 func _createCardArt():

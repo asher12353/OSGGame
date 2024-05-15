@@ -14,15 +14,25 @@ var cauldronIsSpellcrafting : bool
 var cauldronIsStitching : bool
 var cauldronIsCursing : bool
 
+var heroPowerControl : Control
+var shapeSize : Vector2
+var collisionShape : CollisionShape2D
+
 var shopScreen : Screen
 
 var spellPower : int = 0
 var cursePower : int = 0
 
 var cardArtSize = Vector2(768, 1024)
-var cardScale = Vector2(0.25, 0.25)
+var cardScale = Vector2(0.17, 0.17)
 
 func _process(_delta):
+	var mouse_pos = get_global_mouse_position()
+	if isMouseOver(mouse_pos):
+		if Card.dragged_card != null:
+			cardInCauldronArea = Card.dragged_card
+	else:
+		cardInCauldronArea = null
 	if cardCanBeAddedToCauldron():
 		_addCardToCauldron()
 		if cardsInCauldron.size() == 2:
@@ -41,31 +51,32 @@ func _init():
 	_initializeCauldron()
 
 func _initializeCauldron():
-	var heroPowerControl = shopScreen.find_child("heroPowerControl") as Control
+	heroPowerControl = shopScreen.find_child("heroPowerControl")
 	cauldron = Area2D.new()
 	heroPowerControl.add_child(cauldron)
-	var collisionShape = CollisionShape2D.new()
+	collisionShape = CollisionShape2D.new()
+	collisionShape.position += Vector2(25, 0)
 	cauldron.add_child(collisionShape)
 	var rect = RectangleShape2D.new()
-	var shapeSize = cardArtSize * cardScale
+	shapeSize = cardArtSize * cardScale
 	rect.size = shapeSize
 	heroPowerControl.custom_minimum_size = shapeSize
 	cauldron.position = Vector2(heroPowerControl.custom_minimum_size.x / 2, heroPowerControl.custom_minimum_size.y / 2)
 	collisionShape.shape = rect
 	var art = TextureRect.new()
 	heroPowerControl.add_child(art)
-	var cardArtTexture = load("res://Characters/Witch/blackCauldron.png")
+	var cardArtTexture = load("res://Characters/Witch/blackCauldronRound.png")
 	art.texture = cardArtTexture
 	art.scale = cardScale
-	cauldron.area_entered.connect(Callable(self, "_card_entered_cauldron_area"))
-	cauldron.area_exited.connect(Callable(self, "_card_exited_cauldron_area"))
+	#cauldron.area_entered.connect(Callable(self, "_card_entered_cauldron_area"))
+	#cauldron.area_exited.connect(Callable(self, "_card_exited_cauldron_area"))
 	cauldronIsSpellcrafting = false
 	cauldronIsStitching = false
 	cauldronIsCursing = false
 
 func cardCanBeAddedToCauldron() -> bool:
 	if cardsInCauldron.size() == 0:
-		return cardInCauldronArea and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and cardInCauldronArea.board == MasterLogicHandler.playerShopBoard and (cardInCauldronArea.isReagent or cardInCauldronArea.isCadaver or cardInCauldronArea.isOffering)
+		return cardInCauldronArea != null and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and cardInCauldronArea.board == MasterLogicHandler.playerShopBoard and (cardInCauldronArea.isReagent or cardInCauldronArea.isCadaver or cardInCauldronArea.isOffering)
 	else:
 		if cauldronIsSpellcrafting:
 			return playerIsPlacingCard() and cardInCauldronArea.isReagent
@@ -99,12 +110,12 @@ func _stopDraggingCard():
 	Card.dragged_card = null
 	playerShopBoard._relocateCards()
 
-func _card_entered_cauldron_area(area):
-	if area is Card:
-		cardInCauldronArea = area
-
-func _card_exited_cauldron_area(_area):
-	cardInCauldronArea = null
+#func _card_entered_cauldron_area(area):
+	#if area is Card:
+		#cardInCauldronArea = area
+#
+#func _card_exited_cauldron_area(_area):
+	#cardInCauldronArea = null
 
 func _createSpell():
 	var spell = playerHand.createCard(BrewedSpell.new())
@@ -159,3 +170,7 @@ func _removeCardsFromCauldron():
 
 func _updateCursePower():
 	cursePower = playerShopBoard.getTotalCursePower()
+
+func isMouseOver(mouse_pos : Vector2) -> bool:
+	@warning_ignore("integer_division")
+	return mouse_pos.x > collisionShape.global_position.x - shapeSize.x/2 and mouse_pos.y > collisionShape.global_position.y - shapeSize.y/2 and mouse_pos.x < collisionShape.global_position.x + shapeSize.x/2 and mouse_pos.y < collisionShape.global_position.y + shapeSize.y/2

@@ -3,7 +3,7 @@ extends Board
 @export var playerShopBoard : Board
 
 func _ready():
-	boardY = 140
+	boardY = playerShopBoard.boardY
 
 func _instantiateBoard():
 	var cards = playerShopBoard.get_children()

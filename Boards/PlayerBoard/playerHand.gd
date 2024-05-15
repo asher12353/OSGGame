@@ -1,4 +1,4 @@
 extends Board
 
 func _ready():
-	boardY = 360
+	boardY = 420
