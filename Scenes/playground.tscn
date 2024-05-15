@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgy8h2g4g3jsf"]
+[gd_scene load_steps=5 format=3 uid="uid://cgy8h2g4g3jsf"]
 
 [ext_resource type="Script" path="res://Boards/Board.gd" id="1_0rdwy"]
 [ext_resource type="Script" path="res://Boards/EnemyBoard/EnemyBoard.gd" id="2_71m0o"]
+[ext_resource type="SpriteFrames" uid="uid://cmmkb4ga5bwrb" path="res://Cards/attackAnimations/testAnimation/testAnimation.tres" id="3_2j5g5"]
+[ext_resource type="Texture2D" uid="uid://b87xfqfstai0p" path="res://Cards/attackAnimations/slash/skash_00010.png" id="4_5pits"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -35,3 +37,22 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_5pits")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureRect"]
+position = Vector2(600, -100)
+rotation = 1.39626
+scale = Vector2(1, 5)
+sprite_frames = ExtResource("3_2j5g5")
+frame_progress = 0.198667
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 1200.0
+offset_top = -210.0
+offset_right = 1255.0
+offset_bottom = -153.0
+texture = ExtResource("4_5pits")

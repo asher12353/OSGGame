@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://yfehthjw31e"]
 
 [ext_resource type="Script" path="res://Screens/ShopScreen/shopScreen.gd" id="1_1qk5v"]
-[ext_resource type="Texture2D" uid="uid://l4ky81tb3cd8" path="res://UI/tempBoardTexture.png" id="2_oupwc"]
+[ext_resource type="Texture2D" uid="uid://wkkjqkfra6hg" path="res://Characters/Witch/witchBackground.png" id="2_ajril"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrnkx"]
 size = Vector2(1494, 210)
@@ -14,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1qk5v")
-upgradeShopButton = NodePath("MarginContainer/HBoxContainer/upgradeShopButton")
+upgradeShopButton = NodePath("TextureRect/upgradeShopButton")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(959, 540)
@@ -32,84 +32,71 @@ position = Vector2(259, 1005)
 position = Vector2(672, 0)
 shape = SubResource("RectangleShape2D_lrnkx")
 
-[node name="leaveShopButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -131.0
-offset_top = -15.5
-offset_bottom = 15.5
-grow_horizontal = 0
-grow_vertical = 2
-text = "Leave the Shop"
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = -218.0
+offset_top = -50.0
+offset_right = 1702.0
+offset_bottom = 1030.0
+scale = Vector2(1.15, 1.15)
+mouse_filter = 2
+texture = ExtResource("2_ajril")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -141.0
-offset_bottom = 54.0
-grow_horizontal = 0
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="refreshButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "Refresh
-Cost: 1"
-
-[node name="upgradeShopButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "Level: 7
-Cost: 21"
-
-[node name="heroPowerControl" type="Control" parent="."]
+[node name="heroPowerControl" type="Control" parent="TextureRect"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = -1581.0
+offset_top = -504.0
+offset_right = -1541.0
+offset_bottom = -464.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-z_index = -1
+[node name="upgradeShopButton" type="Button" parent="TextureRect"]
+custom_minimum_size = Vector2(175, 65)
+layout_mode = 2
+offset_left = 874.0
+offset_top = 157.0
+offset_right = 1049.0
+offset_bottom = 222.0
+text = "Level: 7
+Cost: 21"
+
+[node name="refreshButton" type="Button" parent="TextureRect"]
+custom_minimum_size = Vector2(80, 90)
+layout_mode = 2
+offset_left = 762.0
+offset_top = 126.0
+offset_right = 842.0
+offset_bottom = 216.0
+text = "Refresh
+Cost: 1"
+
+[node name="leaveShopButton" type="Button" parent="TextureRect"]
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
+offset_left = -283.0
+offset_top = -61.0
+offset_right = -133.0
+offset_bottom = 39.0
+grow_horizontal = 0
 grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_oupwc")
-
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_oupwc")
+text = "Leave the Shop"
 
 [connection signal="area_entered" from="sellArea" to="." method="_on_sell_area_area_entered"]
 [connection signal="area_exited" from="sellArea" to="." method="_on_sell_area_area_exited"]
 [connection signal="area_entered" from="buyArea" to="." method="_on_buy_area_area_entered"]
 [connection signal="area_exited" from="buyArea" to="." method="_on_buy_area_area_exited"]
-[connection signal="pressed" from="leaveShopButton" to="." method="_on_leave_shop_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/refreshButton" to="." method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/upgradeShopButton" to="." method="_on_upgrade_shop_button_pressed"]
+[connection signal="pressed" from="TextureRect/upgradeShopButton" to="." method="_on_upgrade_shop_button_pressed"]
+[connection signal="pressed" from="TextureRect/refreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="TextureRect/leaveShopButton" to="." method="_on_leave_shop_button_pressed"]

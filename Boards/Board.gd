@@ -21,22 +21,25 @@ func createCard(card : Card) -> Card:
 	var newCard = card.duplicate()
 	add_child(newCard)
 	_copyValues(card, newCard)
-	_relocateCards()
+	_relocateCards(true)
 	return newCard
 
-func _relocateCards():
+func _relocateCards(teleportCards=false):
 	var cards = get_children()
 	var numCards = cards.size()
-	_relocateMultipleCards(numCards)
+	_relocateMultipleCards(numCards, teleportCards)
 	if name != "npcShopBoard":
 		%masterLogicHandler._relocateCardDropZones()
 
-func _relocateMultipleCards(numCards):
+func _relocateMultipleCards(numCards, teleportCards):
 	var cards = get_children()
 	numCards -= 1 # this is just due to indexing
 	for card in cards:
 		if numCards < 7:
-			card.set_position(Vector2(xValuesForCards[numCards][card.get_index()], boardY))
+			if teleportCards:
+				card.position = Vector2(xValuesForCards[numCards][card.get_index()], boardY)
+			else:
+				card.targetLocation = Vector2(xValuesForCards[numCards][card.get_index()], boardY)
 		
 func getTotalSpellPower() -> int:
 	var spellpower = 0

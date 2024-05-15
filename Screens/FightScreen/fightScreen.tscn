@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6ffctb4ymrs1"]
+[gd_scene load_steps=3 format=3 uid="uid://c6ffctb4ymrs1"]
 
 [ext_resource type="Script" path="res://Screens/FightScreen/fightScreen.gd" id="1_7llxr"]
+[ext_resource type="Texture2D" uid="uid://wkkjqkfra6hg" path="res://Characters/Witch/witchBackground.png" id="2_vsbho"]
 
 [node name="fightScreen" type="Control" node_paths=PackedStringArray("anteLabel", "anteSlider")]
 layout_mode = 3
@@ -10,27 +11,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7llxr")
-anteLabel = NodePath("VBoxContainer/anteSlider/anteLabel")
-anteSlider = NodePath("VBoxContainer/anteSlider")
+anteLabel = NodePath("TextureRect/VBoxContainer/anteSlider/anteLabel")
+anteSlider = NodePath("TextureRect/VBoxContainer/anteSlider")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = -218.0
+offset_top = -50.0
+offset_right = 1702.0
+offset_bottom = 1030.0
+scale = Vector2(1.15, 1.15)
+mouse_filter = 2
+texture = ExtResource("2_vsbho")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 100.0
-offset_top = -25.5
-offset_right = 211.0
-offset_bottom = 25.5
+offset_left = 1638.0
+offset_top = -63.295
+offset_right = 1788.0
+offset_bottom = 36.705
 grow_vertical = 2
 
-[node name="anteSlider" type="HSlider" parent="VBoxContainer"]
+[node name="anteSlider" type="HSlider" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
 value = 1.0
 
-[node name="anteLabel" type="RichTextLabel" parent="VBoxContainer/anteSlider"]
+[node name="anteLabel" type="RichTextLabel" parent="TextureRect/VBoxContainer/anteSlider"]
 layout_mode = 0
 offset_left = 52.0
 offset_top = -31.0
@@ -38,10 +51,11 @@ offset_right = 158.0
 offset_bottom = 6.0
 text = "Ante: 1"
 
-[node name="startCombatButton" type="Button" parent="VBoxContainer"]
+[node name="startCombatButton" type="Button" parent="TextureRect/VBoxContainer"]
+custom_minimum_size = Vector2(150, 70)
 layout_mode = 2
 text = "Start Combat
 "
 
-[connection signal="value_changed" from="VBoxContainer/anteSlider" to="." method="_on_ante_slider_value_changed"]
-[connection signal="pressed" from="VBoxContainer/startCombatButton" to="." method="_on_start_combat_button_pressed"]
+[connection signal="value_changed" from="TextureRect/VBoxContainer/anteSlider" to="." method="_on_ante_slider_value_changed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/startCombatButton" to="." method="_on_start_combat_button_pressed"]

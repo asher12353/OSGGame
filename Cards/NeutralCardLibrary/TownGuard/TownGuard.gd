@@ -12,6 +12,7 @@ func _init():
 	hasProtect = true
 	cardArtPath = "res://Cards/NeutralCardLibrary/TownGuard/TownGuard.png"
 	fullArtPath = "res://Cards/NeutralCardLibrary/TownGuard/TownGuardFull.png"
+	attackAnimation = load("res://Cards/attackAnimations/slash/slash.tres")
 	protectSynergy = 1
 	synergies[protectSynergyIndex] = protectSynergy
 	_Card()

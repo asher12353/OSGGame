@@ -10,12 +10,16 @@ func _Spell():
 	_Card()
 	attackLabel.hide()
 	healthLabel.hide()
+	fullAttackLabel.hide()
+	fullHealthLabel.hide()
 	
 func _playSpell(_target):
 	print("here?")
 	pass
 
-func _process(_delta):
+func _process(delta):
+	if targetLocation != null and is_dragging != true:
+		position = lerp(position, targetLocation, speed * delta)
 	if is_dragging and board and position.y < board.boardY - 210:
 		hide()
 		if isTargeted:

@@ -5,5 +5,5 @@ func _event1():
 	
 func _event2():
 	MasterLogicHandler.currentShownBoard = MasterLogicHandler.playerShopBoard
-	MasterLogicHandler.playerShopBoard.createCard(Spawn.new())
+	MasterLogicHandler.playerHand.createCard(Spawn.new())
 	MasterLogicHandler.currentShownBoard = null
