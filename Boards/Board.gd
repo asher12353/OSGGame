@@ -3,15 +3,16 @@ extends Node2D
 class_name Board
 
 var boardY : int
+static var widthBetweenCards = Card.cardWidth + 25
 
-const xValuesForCards = [
+static var xValuesForCards = [
 	[0],
-	[-100, 100],
-	[-200, 0, 200],
-	[-300, -100, 100, 300],
-	[-400, -200, 0, 200, 400],
-	[-500, -300, -100, 100, 300, 500],
-	[-600, -400, -200, 0, 200, 400, 600]
+	[-widthBetweenCards / 2, widthBetweenCards / 2],
+	[-widthBetweenCards, 0, widthBetweenCards],
+	[-widthBetweenCards * 3/2, -widthBetweenCards / 2, widthBetweenCards / 2, widthBetweenCards * 3/2],
+	[-widthBetweenCards * 2, -widthBetweenCards, 0, widthBetweenCards, widthBetweenCards * 2],
+	[-widthBetweenCards * 5/2, -widthBetweenCards * 3/2, -widthBetweenCards / 2, widthBetweenCards / 2, widthBetweenCards * 3/2, widthBetweenCards * 5/2],
+	[-widthBetweenCards * 3, -widthBetweenCards * 2, -widthBetweenCards, 0, widthBetweenCards, widthBetweenCards * 2, widthBetweenCards * 3]
 ]
 
 func createCard(card : Card) -> Card:
@@ -19,9 +20,10 @@ func createCard(card : Card) -> Card:
 	if get_child_count() == 7 and not ignoreMax:
 		return
 	var newCard = card.duplicate()
-	add_child(newCard)
+	newCard._changeBoard(self)
 	_copyValues(card, newCard)
 	_relocateCards(true)
+	newCard.add_to_group("Persist")
 	return newCard
 
 func _relocateCards(teleportCards=false):
@@ -70,7 +72,6 @@ func isCardToken(card) -> bool:
 
 func _copyValues(card : Card, newCard : Card):
 	newCard._copyStats(card)
-	newCard.board = self
 	if card.imbuedCurses:
 		_copyImbuedCurses(card, newCard)
 	if card is Curse:

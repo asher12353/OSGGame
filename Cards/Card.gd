@@ -18,10 +18,12 @@ var fullArtPath : String
 var fullArtBack : Sprite2D
 var fullArtBackPath = "res://Cards/FullArtCard.png"
 var hasFullArt = true
-var artSize = Vector2(768, 1024)
-var fullArtSize = Vector2(1024, 768)
-var fullArtScale = Vector2(0.27, 0.27)
-static var artScale = Vector2(0.19, 0.19)
+static var artSize = Vector2(768, 1024)
+static var fullArtSize = Vector2(1024, 768)
+static var fullArtScale = Vector2(0.27, 0.27)#(0.21, 0.19)
+static var fullArtBackScale =  fullArtScale/Vector2(0.27, 0.27)
+static var artScale = Vector2(0.19, 0.19)#(0.15, 0.15)
+static var artBackScale = artScale/Vector2(0.19, 0.19)
 
 var attackAnimation : SpriteFrames = preload("res://Cards/attackAnimations/testAnimation/testAnimation.tres")
 var attackAnimationSprite : AnimatedSprite2D
@@ -34,10 +36,10 @@ var hoverCooldown = 0.5
 
 var connectionsEstablished : bool = false
 
-var cardWidth = (artSize * artScale).x
-var cardHeight = (artSize * artScale).y
-var fullCardWidth = (fullArtSize * fullArtScale).x
-var fullCardHeight = (fullArtSize * fullArtScale).y
+static var cardWidth = (artSize * artScale).x
+static var cardHeight = (artSize * artScale).y
+static var fullCardWidth = (fullArtSize * fullArtScale).x
+static var fullCardHeight = (fullArtSize * fullArtScale).y
 
 var nameLabel : RichTextLabel
 var nameString : String
@@ -196,8 +198,7 @@ func _establishConnections():
 	
 func _createCardArt():
 	cardArt = createNewSprite2D(cardArt, cardArtPath, artScale)
-	cardBack = createNewSprite2D(cardBack, cardBackPath, Vector2(1, 1))
-	cardBack.scale = Vector2(1, 1)
+	cardBack = createNewSprite2D(cardBack, cardBackPath, artBackScale)
 	_createFullArtNode()
 
 func _createFullArtNode():
@@ -206,8 +207,8 @@ func _createFullArtNode():
 	fullArtNode.hide()
 	fullArt = createNewSprite2D(fullArt, fullArtPath, fullArtScale)
 	fullArt.reparent(fullArtNode)
-	fullArt.set_position(Vector2(-225, -100))
-	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath, Vector2(1, 1))
+	fullArt.set_position(Vector2(-225, -fullCardHeight / 2))
+	fullArtBack = createNewSprite2D(fullArtBack, fullArtBackPath, fullArtBackScale)
 	fullArtBack.reparent(fullArtNode)
 	fullArtBack.set_position(Vector2(-225, 0))
 	fullArtNode.z_index = 3
@@ -341,6 +342,27 @@ func _instantiateAnimationPlayer():
 	add_child(attackAnimationSprite)
 	if attackAnimation:
 		attackAnimationSprite.sprite_frames = attackAnimation
+		
+
+func _changeBoard(newBoard : Board):
+	board = newBoard
+	if get_parent() == null:
+		newBoard.add_child(self)
+	else:
+		reparent(newBoard)
+	if newBoard == playerHand:
+		fullArtNode.position += playerHand.fullArtNodeInHandOffset
+
+func save():
+	var saveDict = {
+		"path" : get_scene_file_path(),
+		"CARD_TYPE" : self.CARD_TYPE,
+		"parent" : get_parent().get_path(),
+		"position" : get_index(),
+		"attack" : attack,
+		"health" : health,
+	}
+	return saveDict
 
 ############################################################################################################################################################################################
 # Down here is the land of misfit code, things I may need to grab later but for now their solution doesn't work. I've also included the function but likely those functions are still in use
@@ -365,7 +387,3 @@ func _instantiateAnimationPlayer():
 			#fullArtNode.hide()
 		#if not is_dragging and is_draggable_at_all:
 			#is_draggable = false
-
-func _changeBoard(newBoard : Board):
-	board = newBoard
-	reparent(newBoard)

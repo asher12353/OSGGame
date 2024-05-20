@@ -58,10 +58,14 @@ func cardIsToTheRight() -> bool:
 	return currentPos - 1 < currentCardInADropZoneIndex
 
 func cardCanBePlaced() -> bool:
-	return currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone != null and currentCardInADropZone.get_parent() == playerHand and MasterLogicHandler.currentShownBoard.get_child_count() < 7 and not currentCardInADropZone is Spell and not MasterLogicHandler.currentShownBoard == playerCombatBoard
+	var expression = currentPos != 0 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and currentCardInADropZone != null and currentCardInADropZone.board == playerHand and not currentCardInADropZone is Spell and not MasterLogicHandler.currentShownBoard == playerCombatBoard
+	if expression and MasterLogicHandler.currentShownBoard.get_child_count() == 7:
+		MasterLogicHandler.globalUIElements._displayAlert("You have 7 minions, you cannot place any more\nTo make room you may sell one already on the board")
+	return expression and MasterLogicHandler.currentShownBoard.get_child_count() < 7
 
 func _playCard():
 	currentCardInADropZone._changeBoard(playerShopBoard)
+	currentCardInADropZone.fullArtNode.position -= playerHand.fullArtNodeInHandOffset
 	MasterLogicHandler.currentShownBoard.move_child(currentCardInADropZone, currentPos - 1)
 	currentCardInADropZone._WhenPlayed()
 	currentPos = 0

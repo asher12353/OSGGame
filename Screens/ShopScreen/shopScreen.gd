@@ -36,10 +36,16 @@ func _process(_delta):
 		_buyCard()
 
 func cardCanBeSold() -> bool:
-	return cardInSellArea and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and cardInSellArea.board == playerShopBoard
+	var expression = cardInSellArea and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	if expression and cardInSellArea.board == playerHand:
+		MasterLogicHandler.globalUIElements._displayAlert("You cannot sell from your hand\nPlace it on the board before selling")
+	return expression and cardInSellArea.board == playerShopBoard
 
 func cardCanBeBought() -> bool:
-	return cardInBuyArea and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and cardInBuyArea.board == npcShopBoard and %masterLogicHandler.mainCharacter.money >= 3
+	var expression = cardInBuyArea and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and cardInBuyArea.board == npcShopBoard
+	if expression and MasterLogicHandler.mainCharacter.money < 3:
+		MasterLogicHandler.globalUIElements._displayAlert("You do not have enough money")
+	return expression and %masterLogicHandler.mainCharacter.money >= 3
 
 func _sellCard():
 	var board = cardInSellArea.board
@@ -54,8 +60,7 @@ func _sellCard():
 	cardInSellArea = null
 
 func _buyCard():
-	cardInBuyArea.board = playerHand
-	cardInBuyArea.reparent(playerHand)
+	cardInBuyArea._changeBoard(playerHand)
 	%masterLogicHandler._updateMoney(-3)
 	playerHand._relocateCards()
 	npcShopBoard._relocateCards()

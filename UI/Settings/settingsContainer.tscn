@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3era3058dqlg"]
+
+[ext_resource type="Script" path="res://UI/Settings/settings.gd" id="1_q0cl1"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+theme_override_constants/separation = 0
+script = ExtResource("1_q0cl1")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Graphics" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="TabContainer/Graphics"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Graphics"]
+visible = false
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="TabContainer/Graphics/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 50.0
+max_value = 200.0
+step = 5.0
+value = 100.0
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/HBoxContainer"]
+layout_mode = 2
+text = "100% - 1920x1080"
+
+[node name="FullScreenCheckBox" type="CheckBox" parent="TabContainer/Graphics"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "FullScreen"
+
+[node name="Sound" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="musicVolume" type="HBoxContainer" parent="TabContainer/Sound"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="TabContainer/Sound/musicVolume"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music Volume: "
+
+[node name="musicVolumeSlider" type="HSlider" parent="TabContainer/Sound/musicVolume"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+value = 100.0
+ticks_on_borders = true
+
+[node name="musicPercent" type="Label" parent="TabContainer/Sound/musicVolume"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "100%"
+
+[connection signal="item_selected" from="TabContainer/Graphics/ResolutionOptionButton" to="." method="_on_resolution_option_button_item_selected"]
+[connection signal="toggled" from="TabContainer/Graphics/FullScreenCheckBox" to="." method="_on_full_screen_check_box_toggled"]
+[connection signal="value_changed" from="TabContainer/Sound/musicVolume/musicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]

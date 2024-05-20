@@ -7,7 +7,6 @@ var playerShopBoard : Board
 var playerHand : Board
 
 var cauldron : Area2D
-#var cauldronPos = Vector2(850, 400)
 var cardsInCauldron = []
 var cardInCauldronArea : Card
 var cauldronIsSpellcrafting : bool
@@ -75,8 +74,11 @@ func _initializeCauldron():
 	cauldronIsCursing = false
 
 func cardCanBeAddedToCauldron() -> bool:
+	var boolExpression = cardInCauldronArea != null and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and (cardInCauldronArea.isReagent or cardInCauldronArea.isCadaver or cardInCauldronArea.isOffering)
+	if boolExpression and cardInCauldronArea.board == MasterLogicHandler.playerHand:
+		MasterLogicHandler.globalUIElements._displayAlert("You cannot add a card to the cauldron from your hand\nPlace it on your board first")
 	if cardsInCauldron.size() == 0:
-		return cardInCauldronArea != null and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and cardInCauldronArea.board == MasterLogicHandler.playerShopBoard and (cardInCauldronArea.isReagent or cardInCauldronArea.isCadaver or cardInCauldronArea.isOffering)
+		return boolExpression and cardInCauldronArea.board == MasterLogicHandler.playerShopBoard
 	else:
 		if cauldronIsSpellcrafting:
 			return playerIsPlacingCard() and cardInCauldronArea.isReagent
@@ -98,6 +100,7 @@ func _addCardToCauldron():
 		elif cardInCauldronArea.isOffering:
 			cauldronIsCursing = true
 	cardsInCauldron.append(cardInCauldronArea)
+	cardInCauldronArea.fullArtNode.position += Vector2(cardInCauldronArea.cardWidth * 2, 0)
 	_stopDraggingCard()
 
 func _stopDraggingCard():
@@ -109,13 +112,6 @@ func _stopDraggingCard():
 	cardInCauldronArea.targetLocation = cauldron.global_position
 	Card.dragged_card = null
 	playerShopBoard._relocateCards()
-
-#func _card_entered_cauldron_area(area):
-	#if area is Card:
-		#cardInCauldronArea = area
-#
-#func _card_exited_cauldron_area(_area):
-	#cardInCauldronArea = null
 
 func _createSpell():
 	var spell = playerHand.createCard(BrewedSpell.new())
@@ -129,6 +125,7 @@ func _createSpell():
 	spell._Spell()
 	cardsInCauldron.clear()
 	cauldronIsSpellcrafting = false
+	playerHand._relocateCards()
 
 func _createAmalgam():
 	var newCard
@@ -148,6 +145,7 @@ func _createAmalgam():
 		newCard._giveStats(card.attack, card.health)
 	_removeCardsFromCauldron()
 	cauldronIsStitching = false
+	playerHand._relocateCards()
 
 func _createCurse():
 	var curse = playerHand.createCard(Curse.new())
@@ -162,6 +160,7 @@ func _createCurse():
 	curse._Spell()
 	cardsInCauldron.clear()
 	cauldronIsSpellcrafting = false
+	playerHand._relocateCards()
 
 func _removeCardsFromCauldron():
 	for card in cardsInCauldron:

@@ -8,23 +8,20 @@ make saves
 implement background pictures
 make tooltips when hovering over card
 make attack sound effects
-make attack animations
 make golden minions
-make minions lerp to their place instead of teleport
 add some sort of effect to let the player know that a spell is temporary
 show the imbued count, maybe show the spell when hovering?
-make leave shop bigger
 add marginContainers for gold and health and event text
-add settings to pause
-add quit to pause
 "make" art for brewed spell
-fix cauldron product with new movement style
-call _relocateCards for banana card.
 maybe make nice custom font with tristen 
-reference the layout suggestions in the art discord
 make highlighting
 fix emalgam art
+make 0 attack minions not be able to attack
+transitions between screens
+buy/sell sound effects
+tooltip for when they try to add to the cauldron from hand
+make the attack animation more bouncy
 
 bugs:
 	tokens lerp instead of teleport
-	curse not hovering
+	resolution and sound unchangeable from pause

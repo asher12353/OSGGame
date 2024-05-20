@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtminaf74depd"]
+[gd_scene load_steps=5 format=3 uid="uid://dtminaf74depd"]
 
 [ext_resource type="Script" path="res://UI/globalUIElements.gd" id="1_endeq"]
 [ext_resource type="PackedScene" uid="uid://duew5vp18d84b" path="res://UI/healthBar.tscn" id="1_q8ej0"]
 [ext_resource type="Texture2D" uid="uid://t78u4wgbwrpa" path="res://UI/Money/cOIN.png" id="3_orxob"]
+[ext_resource type="PackedScene" uid="uid://b3era3058dqlg" path="res://UI/Settings/settingsContainer.tscn" id="4_k1fpv"]
 
 [node name="globalUIElements" type="Control" node_paths=PackedStringArray("healthBar", "moneyLabel", "pauseContainer", "artifactContainer")]
 layout_mode = 3
@@ -55,26 +56,25 @@ offset_right = 100.0
 offset_bottom = 510.0
 grow_vertical = 2
 
-[node name="pauseContainer" type="TabContainer" parent="."]
+[node name="pauseContainer" parent="." instance=ExtResource("4_k1fpv")]
 visible = false
 custom_minimum_size = Vector2(300, 500)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -250.0
-offset_right = 150.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PAUSED" type="Control" parent="pauseContainer"]
 layout_mode = 2
+offset_left = 810.0
+offset_top = 321.0
+offset_right = 918.0
+offset_bottom = 408.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="pauseContainer/PAUSED"]
+[node name="resumeButton" type="Button" parent="pauseContainer"]
+layout_mode = 2
+text = "resume"
+
+[node name="exitButton" type="Button" parent="pauseContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="tooltipAlert" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -87,9 +87,11 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center][/center]"
+fit_content = true
 
-[node name="resumeButton" type="Button" parent="pauseContainer/PAUSED/VBoxContainer"]
-layout_mode = 2
-text = "resume"
-
-[connection signal="pressed" from="pauseContainer/PAUSED/VBoxContainer/resumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="pauseContainer/resumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="pauseContainer/exitButton" to="." method="_on_exit_button_pressed"]

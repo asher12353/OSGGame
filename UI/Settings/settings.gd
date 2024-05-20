@@ -1,12 +1,18 @@
 extends Control
 
-@onready var resOptionButton = $MarginContainer/VBoxContainer/TabContainer/Graphics/ResolutionOptionButton
-@onready var fullScreenCheckBox = $MarginContainer/VBoxContainer/TabContainer/Graphics/FullScreenCheckBox
-@onready var music_volume_slider = $MarginContainer/VBoxContainer/TabContainer/Sound/musicVolume/musicVolumeSlider
-@onready var music_percent = $MarginContainer/VBoxContainer/TabContainer/Sound/musicVolume/musicPercent
+@onready var resOptionButton = $TabContainer/Graphics/ResolutionOptionButton
+@onready var fullScreenCheckBox = $TabContainer/Graphics/FullScreenCheckBox
+@onready var music_volume_slider = $TabContainer/Sound/musicVolume/musicVolumeSlider
+@onready var music_percent = $TabContainer/Sound/musicVolume/musicPercent
+
+var loading = true
+var resolutionIndex : int
+var fullScreenCheckBoxPressed : bool
+var musicPercent : int
 
 var startScreen : Screen
 var masterMusicPlayer : AudioStreamPlayer
+var config = ConfigFile.new()
 
 var Resolutions : Dictionary = {
 	"3840x2160":Vector2i(3840,2160),
@@ -26,6 +32,7 @@ func _ready():
 	masterMusicPlayer = get_node("/root/main/masterMusicPlayer")
 	_addResolutions()
 	_checkVariables()
+	_loadSettings()
 
 func _checkVariables():
 	var _window = get_window()
@@ -54,26 +61,56 @@ func _centreWindow():
 
 
 func _on_full_screen_check_box_toggled(toggled_on):
+	fullScreenCheckBoxPressed = toggled_on
 	if toggled_on:
 		get_window().set_mode(Window.MODE_FULLSCREEN)
 	else:
 		get_window().set_mode(Window.MODE_WINDOWED)
 		_centreWindow()
 	get_tree().create_timer(0.05).timeout.connect(_setResolutionText)
+	if loading == false:
+		_saveSettings()
 
 
 func _on_resolution_option_button_item_selected(index):
 	var ID = resOptionButton.get_item_text(index)
+	resolutionIndex = index
 	get_window().set_size(Resolutions[ID])
 	_centreWindow()
-
-func _on_button_pressed():
-	hide()
-	startScreen.show()
-
+	if loading == false:
+		_saveSettings()
 
 func _on_music_volume_slider_value_changed(value):
+	musicPercent = value
 	masterMusicPlayer.currentLowerDecible = masterMusicPlayer.lowerDecible + ((100 - value) * masterMusicPlayer.lowerDecible * 0.01)
 	masterMusicPlayer.currentHigherDecible = masterMusicPlayer.higherDecible + ((100 - value) * masterMusicPlayer.lowerDecible * 0.01)
 	masterMusicPlayer.volume_db = masterMusicPlayer.currentHigherDecible
 	music_percent.text = str(value) + "%"
+	if loading == false:
+		_saveSettings()
+
+func _on_close_button_pressed():
+	hide()
+	startScreen.show()
+	
+func _saveSettings():
+	config.set_value("settings", "resolutionOption", resolutionIndex)
+	config.set_value("settings", "fullScreenCheck", fullScreenCheckBoxPressed)
+	config.set_value("settings", "musicPercent", musicPercent)
+	config.save("user://playerSettingsConfig.cfg")
+
+func _loadSettings():
+	var err = config.load("user://playerSettingsConfig.cfg")
+	if err != OK:
+		return
+	var fullScreenCheck = config.get_value("settings", "fullScreenCheck")
+	if fullScreenCheck:
+		_on_full_screen_check_box_toggled(fullScreenCheck)
+	var resolutionOption = config.get_value("settings", "resolutionOption")
+	if resolutionOption:
+		_on_resolution_option_button_item_selected(resolutionOption)
+	var musicPercentValue = config.get_value("settings", "musicPercent")
+	if musicPercentValue:
+		music_volume_slider.value = musicPercentValue
+		_on_music_volume_slider_value_changed(musicPercentValue)
+	loading = false
